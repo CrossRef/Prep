@@ -24,11 +24,13 @@ class App extends React.Component {
 
         <div className="landingPage">
           <div className="topStripe">
-            <p className="bannerText">How good is your metadata?</p>
-
 
             <div className="searchContainer">
-              <p className="searchTitle">Find a Publisher</p>
+              <p className="searchTitle">
+                Find a Publisher
+                <p className="bannerText">How good is your metadata?</p>
+              </p>
+
               <div className="searchInputHolder">
                 <input className="searchInput" placeholder="Search by member"/>
               </div>

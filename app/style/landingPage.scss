@@ -16,14 +16,6 @@
     align-items: center;
     position: relative;
 
-    .bannerText {
-      position: absolute;
-      top: 74px;
-      margin: 0;
-      font-size: 22px;
-      font-family: $regularFont;
-    }
-
     .searchContainer {
       width: 96%;
       max-width: 768px;
@@ -37,6 +29,17 @@
         color: white;
         font-family: $regularFont;
         font-size: 20px;
+        position: relative;
+
+        .bannerText {
+          position: absolute;
+          bottom: 65px;
+          margin: 0;
+          color: black;
+          font-size: 22px;
+          font-family: $regularFont;
+        }
+
       } @media (max-width: 480px) {
         .searchTitle {
           margin: 11.5px 0 10.5px 2%;
