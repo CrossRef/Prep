@@ -13,6 +13,9 @@ app.use(function logRequest (req, res, next) {
   next()
 });
 
+app.engine('html', require('ejs').renderFile);
+app.set('views', __dirname + '/public')
+
 app.use(deployConfig.baseUrl, express.static(__dirname + '/public'));
 
 app.get('*', (req, res, next) => {

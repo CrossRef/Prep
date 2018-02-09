@@ -1,4 +1,4 @@
-@import 'variables';
+@import '../../style/variables';
 
 body {
   margin: 0;
@@ -59,7 +59,7 @@ body {
       .privacy {
         position: absolute;
         right: 16px;
-        top: 6px;
+        top: 8px;
       } @media (max-width: 700px) {
       .privacy {
         top: 17px;
@@ -68,6 +68,13 @@ body {
 
       .crossref {
         margin-right: 17.5px;
+
+        a:link {
+          color: white
+        } a:visited {
+          color: white
+        }
+
       } @media (max-width: 700px) {
         .crossref {
           margin-top: 9px;
