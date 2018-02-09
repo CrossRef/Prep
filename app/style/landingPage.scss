@@ -11,10 +11,74 @@
     background-image: url("../images/PR_Banner_1.png");
     height: 368px;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .bannerText {
+      position: absolute;
+      top: 74px;
+      margin: 0;
+      font-size: 22px;
+      font-family: $regularFont;
+    }
+
+    .searchContainer {
+      width: 96%;
+      max-width: 768px;
+      background-color: #4F5757;
+      height: 112px;
+      box-sizing: border-box;
+      padding-bottom: 16px;
+
+      .searchTitle {
+        margin: 11.5px 0 10.5px 4%;
+        color: white;
+        font-family: $regularFont;
+        font-size: 20px;
+      } @media (max-width: 480px) {
+        .searchTitle {
+          margin: 11.5px 0 10.5px 2%;
+        }
+      }
+
+      .searchInputHolder {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        height: 48px;
+        position: relative;
+
+        .searchInput {
+          width: 92%;
+          height: 100%;
+          border: none;
+          padding: 0 0 0 48px;
+          box-sizing: border-box;
+
+          background: url("../images/Asset_Icons_lightgrey_Search.svg") no-repeat white;
+          background-size: 27px 27px;
+          background-position: 15px 60%;
+        } .searchInput::placeholder {
+          color: #C1C0C0
+        }
+      }
+    } @media (max-width: 768px) {
+      .searchContainer {
+        max-width: 736px;
+      }
+    } @media (max-width: 480px) {
+      .searchContainer {
+        max-width: 461px;
+        width: 100%;
+      }
+    }
+
   }
 
   .content {
-    height: 608px;
+    min-height: 608px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -96,10 +160,22 @@
       max-width: 768px;
       justify-content: space-between;
       flex-wrap: wrap;
+      padding-bottom: 122px;
 
       .testimonial {
         width: 210px;
-        margin-bottom: 28px
+
+        .testimonialBody {
+          margin: 0;
+          font-family: $regularFont;
+          font-size: 14px;
+        }
+
+        .testimonialAuthor {
+          margin: 17px 0 28px 0;
+          font-family: $regularFont;
+          font-size: 12px;
+        }
       }
     }
 

@@ -1,3 +1,5 @@
+@import 'variables';
+
 body {
   margin: 0;
 }
@@ -11,6 +13,22 @@ body {
     width: 100%;
     height: 112px;
     background-color: white;
+    display: flex;
+    justify-content: center;
+    padding: 0 16px;
+    box-sizing: border-box;
+
+    .widthContainer {
+      width: 100%;
+      max-width: 945px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  } @media(max-width: 480px) {
+    .header {
+      padding: 0 4.5%;
+    }
   }
 
   .footer {
@@ -19,6 +37,54 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .widthContainer {
+      height: 100%;
+      max-width: 768px;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px 16px 0 16px;
+      position: relative;
+      display: flex;
+
+      p {
+        color: white;
+        font-family: $regularFont;
+        font-size: 12px;
+        margin: 0;
+      }
+
+      .privacy {
+        position: absolute;
+        right: 16px;
+        top: 6px;
+      } @media (max-width: 700px) {
+      .privacy {
+        top: 17px;
+      }
+    }
+
+      .crossref {
+        margin-right: 17.5px;
+      } @media (max-width: 700px) {
+        .crossref {
+          margin-top: 9px;
+          margin-bottom: 19px;
+        }
+      }
+
+    } @media (max-width: 700px) {
+      .widthContainer {
+        flex-direction: column;
+      }
+    }
+
+  } @media (max-width: 700px) {
+    .footer {
+      height: 96px
+    }
   }
 }
 
