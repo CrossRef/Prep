@@ -68,6 +68,12 @@
         } .searchInput::placeholder {
           color: #C1C0C0
         }
+
+        .searchFocused {
+          padding-left: 15px;
+          background: none;
+          background-color: white;
+        }
       }
     } @media (max-width: 768px) {
       .searchContainer {

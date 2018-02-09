@@ -1,6 +1,7 @@
 import React from 'react'
 
 import deployConfig from '../../../deployConfig'
+import Search from './components/search'
 
 
 
@@ -18,7 +19,7 @@ export default class LandingPage extends React.Component {
             </div>
 
             <div className="searchInputHolder">
-              <input className="searchInput" placeholder="Search by member"/>
+              <Search/>
             </div>
           </div>
 
