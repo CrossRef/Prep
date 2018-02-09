@@ -18,9 +18,7 @@ export default class LandingPage extends React.Component {
               <p className="bannerText">How good is your metadata?</p>
             </div>
 
-            <div className="searchInputHolder">
-              <Search/>
-            </div>
+            <Search history={this.props.history}/>
           </div>
 
         </div>

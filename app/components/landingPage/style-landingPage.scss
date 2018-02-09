@@ -73,6 +73,18 @@
           padding-left: 15px;
           background: none;
           background-color: white;
+          outline: none;
+        }
+
+        .searchItem {
+          height: 28px;
+          box-sizing: border-box;
+          font-family: $regularFont;
+          font-size: 14px;
+          cursor: pointer;
+          padding: 5px 17px 0 17px;
+        } .searchItem:hover {
+          background-color: #E5E5E5;
         }
       }
     } @media (max-width: 768px) {
