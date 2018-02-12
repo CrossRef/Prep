@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`focus input should show saved searches 1`] = `
+<div
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "backgroundColor": "white",
+      "border": "1px black solid",
+      "borderRadius": "0",
+      "boxShadow": "none",
+      "display": "initial",
+      "left": "auto",
+      "maxHeight": "207px",
+      "minWidth": 0,
+      "overflow": "auto",
+      "padding": "13px 0 0 0",
+      "position": "absolute",
+      "top": "48px",
+    }
+  }
+>
+  <div
+    className="searchItem"
+    key="1"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    saved search 1
+  </div>
+  <div
+    className="searchItem"
+    key="2"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    saved search 2
+  </div>
+</div>
+`;
+
+exports[`mount snapshot 1`] = `
+<Search
+  history={
+    Object {
+      "push": [Function],
+    }
+  }
+>
+  <Autocomplete
+    autoHighlight={true}
+    getItemValue={[Function]}
+    inputProps={Object {}}
+    isItemSelectable={[Function]}
+    items={
+      Array [
+        Object {
+          "id": 1,
+          "name": "saved search 1",
+        },
+        Object {
+          "id": 2,
+          "name": "saved search 2",
+        },
+      ]
+    }
+    menuStyle={
+      Object {
+        "backgroundColor": "white",
+        "border": "1px black solid",
+        "borderRadius": "0",
+        "boxShadow": "none",
+        "display": "initial",
+        "left": "auto",
+        "maxHeight": "207px",
+        "overflow": "auto",
+        "padding": "13px 0 0 0",
+        "position": "absolute",
+        "top": "48px",
+      }
+    }
+    onChange={[Function]}
+    onMenuVisibilityChange={[Function]}
+    onSelect={[Function]}
+    renderInput={[Function]}
+    renderItem={[Function]}
+    renderMenu={[Function]}
+    selectOnBlur={false}
+    value=""
+    wrapperProps={
+      Object {
+        "className": "searchInputHolder",
+        "style": Object {},
+      }
+    }
+    wrapperStyle={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  >
+    <div
+      className="searchInputHolder"
+      style={Object {}}
+    >
+      <input
+        aria-autocomplete="list"
+        aria-expanded={false}
+        autoComplete="off"
+        className="searchInput "
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Search by member"
+        role="combobox"
+        value=""
+      />
+    </div>
+  </Autocomplete>
+</Search>
+`;

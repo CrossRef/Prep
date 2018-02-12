@@ -6,12 +6,14 @@
     "start": "brunch watch --server",
     "build": "brunch build -p",
     "test": "jest",
-    "testupdate": "jest -u"
+    "testupdate": "jest -u",
+    "debugtest": "node --inspect node_modules/.bin/jest --runInBand"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-autocomplete": "^1.8.0",
     "react-dom": "^16.2.0",
