@@ -23,19 +23,43 @@ exports[`focus input should show saved searches 1`] = `
 >
   <div
     className="searchItem"
-    key="1"
+    key="21"
     onClick={[Function]}
     onMouseEnter={[Function]}
   >
-    saved search 1
+    saved search 21
   </div>
   <div
     className="searchItem"
-    key="2"
+    key="22"
     onClick={[Function]}
     onMouseEnter={[Function]}
   >
-    saved search 2
+    saved search 22
+  </div>
+  <div
+    className="searchItem"
+    key="23"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    saved search 23
+  </div>
+  <div
+    className="searchItem"
+    key="24"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    saved search 24
+  </div>
+  <div
+    className="searchItem"
+    key="25"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    saved search 25
   </div>
 </div>
 `;
@@ -56,12 +80,24 @@ exports[`mount snapshot 1`] = `
     items={
       Array [
         Object {
-          "id": 1,
-          "name": "saved search 1",
+          "id": 21,
+          "name": "saved search 21",
         },
         Object {
-          "id": 2,
-          "name": "saved search 2",
+          "id": 22,
+          "name": "saved search 22",
+        },
+        Object {
+          "id": 23,
+          "name": "saved search 23",
+        },
+        Object {
+          "id": 24,
+          "name": "saved search 24",
+        },
+        Object {
+          "id": 25,
+          "name": "saved search 25",
         },
       ]
     }
@@ -121,4 +157,44 @@ exports[`mount snapshot 1`] = `
     </div>
   </Autocomplete>
 </Search>
+`;
+
+exports[`searching items array should be filtered by typed input, not case sensitive 1`] = `
+<div
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "backgroundColor": "white",
+      "border": "1px black solid",
+      "borderRadius": "0",
+      "boxShadow": "none",
+      "display": "initial",
+      "left": "auto",
+      "maxHeight": "207px",
+      "minWidth": 0,
+      "overflow": "auto",
+      "padding": "13px 0 0 0",
+      "position": "absolute",
+      "top": "48px",
+    }
+  }
+>
+  <div
+    className="searchItem"
+    key="2"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    cambridge Core
+  </div>
+  <div
+    className="searchItem"
+    key="5"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+  >
+    cambridge University Press
+  </div>
+</div>
 `;

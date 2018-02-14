@@ -5,9 +5,9 @@
   "scripts": {
     "start": "brunch watch --server",
     "build": "brunch build -p",
-    "test": "jest",
-    "testupdate": "jest -u",
-    "debugtest": "node --inspect node_modules/.bin/jest --runInBand"
+    "test": "jest --no-cache --verbose",
+    "testupdate": "jest -u --no-cache --verbose",
+    "debugtest": "node --inspect node_modules/.bin/jest --runInBand --no-cache"
   },
   "author": "",
   "license": "ISC",
@@ -35,5 +35,10 @@
     "jest": "^22.2.1",
     "sass-brunch": "^2.10.4",
     "sinon": "^4.2.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "<rootDir>/jest.transform.js"
+    }
   }
 }
