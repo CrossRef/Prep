@@ -1,0 +1,203 @@
+@import '../../style/variables';
+
+
+.publisherPage {
+  background-color: #F2F1F1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 32px;
+
+  .topStripe {
+    width: 100%;
+    height: 240px;
+    background-image: url("../images/PR_Banner_2.png");
+    display: flex;
+    justify-content: center;
+
+    .widthContainer {
+      max-width: 960px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+
+      .topBar {
+        height: 64px;
+        width: 100%;
+        background-color: #4F5757;
+        display: flex;
+
+        .button {
+          flex: 1;
+          height: 100%;
+          max-width: 240px;
+          color: white;
+          font-size: 18px;
+          font-family: $regularFont;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      .contentBox {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: flex-end;
+
+        .leftBox {
+          flex: .715;
+          max-width: 400px;
+          min-width: 301px;
+          margin-top: 16px;
+
+          .firstText {
+            margin: 0;
+            font-size: 20px;
+            font-family: $regularFont;
+            color: #4F5757;
+          }
+
+          .blueText {
+            margin: 0 0 3px 0;
+            font-size: 20px;
+            font-family: $regularFont;
+            color: #3EB1CB;
+            font-weight: bold;
+            max-width: 266px
+          } @media(max-width: 860px) {
+            .blueText {
+              max-width: 560px;
+              line-height: 17px;
+            }
+          }
+
+        } @media(max-width: 860px) {
+          .leftBox {
+            max-width: 560px;
+            flex: 1;
+          }
+        } @media(max-width: 600px) {
+          .leftBox {
+            display: none
+          }
+        }
+
+        .rightBox {
+          height: 128px;
+          flex: 1;
+          min-width: 560px;
+          max-width: 560px;
+          background-color: white;
+          display: flex;
+          margin-top: 10px;
+
+          .publisherTitle {
+            height: 100%;
+            width: 399px;
+            box-sizing: border-box;
+            padding: 11px 7px 10px 16px;
+            color: #4F5757;
+            font-size: 22px;
+            font-family: $regularFont;
+          }
+
+          .totals:hover {
+            .totalTooltip {
+              visibility: visible
+            }
+          }
+
+          .totals {
+            flex: 1;
+            border-left: 2px solid #E5E5E5;
+            box-sizing: content-box;
+            margin: 16px 15px 16px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 15px;
+            position: relative;
+
+            .totalNumber {
+              color: #3EB1CB;
+              font-size: 22px;
+              font-family: $regularFont;
+              margin: 0 0 12px 0;
+            }
+
+            .totalTooltip {
+              visibility: hidden;
+              position: absolute;
+              width: 192px;
+              background-color: #4F5757;
+              bottom: 90px;
+              right: -15px;
+              padding: 12px 0 13px 16px;
+              box-sizing: border-box;
+
+              p {
+                color: white;
+                font-size: 14px;
+                font-family: $regularFont;
+                margin: 0;
+              }
+            }
+
+            .totalText {
+              color: #4F5757;
+              font-size: 16px;
+              font-family: $regularFont;
+              margin: 0;
+            }
+          } @media(max-width: 600px) {
+            .publisherTitle {
+              max-width: 399px;
+              width: 100%
+            }
+            .totals {
+              display: none;
+            }
+          }
+
+        } @media(max-width: 600px) {
+          .rightBox {
+            min-width: auto;
+          }
+        }
+      }
+    }
+  } @media(max-width: 860px) {
+    .topStripe {
+      height: 272px;
+      background-position: 0 28px;
+    }
+  }
+
+  .checksSection {
+    margin-top: 32px;
+    margin-bottom: 48px;
+    background-color: white;
+    height: 768px;
+    max-width: 960px;
+    width: 100%;
+  }
+
+  .chartSection {
+    margin-bottom: 64px;
+    height: 464px;
+    background-color: white;
+    max-width: 960px;
+    width: 100%;
+  }
+
+} @media(max-width: 700px) {
+  .publisherPage {
+    margin-bottom: 96px;
+  }
+}

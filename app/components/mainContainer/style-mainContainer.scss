@@ -15,19 +15,20 @@ body {
     background-color: white;
     display: flex;
     justify-content: center;
-    padding: 0 16px;
     box-sizing: border-box;
 
     .widthContainer {
       width: 100%;
-      max-width: 945px;
+      max-width: 960px;
+      padding-right: 14px;
+      box-sizing: border-box;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-    }
-  } @media(max-width: 480px) {
-    .header {
-      padding: 0 4.5%;
+    }  @media(max-width: 960px) {
+      .widthContainer {
+        padding-left: 14px;
+      }
     }
   }
 

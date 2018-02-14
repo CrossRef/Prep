@@ -20,7 +20,7 @@ function renderApp () {
     <Router>
       <Switch>
         <MainContainer exact path={`${deployConfig.baseUrl}`} Component={LandingPage}/>
-        <MainContainer exact path={`${deployConfig.baseUrl}:publisherId/:memberId`} Component={PublisherPage}/>
+        <MainContainer exact path={`${deployConfig.baseUrl}:publisherName/:memberId`} Component={PublisherPage}/>
         <Redirect to={`${deployConfig.baseUrl}`} />
       </Switch>
     </Router>
