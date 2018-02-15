@@ -1,28 +1,31 @@
 import React from 'react'
+import is from 'prop-types'
+
+import {prettyKeys} from '../../utilities/helpers'
 
 
-const totalKeys = {
-  'books': 'Books',
-  'conference-papers': 'Conference papers',
-  'datasets': 'Datasets',
-  'dissertations': 'Dissertations',
-  'journal-articles': 'Journal articles',
-  'posted-content': 'Posted content',
-  'reports': 'Reports',
-  'standards': 'Standards'
-}
 
 
 export default class PublisherPage extends React.Component {
+
+  static propTypes = {
+    match: is.shape({
+      params: is.shape({
+        publisherName: is.string.isRequired
+      }).isRequired
+    }).isRequired
+  }
+
 
   state = {
     totals: {}
   }
 
+
   componentDidMount () {
     fetch(`https://apps.crossref.org/prep-staging/data?op=participation-summary&memberid=${this.props.match.params.memberId}`)
       .then( r => r.json())
-      .then( r => this.setState({totals: r.message[1].totals}))
+      .then( r => this.setState({totals: r.message.totals}))
       .catch(e=>{
         console.error(e)
       })
@@ -30,10 +33,7 @@ export default class PublisherPage extends React.Component {
 
 
   render() {
-    console.log(this.state)
-
     const totals = this.state.totals
-
     const total = Object.keys(totals).reduce( (sum, key) => sum + totals[key], 0)
 
     return (
@@ -55,12 +55,12 @@ export default class PublisherPage extends React.Component {
 
               <div className="rightBox">
                 <div className="publisherTitle">
-                  {this.props.match.params.publisherName}
+                  {decodeURIComponent(this.props.match.params.publisherName)}
                 </div>
 
                 <div className="totals">
                   <div className="totalTooltip">
-                    {Object.keys(totals).map((key) => totals[key] ? <p key={key}>{`${totalKeys[key]}: ${totals[key].toLocaleString()}`}</p> : null)}
+                    {Object.keys(totals).map((key) => totals[key] ? <p key={key}>{`${prettyKeys(key)}: ${totals[key].toLocaleString()}`}</p> : null)}
                   </div>
 
                   <p className="totalNumber">{total.toLocaleString()}</p>
