@@ -23,7 +23,10 @@ export default class Search extends React.Component {
 
 
   componentDidMount () {
-    this.setState({savedSearches: JSON.parse(localStorage.getItem('savedSearches'))})
+    const savedSearches = localStorage.getItem('savedSearches')
+    if(savedSearches) {
+      this.setState({savedSearches: JSON.parse(savedSearches)})
+    }
     fetch('https://apps.crossref.org/prep-staging/data?op=members')
       .then( r => r.json())
       .then( r => this.setState({data: r.message}))
@@ -61,7 +64,7 @@ export default class Search extends React.Component {
     }
 
     localStorage.setItem('savedSearches', JSON.stringify(savedSearches))
-    this.props.history.push(`${deployConfig.baseUrl}${selection.name}/${selection.id}`)
+    this.props.history.push(`${deployConfig.baseUrl}${encodeURIComponent(selection.name)}/${selection.id}`)
   }
 
 

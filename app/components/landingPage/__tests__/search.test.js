@@ -214,7 +214,7 @@ describe('searching', () => {
     expect(localStorageMock.setItem.args[0]).toEqual(['savedSearches', JSON.stringify(newSavedSearches)])
 
     expect(history.push.callCount).toBe(1)
-    expect(history.push.args[0][0]).toBe(`${deployConfig.baseUrl}cambridge Core/2`)
+    expect(history.push.args[0][0]).toBe(`${deployConfig.baseUrl}${encodeURIComponent('cambridge Core')}/2`)
   })
 
 
