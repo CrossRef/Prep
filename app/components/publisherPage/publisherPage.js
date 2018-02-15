@@ -60,7 +60,7 @@ export default class PublisherPage extends React.Component {
 
                 <div className="totals">
                   <div className="totalTooltip">
-                    {Object.keys(totals).map((key) => totals[key] ? <p>{`${totalKeys[key]}: ${totals[key].toLocaleString()}`}</p> : null)}
+                    {Object.keys(totals).map((key) => totals[key] ? <p key={key}>{`${totalKeys[key]}: ${totals[key].toLocaleString()}`}</p> : null)}
                   </div>
 
                   <p className="totalNumber">{total.toLocaleString()}</p>
