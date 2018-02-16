@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Switch, Redirect, withRouter } from 'react-router-dom';
+import 'whatwg-fetch'
 
 import deployConfig from '../deployConfig'
 import MainContainer from './components/mainContainer/mainContainer'
