@@ -55,6 +55,7 @@
           max-width: 400px;
           min-width: 301px;
           margin-top: 16px;
+          padding-left: 15px;
 
           .firstText {
             margin: 0;
@@ -70,17 +71,18 @@
             color: #3EB1CB;
             font-weight: bold;
             max-width: 266px
-          } @media(max-width: 860px) {
+          } @media(max-width: 875px) {
             .blueText {
               max-width: 560px;
               line-height: 17px;
             }
           }
 
-        } @media(max-width: 860px) {
+        } @media(max-width: 875px) {
           .leftBox {
             max-width: 560px;
             flex: 1;
+            flex-basis: 100%;
           }
         } @media(max-width: 600px) {
           .leftBox {
@@ -172,7 +174,7 @@
         }
       }
     }
-  } @media(max-width: 860px) {
+  } @media(max-width: 875px) {
     .topStripe {
       height: 272px;
       background-position: 0 28px;
