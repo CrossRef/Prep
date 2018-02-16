@@ -1,8 +1,10 @@
 import React from 'react'
 import is from 'prop-types'
 import Autocomplete from 'react-autocomplete'
+import { List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 
 import deployConfig from '../../../../deployConfig'
+
 
 
 
@@ -14,11 +16,18 @@ export default class Search extends React.Component {
     }).isRequired
   }
 
-  state={
-    focused: false,
-    searchingFor: '',
-    data: [],
-    savedSearches: undefined
+
+  constructor () {
+    super()
+
+    this.cellHeightCache = new CellMeasurerCache({defaultHeight: 42, fixedWidth: true})
+
+    this.state = {
+      focused: false,
+      searchingFor: '',
+      data: [],
+      savedSearches: undefined
+    }
   }
 
 
@@ -87,7 +96,55 @@ export default class Search extends React.Component {
 
 
   renderItem = (item) => {
-    return <div className='searchItem' key={item.id}>{item.name}</div>
+    return <div className='searchItem'>{item.name}</div>
+  }
+
+
+  renderMenu = (items, searchingFor, autocompleteStyle) => {
+    this.cellHeightCache.clearAll()
+
+    const rowRenderer = ({key, index, parent, isScrolling, isVisible, style}) => {
+      const Item = items[index]
+      const onMouseDown = (e) => {
+        if(e.button === 0) {
+          Item.props.onClick(e)
+        }
+      }
+
+      return (
+        <CellMeasurer
+          cache={this.cellHeightCache}
+          columnIndex={0}
+          key={key}
+          parent={parent}
+          rowIndex={index}
+        >
+          {React.cloneElement(Item, {style: style, key: key, onMouseEnter: null, onMouseDown: onMouseDown})}
+        </CellMeasurer>
+      )
+    }
+
+    return (
+      <List
+        rowHeight={this.cellHeightCache.rowHeight}
+        height={207}
+        rowCount={items.length}
+        rowRenderer={rowRenderer}
+        width={autocompleteStyle.minWidth + 2 || 0}
+        style={{
+          position: 'absolute',
+          top: '48px',
+          right: '-1px',
+          backgroundColor: 'white',
+          border: "1px solid black",
+          paddingTop: '10px',
+          height: 'auto',
+          maxHeight: '207px',
+          outline: 'none',
+          display: (this.state.searchingFor && items.length) || (!this.state.searchingFor && this.state.savedSearches) ? 'initial' : 'none',
+        }}
+      />
+    )
   }
 
 
@@ -96,16 +153,21 @@ export default class Search extends React.Component {
     if(!this.state.searchingFor && this.state.savedSearches) {
       data = this.state.savedSearches
     } else {
-      data = this.state.data.filter((item)=>item.name && item.name.toLowerCase().includes(this.state.searchingFor.toLowerCase()))
-      if(!data.length) {
+      if(!this.state.searchingFor) {
         data = []
+      } else {
+        data = this.state.data.filter((item, index)=>item.name && item.name.toLowerCase().includes(this.state.searchingFor.toLowerCase()))
+        if(!data.length) {
+          data = []
+        }
       }
     }
+
 
     return (
       <Autocomplete
         renderInput={this.renderInput}
-        renderItem={(this.renderItem)}
+        renderItem={this.renderItem}
         items={data}
         getItemValue={ item => item.name }
 
@@ -113,19 +175,7 @@ export default class Search extends React.Component {
         onChange={(e, value)=> this.setState({searchingFor: value})}
         onSelect={this.onSelect}
 
-        menuStyle={{
-          display: (this.state.searchingFor && data.length) || (!this.state.searchingFor && this.state.savedSearches) ? 'initial' : 'none',
-          backgroundColor: 'white',
-          padding: '13px 0 0 0',
-          borderRadius: '0',
-          boxShadow: 'none',
-          position: 'absolute',
-          overflow: 'auto',
-          maxHeight: '207px',
-          top: '48px',
-          left: 'auto',
-          border: '1px black solid'
-        }}
+        renderMenu={this.renderMenu}
 
         wrapperProps={{
           className: 'searchInputHolder',
