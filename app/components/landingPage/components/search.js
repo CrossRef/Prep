@@ -156,7 +156,7 @@ export default class Search extends React.Component {
       if(!this.state.searchingFor) {
         data = []
       } else {
-        data = this.state.data.filter((item, index)=>item.name && item.name.toLowerCase().includes(this.state.searchingFor.toLowerCase()))
+        data = this.state.data.filter( item => item.name && item.name.toLowerCase().includes(this.state.searchingFor.toLowerCase()))
         if(!data.length) {
           data = []
         }
