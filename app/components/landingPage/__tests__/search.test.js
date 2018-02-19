@@ -62,6 +62,18 @@ const setState = sandbox.spy(Search.prototype, 'setState')
 //Render and begin tests
 const mountComponent = mount(<Search history={history}/>)
 
+function getSearchResults (mountComponent) {
+  return {
+    items: mountComponent.find('.searchItem'),
+    container: mountComponent.find('List').children('Grid').children('div')
+  }
+  /*React Virtualized CellMeasurer components reference their parent, which in turn references the CellMeasurers.
+  This creates an infinite self-referential loop, so it crashes snapshots which try to serialize the json into strings.
+  So snapshots should only capture the .searchItem children that CellMeasurers render to avoid the crash.
+  Also, I have not found a way to test that React Virtualized is rendering the results in correct positions,
+  due to the complex behavior of Cell Measurer.*/
+}
+
 
 
 
@@ -108,11 +120,12 @@ describe('focus input', () => {
   test('should show saved searches', () => {
     expect(mountComponent.state('savedSearches')).toEqual(parsedSavedSearches)
 
-    const searchResults = mountComponent.find('.searchInputHolder').children('div')
-    expect(searchResults.length).toBe(1)
-    expect(searchResults.prop('style').display).toBe('initial')
+    const {items, container} = getSearchResults(mountComponent)
+
+    expect(items.length).toBe(5)
+    expect(container.prop('style').display).toBe('initial')
     expect(mountComponent.find('Autocomplete').prop('items')).toEqual(parsedSavedSearches)
-    expect(toJson(searchResults)).toMatchSnapshot()
+    expect(toJson(items)).toMatchSnapshot()
   })
 
 
@@ -122,7 +135,7 @@ describe('focus input', () => {
     expect(setState.callCount).toBe(1)
     expect(mountComponent.state('focused')).toBe(false)
     mountComponent.update()
-    expect(mountComponent.find('.searchInputHolder').children('div').length).toBe(0)
+    expect(getSearchResults(mountComponent).container.length).toBe(0)
   })
 
 
@@ -133,9 +146,9 @@ describe('focus input', () => {
     mountComponent.find('input').prop('onFocus')()
     mountComponent.update()
 
-    const searchResults = mountComponent.find('.searchInputHolder').children('div')
-    expect(searchResults.length).toBe(1)
-    expect(searchResults.prop('style').display).toBe('none')
+    const {container} = getSearchResults(mountComponent)
+    expect(container.length).toBe(1)
+    expect(container.prop('style').display).toBe('none')
   })
 })
 
@@ -158,12 +171,12 @@ describe('searching', () => {
     expect(mountComponent.state('searchingFor')).toBe('CAm')
     mountComponent.update()
 
-    const searchResults = mountComponent.find('.searchInputHolder').children('div')
-    expect(searchResults.length).toBe(1)
-    expect(searchResults.prop('style').display).toBe('initial')
+    const {items, container} = getSearchResults(mountComponent)
+    expect(container.length).toBe(1)
+    expect(container.prop('style').display).toBe('initial')
 
     expect(mountComponent.find('Autocomplete').prop('items')).toEqual(filteredData)
-    expect(toJson(searchResults)).toMatchSnapshot()
+    expect(toJson(items)).toMatchSnapshot()
   })
 
 
@@ -174,9 +187,9 @@ describe('searching', () => {
     mountComponent.find('Autocomplete').prop('onChange')(null, 'xxxxxxx')
     mountComponent.update()
 
-    const searchResults = mountComponent.find('.searchInputHolder').children('div')
-    expect(searchResults.length).toBe(1)
-    expect(searchResults.prop('style').display).toBe('none')
+    const {container} = getSearchResults(mountComponent)
+    expect(container.length).toBe(1)
+    expect(container.prop('style').display).toBe('none')
   })
 
 
@@ -220,7 +233,7 @@ describe('searching', () => {
 
   test('should only keep last 6 savedSearches', () => {
     sandbox.resetHistory()
-    const savedSearchesArray= [...parsedSavedSearches, {name: 'saved search 26', id: 26}]
+    const savedSearchesArray = [...parsedSavedSearches, {name: 'saved search 26', id: 26}]
     savedSearches = JSON.stringify(savedSearchesArray)
 
     mountComponent.find('Autocomplete').prop('onSelect')(selection.name, selection)
