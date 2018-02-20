@@ -69,6 +69,49 @@
 
         .tooltipIconContainer {
           height: 100%;
+
+          .hoverArea {
+            position: relative;
+            height: 22px;
+
+            .tooltipHoverArea {
+              position: absolute;
+              height: 352px;
+              width: 343px;
+              left: 11px;
+              top: -165px;
+              visibility: hidden;
+            }
+
+            .tooltipContentContainer {
+              position: absolute;
+              background-color: #4F5757;
+              height: 352px;
+              width: 328px;
+              left: 26px;
+              top: -165px;
+              color: white;
+              font-size: 12px;
+              padding: 12.5px 15px;
+              box-sizing: border-box;
+              opacity: 0;
+              visibility: hidden;
+              -webkit-transition: opacity .5s, visibility .5s; /* Safari */
+              transition: opacity .5s, visibility .5s;
+              pointer-events: none;
+            }
+          }  @media(min-width: 680px) {
+            .hoverArea:hover {
+
+              .tooltipHoverArea {
+                visibility: visible;
+              }
+              .tooltipContentContainer {
+                visibility: visible;
+                opacity: 1;
+              }
+            }
+          }
         }
       }
 

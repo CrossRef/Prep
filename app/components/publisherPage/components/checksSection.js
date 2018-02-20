@@ -32,9 +32,14 @@ export default class ChecksSection extends React.Component {
               <div className="title">
                 {name}
                 <div className="tooltipIconContainer">
-                  <img
-                    style={{width: '22px', height: '22px'}}
-                    src={`${deployConfig.baseUrl}/images/Asset_Icons_Grey_Help.png`}/>
+                  <div className="hoverArea">
+                    <img
+                      style={{width: '22px', height: '22px'}}
+                      src={`${deployConfig.baseUrl}/images/Asset_Icons_Grey_Help.png`}/>
+
+                    <div className="tooltipHoverArea" />
+                    <div className="tooltipContentContainer">{info}</div>
+                  </div>
                 </div>
 
               </div>
