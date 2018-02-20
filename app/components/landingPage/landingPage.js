@@ -14,7 +14,7 @@ export default class LandingPage extends React.Component {
 
           <div className="searchContainer">
             <div className="searchTitle">
-              Find a Publisher
+              Find a member
               <p className="bannerText">How good is your metadata?</p>
             </div>
 
