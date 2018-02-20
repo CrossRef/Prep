@@ -1,5 +1,7 @@
 import React from 'react'
 import is from 'prop-types'
+import ContentTypeFilter from "./contentTypeFilter"
+
 
 
 
@@ -18,9 +20,9 @@ export default class ChecksSection extends React.Component {
 
 
         <div className="filters">
-          <div className="filter">Content Type Filter</div>
+          <ContentTypeFilter />
           <div className="filter">Publication Filter</div>
-          <div className="filter">Last 12 months</div>
+          <div className="filter timeFilter">Last 12 months</div>
         </div>
 
 
