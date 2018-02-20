@@ -27,7 +27,7 @@ export default class ChecksSection extends React.Component {
         <div className="checksContainer">
 
           {(this.props.coverage['journal-articles'] || []).map(({name, percentage, info}) =>
-            <div className="check">
+            <div className="check" key={name}>
               <div className="title">{name}</div>
 
               <div className="barContainer">
