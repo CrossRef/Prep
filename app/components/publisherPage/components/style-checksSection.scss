@@ -62,7 +62,14 @@
         font-family: $regularFont;
         color: #4F5757;
         display: flex;
+        justify-content: space-between;
         align-items: center;
+        box-sizing: border-box;
+        padding-right: 4px;
+
+        .tooltipIconContainer {
+          height: 100%;
+        }
       }
 
       .barContainer {

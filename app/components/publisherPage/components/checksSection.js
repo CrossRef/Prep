@@ -1,5 +1,6 @@
 import React from 'react'
 import is from 'prop-types'
+import deployConfig from "../../../../deployConfig"
 
 
 
@@ -28,7 +29,15 @@ export default class ChecksSection extends React.Component {
 
           {(this.props.coverage['journal-articles'] || []).map(({name, percentage, info}) =>
             <div className="check" key={name}>
-              <div className="title">{name}</div>
+              <div className="title">
+                {name}
+                <div className="tooltipIconContainer">
+                  <img
+                    style={{width: '22px', height: '22px'}}
+                    src={`${deployConfig.baseUrl}/images/Asset_Icons_Grey_Help.png`}/>
+                </div>
+
+              </div>
 
               <div className="barContainer">
                 <div className="bar">
