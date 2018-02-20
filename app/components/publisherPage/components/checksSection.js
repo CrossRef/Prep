@@ -1,6 +1,8 @@
 import React from 'react'
 import is from 'prop-types'
+
 import deployConfig from "../../../../deployConfig"
+import CheckBox from "./checkBox"
 
 
 
@@ -27,36 +29,7 @@ export default class ChecksSection extends React.Component {
 
         <div className="checksContainer">
 
-          {(this.props.coverage['journal-articles'] || []).map(({name, percentage, info}) =>
-            <div className="check" key={name}>
-              <div className="title">
-                {name}
-                <div className="tooltipIconContainer">
-                  <div className="hoverArea">
-                    <img
-                      style={{width: '22px', height: '22px'}}
-                      src={`${deployConfig.baseUrl}/images/Asset_Icons_Grey_Help.png`}/>
-
-                    <div className="tooltipHoverArea" />
-                    <div className="tooltipContentContainer">{info}</div>
-                  </div>
-                </div>
-
-              </div>
-
-              <div className="barContainer">
-                <div className="bar">
-                  <div style={{
-                    width: `${percentage}%`,
-                    height: "100%",
-                    backgroundColor: "#3EB1CB"
-                  }}/>
-                </div>
-
-                <div className="percent">{percentage}<span>%</span></div>
-              </div>
-            </div>
-          )}
+          {(this.props.coverage['journal-articles'] || []).map( item => <CheckBox key={item.name} item={item}/>)}
 
         </div>
       </div>

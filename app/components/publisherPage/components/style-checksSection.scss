@@ -83,6 +83,10 @@
               visibility: hidden;
             }
 
+            .tooltipHoverAreaLeft {
+              left: -332px
+            }
+
             .tooltipContentContainer {
               position: absolute;
               background-color: #4F5757;
@@ -99,6 +103,10 @@
               -webkit-transition: opacity .5s, visibility .5s; /* Safari */
               transition: opacity .5s, visibility .5s;
               pointer-events: none;
+            }
+
+            .tooltipContentContainerLeft {
+              left: -332px
             }
           }  @media(min-width: 680px) {
             .hoverArea:hover {
