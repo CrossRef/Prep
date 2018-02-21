@@ -21,7 +21,7 @@ export default class ChecksSection extends React.Component {
 
         <div className="filters">
           <ContentTypeFilter />
-          <div className="filter">Publication Filter</div>
+          <div className="filter publicationFilter">Publication Filter</div>
           <div className="filter timeFilter">Last 12 months</div>
         </div>
 

@@ -44,9 +44,35 @@
       font-family: $regularFont;
     }
 
+    .publicationFilter {
+      width: 272px
+    }
+
     .timeFilter {
       position: absolute;
       right: 32px;
+    }
+
+
+  } @media (max-width: 767px) {
+    .filters {
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 184px;
+      padding: 16px 0 0 0;
+      margin-bottom: 46px;
+
+
+      .publicationFilter {
+        width: 256px;
+      }
+
+      .timeFilter {
+        position: initial;
+        right: auto;
+        width: 256px;
+      }
     }
   }
 

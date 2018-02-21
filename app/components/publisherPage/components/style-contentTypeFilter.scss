@@ -13,4 +13,10 @@
   font-size: 13px;
   box-sizing: border-box;
   margin-right: 32px;
+} @media (max-width: 767px) {
+  .contentTypeFilter {
+    width: 256px;
+    margin-right: 0;
+  }
+
 }
