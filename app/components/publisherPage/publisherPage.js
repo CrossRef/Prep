@@ -3,6 +3,7 @@ import is from 'prop-types'
 
 import {prettyKeys} from '../../utilities/helpers'
 import ChecksSection from './components/checksSection'
+import ChartSection from './components/chartSection'
 
 
 
@@ -75,9 +76,7 @@ export default class PublisherPage extends React.Component {
 
         <ChecksSection coverage={this.state.coverage}/>
 
-        <div className="chartSection">
-          Chart goes here
-        </div>
+        <ChartSection/>
       </div>
     )
   }
