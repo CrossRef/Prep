@@ -56,6 +56,19 @@
   .contentTypeFilter {
     width: 256px;
     margin-right: 0;
+
+    .filterList {
+      width: 256px;
+      left: -1px;
+    }
+
+    .filterList:after {
+      left: 117px
+    }
+
+    .filterList:before {
+      left: 116px
+    }
   }
 
 }
