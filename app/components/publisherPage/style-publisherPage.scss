@@ -108,6 +108,8 @@
             color: #4F5757;
             font-size: 22px;
             font-family: $regularFont;
+            display: flex;
+            align-items: center;
           }
 
           .totals:hover {
