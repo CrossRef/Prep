@@ -26,7 +26,9 @@ export default class ContentTypeFilter extends React.Component {
         <div className="filterList">
           {this.props.filters.map( filter =>
             <div key={filter} className="filterButton">
-              <div className="checkmark"></div>
+              <div className="checkmark">
+                <img style={{width: "14px", height: "14px"}} src={`${deployConfig.baseUrl}/images/iconmonstr-check-mark-1.svg`}/>
+              </div>
 
               <div className="buttonText">
                 {prettyKeys(filter)}
