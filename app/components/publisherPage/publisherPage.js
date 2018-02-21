@@ -2,6 +2,7 @@ import React from 'react'
 import is from 'prop-types'
 
 import {prettyKeys} from '../../utilities/helpers'
+import deployConfig from "../../../deployConfig"
 
 
 
@@ -13,7 +14,8 @@ export default class PublisherPage extends React.Component {
       params: is.shape({
         publisherName: is.string.isRequired
       }).isRequired
-    }).isRequired
+    }).isRequired,
+    history: is.object.isRequired
   }
 
 
@@ -42,7 +44,7 @@ export default class PublisherPage extends React.Component {
           <div className="widthContainer">
 
             <div className="topBar">
-              <div className="button">Find publisher</div>
+              <div className="button" onClick={() => this.props.history.push(`${deployConfig.baseUrl}`)}>Find a member</div>
               <div className="button">Learn more</div>
             </div>
 
