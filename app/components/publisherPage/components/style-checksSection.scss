@@ -104,6 +104,18 @@
           }
         }
       }
+    } @media (max-width: 960px)  {
+      .check {
+        margin: 0 48px 69px 48px;
+      }
+    } @media (max-width: 704px)  {
+      .check {
+        margin: 0 auto 69px auto;
+      }
+    }  @media (max-width: 600px)  {
+      .check {
+        margin: 0 25px 53px 25px;
+      }
     }
   }
 }
