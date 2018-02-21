@@ -13,6 +13,45 @@
   font-size: 13px;
   box-sizing: border-box;
   margin-right: 32px;
+  position: relative;
+
+  .filterList {
+    position: absolute;
+    height: 320px;
+    width: 208px;
+    top: 60px;
+    left: -20px;
+    border: 1px solid #4F5757;
+    background-color: white;
+    box-sizing: border-box;
+  }
+
+  .filterList:after {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 93px;
+      width: 0;
+      height: 0;
+      border-left: 13px solid transparent;
+      border-right: 13px solid transparent;
+      border-bottom: 13px solid white;
+  }
+
+  .filterList:before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 92px;
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 14px solid black;
+  }
+
+
+
 } @media (max-width: 767px) {
   .contentTypeFilter {
     width: 256px;
