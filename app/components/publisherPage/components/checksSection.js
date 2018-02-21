@@ -1,5 +1,6 @@
 import React from 'react'
 import is from 'prop-types'
+
 import ContentTypeFilter from "./contentTypeFilter"
 
 
@@ -8,6 +9,9 @@ import ContentTypeFilter from "./contentTypeFilter"
 
 export default class ChecksSection extends React.Component {
 
+  static propTypes = {
+    coverage: is.object.isRequired
+  }
 
   render () {
     console.log(this.props.coverage)
