@@ -76,11 +76,58 @@ export default class PublisherPage extends React.Component {
 
         <ChecksSection coverage={this.state.coverage}/>
 
-        <ChartSection/>
+        <ChartSection totals={[{year: 2017, totals: totals}, ...dummyTotalsArray]}/>
       </div>
     )
   }
 }
 
 
+const dummyTotalsArray = [
+  {year: 2016, totals: {
+    "journal-articles": randomNumber(),
+    "books": randomNumber(),
+    "conference-papers": randomNumber(),
+    "reports": randomNumber(),
+    "datasets": randomNumber(),
+    "dissertations": randomNumber(),
+    "posted-content": randomNumber(),
+    "standards": randomNumber()
+  }},
+  {year: 2015, totals: {
+    "journal-articles": randomNumber(),
+    "books": randomNumber(),
+    "conference-papers": randomNumber(),
+    "reports": randomNumber(),
+    "datasets": randomNumber(),
+    "dissertations": randomNumber(),
+    "posted-content": randomNumber(),
+    "standards": randomNumber()
+  }},
+  {year: 2014, totals: {
+    "journal-articles": randomNumber(),
+    "books": randomNumber(),
+    "conference-papers": randomNumber(),
+    "reports": randomNumber(),
+    "datasets": randomNumber(),
+    "dissertations": randomNumber(),
+    "posted-content": randomNumber(),
+    "standards": randomNumber()
+  }},
+  {year: 2013, totals: {
+    "journal-articles": randomNumber(),
+    "books": randomNumber(),
+    "conference-papers": randomNumber(),
+    "reports": randomNumber(),
+    "datasets": randomNumber(),
+    "dissertations": randomNumber(),
+    "posted-content": randomNumber(),
+    "standards": randomNumber()
+  }},
 
+]
+
+
+function randomNumber () {
+  return Math.floor(Math.random() * (15000 / 4))
+}

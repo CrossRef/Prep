@@ -22,14 +22,32 @@
 
   .legend {
     height: 64px;
-    width: 100%
+    width: 100%;
+    display: flex;
+    padding: 0 0 10px 32px;
+    box-sizing: border-box;
+
+    .legendItem {
+      display: flex;
+      align-items: center;
+      height: auto;
+      font-size: 12px;
+      font-family: $regularFont;
+      margin-right: 39px;
+
+      .square {
+        height: 10px;
+        width: 10px;
+        margin-right: 6px;
+      }
+    }
   }
 
   .chartDiv {
     background-color: #4F5757;
     width: 96.7%;
     margin: auto;
-    min-width: 752px;
+    min-width: 600px;
     min-height: 304px;
     height: auto;
     position: relative;
@@ -62,7 +80,7 @@
 
           .xGridNumber {
             padding-left: 8px;
-            font-size: 10px;
+            font-size: 11px;
             color: lightgrey;
             font-family: $regularFont;
           }
