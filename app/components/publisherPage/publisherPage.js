@@ -1,6 +1,7 @@
 import React from 'react'
 import is from 'prop-types'
 
+import Totals from './components/totals'
 import {prettyKeys} from '../../utilities/helpers'
 import deployConfig from "../../../deployConfig"
 
@@ -36,7 +37,6 @@ export default class PublisherPage extends React.Component {
 
   render() {
     const totals = this.state.totals
-    const total = Object.keys(totals).reduce( (sum, key) => sum + totals[key], 0)
 
     return (
       <div className="publisherPage">
@@ -60,14 +60,8 @@ export default class PublisherPage extends React.Component {
                   {decodeURIComponent(this.props.match.params.publisherName)}
                 </div>
 
-                <div className="totals">
-                  <div className="totalTooltip">
-                    {Object.keys(totals).map((key) => totals[key] ? <p key={key}>{`${prettyKeys(key)}: ${totals[key].toLocaleString()}`}</p> : null)}
-                  </div>
+                <Totals totals={totals}/>
 
-                  <p className="totalNumber">{total.toLocaleString()}</p>
-                  <p className="totalText">Total registered content items</p>
-                </div>
               </div>
             </div>
           </div>
