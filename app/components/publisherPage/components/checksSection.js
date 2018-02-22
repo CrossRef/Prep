@@ -2,6 +2,7 @@ import React from 'react'
 import is from 'prop-types'
 
 import ContentTypeFilter from "./contentTypeFilter"
+import {prettyKeys} from '../../../utilities/helpers'
 
 
 
@@ -22,7 +23,6 @@ export default class ChecksSection extends React.Component {
 
 
   render () {
-    console.log(this.props.coverage)
     this.props.coverage.reports = [
       {name: 'Reports item 1', percentage: 15, info: 'some tooltip info'},
       {name: 'Reports item 2', percentage: 25, info: 'some tooltip info'},
@@ -43,7 +43,7 @@ export default class ChecksSection extends React.Component {
     return (
       <div className="checksSection">
         <div className="titleBar">
-          Content type: Journal articles
+          {`Content type: ${prettyKeys(this.state.filter)}`}
         </div>
 
 
