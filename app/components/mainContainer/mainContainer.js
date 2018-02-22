@@ -33,7 +33,7 @@ export default class MainContainer extends React.Component {
               <p className="license">The content of this site is licensed under a Creative Commons Attribution 4.0
                 International License</p>
 
-              <p className="privacy">Privacy</p>
+              <p className="privacy"><a target="_blank" href="http://crossref.org/privacy">Privacy</a></p>
             </div>
           </div>
 

@@ -60,11 +60,18 @@ body {
         position: absolute;
         right: 16px;
         top: 8px;
+
+        a:link {
+          color: white;
+          text-decoration: none;
+        } a:visited {
+          color: white
+        }
       } @media (max-width: 700px) {
-      .privacy {
-        top: 17px;
+        .privacy {
+          top: 17px;
+        }
       }
-    }
 
       .crossref {
         margin-right: 17.5px;
@@ -94,9 +101,3 @@ body {
     }
   }
 }
-
-
-//@font-face {
-//  font-family: "HelveticaNeue-Regular";
-//  src: url(../fonts/HelveticaNeue-Regular.ttf);
-//}
