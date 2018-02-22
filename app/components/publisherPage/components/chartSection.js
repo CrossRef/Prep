@@ -28,11 +28,18 @@ export default class ChartSection extends React.Component {
           </div>
 
           <div className="barContainer">
+
             <div className="bar">
+              <div className="year">2017</div>
               <div className="barSection" style={{backgroundColor: "red", width: "28%"}}/>
               <div className="barSection" style={{backgroundColor: "green", width: "12%"}}/>
               <div className="barSection" style={{backgroundColor: "blue", width: "41%"}}/>
             </div>
+
+
+
+
+
           </div>
 
 

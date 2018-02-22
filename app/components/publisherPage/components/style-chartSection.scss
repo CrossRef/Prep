@@ -4,14 +4,20 @@
 
 .chartSection {
   margin-bottom: 64px;
-  height: 464px;
+  min-height: 464px;
+  height: auto;
   background-color: white;
   max-width: 960px;
   width: 100%;
+  padding-bottom: 32px;
 
   .title {
     height: 64px;
     width: 100%;
+    font-size: 18px;
+    font-family: $regularFont;
+    padding: 31px 0 0 33px;
+    box-sizing: border-box;
   }
 
   .legend {
@@ -24,7 +30,8 @@
     width: 96.7%;
     margin: auto;
     min-width: 752px;
-    height: 304px;
+    min-height: 304px;
+    height: auto;
     position: relative;
 
     .xAxisAbsoluteContainer {
@@ -64,17 +71,28 @@
     }
 
     .barContainer {
-      position: absolute;
-      top: 20%;
-      height: 71%;
+      padding: 70px 0 10px 0;
+      min-height: 304px;
+      height: auto;
       width: 86.1%;
       margin-left: 6.9%;
       display: flex;
       flex-direction: column;
 
       .bar {
-        height: 10px;
+        height: 9px;
         display: flex;
+        position: relative;
+        margin-bottom: 15px;
+
+        .year {
+          position: absolute;
+          color: lightgrey;
+          left: -5.5%;
+          top: -2px;
+          font-size: 12px;
+          font-family: $regularFont;
+        }
 
         .barSection {
           height: 100%;
