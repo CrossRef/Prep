@@ -24,7 +24,7 @@
     height: 64px;
     width: 100%;
     display: flex;
-    padding: 0 0 10px 32px;
+    padding: 0 0 10px 47px;
     box-sizing: border-box;
 
     .legendItem {
@@ -34,11 +34,14 @@
       font-size: 12px;
       font-family: $regularFont;
       margin-right: 39px;
+      position: relative;
 
       .square {
         height: 10px;
         width: 10px;
         margin-right: 6px;
+        position: absolute;
+        left: -15px;
       }
     }
   }
