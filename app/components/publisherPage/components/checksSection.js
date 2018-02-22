@@ -14,8 +14,6 @@ export default class ChecksSection extends React.Component {
   }
 
   render () {
-    console.log(this.props.coverage)
-
     return (
       <div className="checksSection">
         <div className="titleBar">
