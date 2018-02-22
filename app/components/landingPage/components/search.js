@@ -130,7 +130,7 @@ export default class Search extends React.Component {
         height={207}
         rowCount={items.length}
         rowRenderer={rowRenderer}
-        width={autocompleteStyle.minWidth + 2 || 0}
+        width={Math.ceil(autocompleteStyle.minWidth) + 2 || 0}
         scrollToIndex={0}
         style={{
           position: 'absolute',
