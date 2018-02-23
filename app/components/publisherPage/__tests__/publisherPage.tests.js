@@ -41,7 +41,7 @@ const history = {
 
 
 //Render and begin tests
-const mountComponent = mount(<PublisherPage match={{params: {publisherName: 'publisher name'}}}/>)
+const mountComponent = mount(<PublisherPage history={history} match={{params: {publisherName: 'publisher name'}}}/>)
 
 
 test('mount snapshot', () => {
