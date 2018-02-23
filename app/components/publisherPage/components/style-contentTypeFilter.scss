@@ -47,7 +47,10 @@
         display: flex;
         align-items: center;
       }
-
+    } .filterButton:hover {
+      .buttonText {
+        color: #3EB1CB;
+      }
     }
   }
 
