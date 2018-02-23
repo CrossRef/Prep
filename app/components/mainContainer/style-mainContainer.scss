@@ -56,6 +56,19 @@ body {
         margin: 0;
       }
 
+      .license {
+        a:link {
+          text-decoration: none;
+          color: white
+        }
+        a:visited {
+          color: white
+        }
+        a:hover {
+          color: #fbc52d
+        }
+      }
+
       .privacy {
         position: absolute;
         right: 16px;
@@ -64,7 +77,8 @@ body {
         a:link {
           color: white;
           text-decoration: none;
-        } a:visited {
+        }
+        a:visited {
           color: white
         }
       } @media (max-width: 700px) {
