@@ -1,7 +1,6 @@
 import React from 'react'
 import is from 'prop-types'
 
-import deployConfig from "../../../../deployConfig"
 import CheckBox from "./checkBox"
 
 
@@ -9,10 +8,11 @@ import CheckBox from "./checkBox"
 
 export default class ChecksSection extends React.Component {
 
+  static propTypes = {
+    coverage: is.object.isRequired
+  }
 
   render () {
-    console.log(this.props.coverage)
-
     return (
       <div className="checksSection">
         <div className="titleBar">
