@@ -24,7 +24,7 @@ const setState = sandbox.spy(CheckBox.prototype, 'setState')
 
 
 //Render and begin tests
-const mountComponent = mount(<PublisherPage match={{params: {publisherName: 'publisher name'}}}/>)
+const mountComponent = mount(<CheckBox/>)
 
 
 test('mount snapshot', () => {
