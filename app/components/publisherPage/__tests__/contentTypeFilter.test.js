@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, { shallow, mount, render } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import sinon from 'sinon'
-import PublisherPage from "../publisherPage"
+import ContentTypeFilter from "../components/contentTypeFilter"
 
 
 
@@ -14,15 +14,13 @@ import PublisherPage from "../publisherPage"
 
 //Mocks
 const sandbox = sinon.sandbox.create()
-global.fetch = sandbox.stub().callsFake(() => Promise.resolve({json: () => participationSummary}));
-const didMount = sandbox.spy(PublisherPage.prototype, 'componentDidMount')
-const setState = sandbox.spy(PublisherPage.prototype, 'setState')
+const setState = sandbox.spy(ContentTypeFilter.prototype, 'setState')
 
 
 
 
 //Render and begin tests
-const shallowComponent = shallow(<PublisherPage match={{params: {publisherName: 'publisher name'}}}/>)
+const shallowComponent = shallow(<ContentTypeFilter />)
 
 
 
