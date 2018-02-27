@@ -41,6 +41,9 @@
   "jest": {
     "transform": {
       "^.+\\.js$": "<rootDir>/jest.transform.js"
-    }
+    },
+    "setupFiles": [
+      "<rootDir>/jest.setupFile.js"
+    ]
   }
 }
