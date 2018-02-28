@@ -87,13 +87,12 @@ export default class CheckBox extends React.Component {
                 }
               >
                 {info}
+
                 {mobile &&
-                  <p
-                    style={{position: 'absolute', margin: 0, color: 'white', top: 3, right: 7, fontSize: 20}}
-                    onClick={() => this.props.setOpenTooltip(undefined)}
-                  >
-                    X
-                  </p>
+                  <img
+                    style={{position: 'absolute', margin: 0, color: 'white', top: 6, right: 6, height:20, width:20}}
+                    src={`${deployConfig.baseUrl}/images/Asset_Icons_White_Close.svg`}
+                    onClick={() => this.props.setOpenTooltip(undefined)}/>
                 }
               </div>
 
