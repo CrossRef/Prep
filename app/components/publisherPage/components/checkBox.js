@@ -7,18 +7,31 @@ import {debounce} from '../../../utilities/helpers'
 export default class CheckBox extends React.Component {
 
   static propTypes = {
-    item: is.object.isRequired,
+    item: is.shape({
+      name: is.string.isrequired,
+      info: is.string.isRequired,
+      percentage: is.number.isRequired
+    }).isRequired,
     openTooltip: is.string,
     setOpenTooltip: is.func.isRequired
   }
 
-  state = {
-    tooltipRight: true,
+
+  constructor(prop) {
+    super()
+
+    this.state = {
+      tooltipRight: true,
+    }
+
+    //Binding instead of using arrow functions for testing - allows spying prototype before mount to test if it was called on mount
+    this.updateTooltipPosition = this.updateTooltipPosition.bind(this)
   }
 
 
   componentDidMount () {
-    this.updateTooltipPosition()
+    const onMount = true
+    this.updateTooltipPosition(onMount)
     window.addEventListener('resize', this.debouncedUpdate);
   }
 
@@ -28,9 +41,8 @@ export default class CheckBox extends React.Component {
   }
 
 
-  updateTooltipPosition = () => {
+  updateTooltipPosition (onMount) {
     const windowWidth = window.innerWidth
-
     if(this.icon) {
       const xPosition = this.icon.getBoundingClientRect().x
       if(windowWidth - (xPosition + 11) < 343) {
@@ -40,11 +52,13 @@ export default class CheckBox extends React.Component {
       }
     }
 
-    if(windowWidth > 639) {
-      this.props.setOpenTooltip( undefined )
+    if(!onMount) {
+      if(windowWidth > 639 && this.props.openTooltip === this.props.item.name) {
+        this.props.setOpenTooltip( undefined )
+      } else {
+        this.setState({}) //forceupdate so that render function refreshes based on new window width
+      }
     }
-
-    this.setState({}) //forceupdate so that render function refreshes based on new window width
   }
 
 
