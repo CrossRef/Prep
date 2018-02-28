@@ -81,6 +81,9 @@ body {
         a:visited {
           color: white
         }
+        a:hover {
+          color: #fbc52d
+        }
       } @media (max-width: 700px) {
         .privacy {
           top: 17px;
@@ -92,8 +95,12 @@ body {
 
         a:link {
           color: white
-        } a:visited {
+        }
+        a:visited {
           color: white
+        }
+        a:hover {
+          color: #fbc52d
         }
 
       } @media (max-width: 700px) {
