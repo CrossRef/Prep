@@ -8,10 +8,10 @@ export function prettyKeys (string) {
 
 
 
-export function debounce (func, m, timeout) {
-  if(timeout) {
-    clearTimeout(timeout)
+export function debounce (func, m, timeoutContainer, timeoutKey = 'timeout') {
+  if(timeoutContainer[timeoutKey]) {
+    clearTimeout(timeoutContainer[timeoutKey])
   }
 
-  timeout = setTimeout(func, m)
+  timeoutContainer[timeoutKey] = setTimeout(func, m)
 }

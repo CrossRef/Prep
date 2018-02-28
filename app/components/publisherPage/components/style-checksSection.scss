@@ -67,8 +67,10 @@
         box-sizing: border-box;
         padding-right: 4px;
 
+
         .tooltipIconContainer {
           height: 100%;
+          cursor: pointer;
 
           .hoverArea {
             position: relative;
@@ -105,10 +107,22 @@
               pointer-events: none;
             }
 
+            .mobileTooltip {
+              top: 40px;
+              width: 288px;
+              left: -246px;
+              pointer-events: auto;
+            }
+
+            .mobileTooltipOpen {
+              opacity: 1;
+              visibility: visible;
+            }
+
             .tooltipContentContainerLeft {
               left: -332px
             }
-          }  @media(min-width: 680px) {
+          }  @media(min-width: 640px) {
             .hoverArea:hover {
 
               .tooltipHoverArea {
@@ -121,6 +135,8 @@
             }
           }
         }
+
+
       }
 
       .barContainer {
