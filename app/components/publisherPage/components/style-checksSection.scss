@@ -83,6 +83,7 @@
               left: 11px;
               top: -165px;
               visibility: hidden;
+              cursor: auto;
             }
 
             .tooltipHoverAreaLeft {
@@ -105,6 +106,9 @@
               -webkit-transition: opacity .5s, visibility .5s; /* Safari */
               transition: opacity .5s, visibility .5s;
               pointer-events: none;
+              cursor: auto;
+
+              p {margin: 0; pointer-events: auto}
             }
 
             .mobileTooltip {
