@@ -7,12 +7,13 @@ import {debounce} from '../../../utilities/helpers'
 export default class CheckBox extends React.Component {
 
   static propTypes = {
-    item: is.object.isRequired
+    item: is.object.isRequired,
+    openTooltip: is.string,
+    setOpenTooltip: is.func.isRequired
   }
 
   state = {
     tooltipRight: true,
-    mobileTooltipOpen: false
   }
 
 
@@ -40,7 +41,7 @@ export default class CheckBox extends React.Component {
     }
 
     if(windowWidth > 639) {
-      this.setState( prevState => prevState.mobileTooltipOpen ? {mobileTooltipOpen: false} : null)
+      this.props.setOpenTooltip( undefined )
     }
 
     this.setState({}) //forceupdate so that render function refreshes based on new window width
@@ -57,6 +58,8 @@ export default class CheckBox extends React.Component {
     const tooltipRight = this.state.tooltipRight
     const mobile = window.matchMedia("(max-width: 639px)").matches
 
+    const mobileTooltipOpen = this.props.openTooltip === name
+
     return (
       <div className="check">
         <div className="title">
@@ -64,7 +67,7 @@ export default class CheckBox extends React.Component {
           <div className="tooltipIconContainer">
             <div className="hoverArea">
               <img
-                onClick={mobile ? () => this.setState({mobileTooltipOpen: !this.state.mobileTooltipOpen}) : null}
+                onClick={mobile ? () => this.props.setOpenTooltip(name) : null}
                 ref={ node => this.icon = node }
                 style={{width: '22px', height: '22px'}}
                 src={`${deployConfig.baseUrl}/images/Asset_Icons_Grey_Help.png`}/>
@@ -80,10 +83,18 @@ export default class CheckBox extends React.Component {
               <div
                 className={
                   `tooltipContentContainer ${!mobile && !tooltipRight ? 'tooltipContentContainerLeft' : ''
-                  } ${mobile ? 'mobileTooltip' : ''} ${this.state.mobileTooltipOpen ? 'mobileTooltipOpen' : ''}`
+                  } ${mobile ? 'mobileTooltip' : ''} ${mobileTooltipOpen ? 'mobileTooltipOpen' : ''}`
                 }
               >
                 {info}
+                {mobile &&
+                  <p
+                    style={{position: 'absolute', margin: 0, color: 'white', top: 3, right: 7, fontSize: 20}}
+                    onClick={() => this.props.setOpenTooltip(undefined)}
+                  >
+                    X
+                  </p>
+                }
               </div>
 
             </div>

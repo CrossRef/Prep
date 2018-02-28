@@ -12,6 +12,14 @@ export default class ChecksSection extends React.Component {
     coverage: is.object.isRequired
   }
 
+  state = {
+    openTooltip: undefined
+  }
+
+  setOpenTooltip = (selection) => {
+    this.setState( prevState => prevState.openTooltip === selection ? null : {openTooltip: selection})
+  }
+
   render () {
     return (
       <div className="checksSection">
@@ -29,7 +37,13 @@ export default class ChecksSection extends React.Component {
 
         <div className="checksContainer">
 
-          {(this.props.coverage['journal-articles'] || []).map( item => <CheckBox key={item.name} item={item}/>)}
+          {(this.props.coverage['journal-articles'] || []).map( item =>
+            <CheckBox
+              key={item.name}
+              item={item}
+              openTooltip={this.state.openTooltip}
+              setOpenTooltip={this.setOpenTooltip}/>
+          )}
 
         </div>
       </div>
