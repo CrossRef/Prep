@@ -1,0 +1,84 @@
+@import '../../../style/variables';
+
+
+
+.publisherTotals:hover {
+  .tooltipHoverArea {
+    visibility: visible;
+  }
+  .totalTooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.publisherTotals {
+  cursor: pointer;
+  flex: 1;
+  border-left: 2px solid #E5E5E5;
+  box-sizing: content-box;
+  margin: 16px 15px 16px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 15px;
+  position: relative;
+
+  .totalNumber {
+    color: #3EB1CB;
+    font-size: 22px;
+    font-family: $regularFont;
+    margin: 0 0 12px 0;
+  }
+
+  .tooltipHoverArea {
+    position: absolute;
+    right: -15px;
+    width: 192px;
+    bottom: 90px;
+    visibility: hidden;
+    padding: 12px 0 13px 16px;
+    box-sizing: border-box;
+    background-color: transparent;
+
+    p {
+      color: transparent;
+      font-size: 14px;
+      font-family: $regularFont;
+      margin: 0;
+    }
+  }
+
+  .totalTooltip {
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: opacity .5s, visibility .5s; /* Safari */
+    transition: opacity .5s, visibility .5s;
+    position: absolute;
+    width: 192px;
+    background-color: #4F5757;
+    bottom: 90px;
+    right: -15px;
+    padding: 12px 0 13px 16px;
+    box-sizing: border-box;
+
+    p {
+      color: white;
+      font-size: 14px;
+      font-family: $regularFont;
+      margin: 0;
+    }
+  }
+
+  .totalText {
+    color: #4F5757;
+    font-size: 16px;
+    font-family: $regularFont;
+    margin: 0;
+  }
+} @media(max-width: 600px) {
+  .publisherTotals {
+    display: none;
+  }
+}

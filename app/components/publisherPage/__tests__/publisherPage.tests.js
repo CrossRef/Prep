@@ -1,7 +1,5 @@
 import React from 'react';
 import Enzyme, { shallow, mount, render } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-Enzyme.configure({ adapter: new Adapter() });
 import toJson from 'enzyme-to-json';
 import sinon from 'sinon'
 
@@ -36,13 +34,14 @@ global.fetch = sandbox.stub().callsFake(() => Promise.resolve({json: () => parti
 const didMount = sandbox.spy(PublisherPage.prototype, 'componentDidMount')
 const setState = sandbox.spy(PublisherPage.prototype, 'setState')
 
-
-
+const history = {
+  push: sandbox.stub()
+}
 
 
 
 //Render and begin tests
-const mountComponent = mount(<PublisherPage match={{params: {publisherName: 'publisher name'}}}/>)
+const mountComponent = mount(<PublisherPage history={history} match={{params: {publisherName: 'publisher name'}}}/>)
 
 
 test('mount snapshot', () => {
@@ -60,4 +59,9 @@ describe('componentDidMount', () => {
 })
 
 
-//No way to test totalsTooltip hover functionality because it is CSS based
+describe('navigation buttons', () => {
+  test('should navigate back to search', () =>{
+    mountComponent.find('.topBar').children().first().prop('onClick')()
+    expect(history.push.callCount).toBe(1)
+  })
+})
