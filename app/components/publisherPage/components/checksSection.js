@@ -28,6 +28,7 @@ export default class ChecksSection extends React.Component {
 
 
   render () {
+    //TODO: Dummy data just to see filter working, need to remove once real data is available
     this.props.coverage.reports = [
       {name: 'Reports item 1', percentage: 15, info: 'some tooltip info'},
       {name: 'Reports item 2', percentage: 25, info: 'some tooltip info'},
