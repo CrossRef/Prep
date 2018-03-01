@@ -75,7 +75,7 @@ export default class ChecksSection extends React.Component {
 
         <div className="checksContainer">
 
-          {(this.props.coverage['journal-articles'] || []).map( item =>
+          {(this.props.coverage[this.state.filter] || []).map( item =>
             <CheckBox
               key={item.name}
               item={item}
