@@ -1,4 +1,4 @@
-@import '../../style/variables';
+@import '../../../style/variables';
 
 
 .publisherPage {
@@ -40,6 +40,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          cursor: pointer;
         }
       }
 
@@ -107,63 +108,12 @@
             color: #4F5757;
             font-size: 22px;
             font-family: $regularFont;
-          }
-
-          .totals:hover {
-            .totalTooltip {
-              visibility: visible
-            }
-          }
-
-          .totals {
-            flex: 1;
-            border-left: 2px solid #E5E5E5;
-            box-sizing: content-box;
-            margin: 16px 15px 16px 0;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-left: 15px;
-            position: relative;
-
-            .totalNumber {
-              color: #3EB1CB;
-              font-size: 22px;
-              font-family: $regularFont;
-              margin: 0 0 12px 0;
-            }
-
-            .totalTooltip {
-              visibility: hidden;
-              position: absolute;
-              width: 192px;
-              background-color: #4F5757;
-              bottom: 90px;
-              right: -15px;
-              padding: 12px 0 13px 16px;
-              box-sizing: border-box;
-
-              p {
-                color: white;
-                font-size: 14px;
-                font-family: $regularFont;
-                margin: 0;
-              }
-            }
-
-            .totalText {
-              color: #4F5757;
-              font-size: 16px;
-              font-family: $regularFont;
-              margin: 0;
-            }
+            align-items: center;
           } @media(max-width: 600px) {
             .publisherTitle {
               max-width: 399px;
               width: 100%
-            }
-            .totals {
-              display: none;
             }
           }
 

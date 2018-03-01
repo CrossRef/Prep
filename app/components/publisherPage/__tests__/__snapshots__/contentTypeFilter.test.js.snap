@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`open filter menu menu should render 1`] = `
+<div
+  className="contentTypeFilter"
+  onBlur={[Function]}
+  onClick={[Function]}
+  tabIndex="0"
+>
+  Content Type
+  <img
+    src="/participationreports//images/Asset_Icons_Grey_Chevron.png"
+    style={
+      Object {
+        "height": "20px",
+        "marginTop": "-2px",
+        "width": "20px",
+      }
+    }
+  />
+  <div
+    className="filterList"
+  >
+    <div
+      className="filterButton"
+      id="journal-articles_button"
+      key="journal-articles"
+      onClick={[Function]}
+    >
+      <div
+        className="checkmark"
+      >
+        <img
+          id="journal-articles_checkmark"
+          src="/participationreports//images/iconmonstr-check-mark-1.svg"
+          style={
+            Object {
+              "height": "14px",
+              "width": "14px",
+            }
+          }
+        />
+      </div>
+      <div
+        className="buttonText"
+      >
+        Journal articles
+      </div>
+    </div>
+    <div
+      className="filterButton"
+      id="books_button"
+      key="books"
+      onClick={[Function]}
+    >
+      <div
+        className="checkmark"
+      />
+      <div
+        className="buttonText"
+      >
+        Books
+      </div>
+    </div>
+    <div
+      className="filterButton"
+      id="book-chapters_button"
+      key="book-chapters"
+      onClick={[Function]}
+    >
+      <div
+        className="checkmark"
+      />
+      <div
+        className="buttonText"
+      >
+        Book chapters
+      </div>
+    </div>
+    <div
+      className="filterButton"
+      id="conference-papers_button"
+      key="conference-papers"
+      onClick={[Function]}
+    >
+      <div
+        className="checkmark"
+      />
+      <div
+        className="buttonText"
+      >
+        Conference papers
+      </div>
+    </div>
+    <div
+      className="filterButton"
+      id="reports_button"
+      key="reports"
+      onClick={[Function]}
+    >
+      <div
+        className="checkmark"
+      />
+      <div
+        className="buttonText"
+      >
+        Reports
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`shallow snapshot 1`] = `
+<div
+  className="contentTypeFilter"
+  onBlur={[Function]}
+  onClick={[Function]}
+  tabIndex="0"
+>
+  Content Type
+  <img
+    src="/participationreports//images/Asset_Icons_Grey_Chevron.png"
+    style={
+      Object {
+        "height": "20px",
+        "marginTop": "-2px",
+        "width": "20px",
+      }
+    }
+  />
+</div>
+`;

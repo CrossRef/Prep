@@ -1,0 +1,298 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`filter is set to new value new checks are rendered 1`] = `
+<div
+  className="checksSection"
+>
+  <div
+    className="titleBar"
+  >
+    Content type: Books
+  </div>
+  <div
+    className="filters"
+  >
+    <ContentTypeFilter
+      currentFilter="books"
+      filters={
+        Array [
+          "journal-articles",
+          "books",
+          "reports",
+        ]
+      }
+      setFilter={[Function]}
+    />
+    <div
+      className="filter publicationFilter"
+    >
+      Publication Filter
+    </div>
+    <div
+      className="filter timeFilter"
+    >
+      Last 12 months
+    </div>
+  </div>
+  <div
+    className="checksContainer"
+  >
+    <div
+      className="check"
+      key="books item 1"
+    >
+      <div
+        className="title"
+      >
+        books item 1
+      </div>
+      <div
+        className="barContainer"
+      >
+        <div
+          className="bar"
+        >
+          <div
+            className="barWidth"
+            style={
+              Object {
+                "width": "15%",
+              }
+            }
+          >
+            <div
+              className="animateBounce"
+              style={
+                Object {
+                  "backgroundColor": "#3EB1CB",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="percent"
+        >
+          15
+          <span>
+            %
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="check"
+      key="books item 2"
+    >
+      <div
+        className="title"
+      >
+        books item 2
+      </div>
+      <div
+        className="barContainer"
+      >
+        <div
+          className="bar"
+        >
+          <div
+            className="barWidth"
+            style={
+              Object {
+                "width": "25%",
+              }
+            }
+          >
+            <div
+              className="animateBounce"
+              style={
+                Object {
+                  "backgroundColor": "#3EB1CB",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="percent"
+        >
+          25
+          <span>
+            %
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="check"
+      key="books item 2"
+    >
+      <div
+        className="title"
+      >
+        books item 2
+      </div>
+      <div
+        className="barContainer"
+      >
+        <div
+          className="bar"
+        >
+          <div
+            className="barWidth"
+            style={
+              Object {
+                "width": "25%",
+              }
+            }
+          >
+            <div
+              className="animateBounce"
+              style={
+                Object {
+                  "backgroundColor": "#3EB1CB",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="percent"
+        >
+          25
+          <span>
+            %
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`shallow snapshot 1`] = `
+<div
+  className="checksSection"
+>
+  <div
+    className="titleBar"
+  >
+    Content type: Journal articles
+  </div>
+  <div
+    className="filters"
+  >
+    <ContentTypeFilter
+      currentFilter="journal-articles"
+      filters={
+        Array [
+          "journal-articles",
+          "books",
+          "reports",
+        ]
+      }
+      setFilter={[Function]}
+    />
+    <div
+      className="filter publicationFilter"
+    >
+      Publication Filter
+    </div>
+    <div
+      className="filter timeFilter"
+    >
+      Last 12 months
+    </div>
+  </div>
+  <div
+    className="checksContainer"
+  >
+    <div
+      className="check"
+      key="ja item 1"
+    >
+      <div
+        className="title"
+      >
+        ja item 1
+      </div>
+      <div
+        className="barContainer"
+      >
+        <div
+          className="bar"
+        >
+          <div
+            className="barWidth"
+            style={
+              Object {
+                "width": "15%",
+              }
+            }
+          >
+            <div
+              className="animateBounce"
+              style={
+                Object {
+                  "backgroundColor": "#3EB1CB",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="percent"
+        >
+          15
+          <span>
+            %
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="check"
+      key="ja item 2"
+    >
+      <div
+        className="title"
+      >
+        ja item 2
+      </div>
+      <div
+        className="barContainer"
+      >
+        <div
+          className="bar"
+        >
+          <div
+            className="barWidth"
+            style={
+              Object {
+                "width": "25%",
+              }
+            }
+          >
+            <div
+              className="animateBounce"
+              style={
+                Object {
+                  "backgroundColor": "#3EB1CB",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="percent"
+        >
+          25
+          <span>
+            %
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

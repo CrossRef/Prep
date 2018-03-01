@@ -2,6 +2,11 @@
 
 exports[`mount snapshot 1`] = `
 <PublisherPage
+  history={
+    Object {
+      "push": [Function],
+    }
+  }
   match={
     Object {
       "params": Object {
@@ -24,8 +29,9 @@ exports[`mount snapshot 1`] = `
         >
           <div
             className="button"
+            onClick={[Function]}
           >
-            Find publisher
+            Find a member
           </div>
           <div
             className="button"
@@ -58,23 +64,30 @@ exports[`mount snapshot 1`] = `
             >
               publisher name
             </div>
-            <div
-              className="totals"
+            <Totals
+              totals={Object {}}
             >
               <div
-                className="totalTooltip"
-              />
-              <p
-                className="totalNumber"
+                className="publisherTotals"
               >
-                0
-              </p>
-              <p
-                className="totalText"
-              >
-                Total registered content items
-              </p>
-            </div>
+                <div
+                  className="totalTooltip"
+                />
+                <div
+                  className="tooltipHoverArea"
+                />
+                <p
+                  className="totalNumber"
+                >
+                  0
+                </p>
+                <p
+                  className="totalText"
+                >
+                  Total registered content items
+                </p>
+              </div>
+            </Totals>
           </div>
         </div>
       </div>
