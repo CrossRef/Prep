@@ -1,0 +1,136 @@
+@import '../../../style/variables';
+
+
+.checksContainer {
+  .check {
+    height: 91px;
+    width: 256px;
+    margin: 0 32px 69px 32px;
+
+    .title {
+      width: 100%;
+      height: 43px;
+      font-size: 19px;
+      font-family: $regularFont;
+      color: #4F5757;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      padding-right: 4px;
+
+
+      .tooltipIconContainer {
+        height: 100%;
+
+        .hoverArea {
+          position: relative;
+          height: 22px;
+
+          img {
+            cursor: pointer;
+            position: absolute;
+            right: 0;
+            z-index: 1;
+          }
+
+          .tooltipHoverArea {
+            position: absolute;
+            height: 352px;
+            width: 343px;
+            left: -10px;
+            top: -165px;
+            visibility: hidden;
+            cursor: auto;
+          }
+
+          .tooltipHoverAreaLeft {
+            left: -354px
+          }
+
+          .tooltipContentContainer {
+            position: absolute;
+            background-color: #4F5757;
+            height: 352px;
+            width: 328px;
+            left: 4px;
+            top: -165px;
+            color: white;
+            font-size: 12px;
+            padding: 17.5px 15px;
+            box-sizing: border-box;
+            opacity: 0;
+            visibility: hidden;
+            -webkit-transition: opacity .5s, visibility .5s; /* Safari */
+            transition: opacity .5s, visibility .5s;
+            pointer-events: none;
+            cursor: auto;
+
+            p {margin: 0; pointer-events: auto}
+          }
+
+          .tooltipContentContainerLeft {
+            left: -354px
+          }
+
+          .mobileTooltip {
+            top: 26px;
+            width: 288px;
+            left: -268px;
+            pointer-events: auto;
+          }
+
+          .mobileTooltipOpen {
+            opacity: 1;
+            visibility: visible;
+          }
+
+        }
+        @media(min-width: 640px) {
+          .hoverArea:hover {
+
+            .tooltipHoverArea {
+              visibility: visible;
+            }
+            .tooltipContentContainer {
+              visibility: visible;
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+
+    .barContainer {
+      height: 48px;
+      width: 100%;
+      padding: 8px;
+      background-color: #4F5757;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 3px;
+
+      .bar {
+        height: 16px;
+        width: 160px;
+        background-color: white;
+      }
+
+      .percent {
+        color: white;
+        font-family: $regularFont;
+        font-size: 28px;
+        display: flex;
+
+        span {
+          font-size: 18px;
+          display: flex;
+          justify-content: flex-start;
+          padding: 3px 0 0 3px
+        }
+      }
+    }
+  }
+}
