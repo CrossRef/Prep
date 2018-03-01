@@ -81,35 +81,52 @@ describe('resize debounce', () => {
 })
 
 
-describe('desktop or wide tablet', () => {
+describe('non mobile', () => {
   test('if component on right side, tooltip on left', () => {
     xPosition = 1000
     mountComponent.instance().updateTooltipPosition()
     mountComponent.update()
     expect(mountComponent.state('tooltipRight')).toBe(false)
+    expect(mountComponent.find('.mobileTooltip').length).toBe(0)
   })
 
   test('if component on left side, tooltip on right', () => {
-    xPosition = 200
+    xPosition = 600
     mountComponent.instance().updateTooltipPosition()
+    mountComponent.update()
+    expect(mountComponent.state('tooltipRight')).toBe(true)
+    expect(mountComponent.find('.mobileTooltip').length).toBe(0)
+  })
+
+  test('resizing window small enough switches tooltip to left', () => {
+    sandbox.resetHistory()
+    xPosition = 600
+    window.resizeTo(800)
+    jest.runAllTimers()
+    expect(updatePosition.callCount).toBe(1)
+    mountComponent.update()
+    expect(mountComponent.state('tooltipRight')).toBe(false)
+  })
+
+  test('resizing window big enough, switches tooltip to right', () => {
+    sandbox.resetHistory()
+    xPosition = 600
+    window.resizeTo(1000)
+    jest.runAllTimers()
+    expect(updatePosition.callCount).toBe(1)
     mountComponent.update()
     expect(mountComponent.state('tooltipRight')).toBe(true)
   })
 
-  test('resizing window small enough switches tooltip to left', () => {
-
-  })
-
-  test('resizing window big enough, switches tooltip to right', () => {
-
-  })
-
   test('clicking on tooltip icon should do nothing', () => {
-
+    expect(mountComponent.find('.hoverArea img').prop('onClick')).toBe(null)
   })
 
-  test('changing openTooltip prop should do nothing', () => {
-
+  test('changing openTooltip prop should not show tooltip', () => {
+    mountComponent.setProps({openTooltip: 'Abstracts'})
+    mountComponent.update()
+    expect(mountComponent.find('.mobileTooltipOpen').length).toBe(0)
+    expect(mountComponent.find('.mobileTooltip').length).toBe(0)
   })
 })
 

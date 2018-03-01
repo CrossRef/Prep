@@ -72,7 +72,7 @@ export default class CheckBox extends React.Component {
     const tooltipRight = this.state.tooltipRight
     const mobile = window.matchMedia("(max-width: 639px)").matches
 
-    const mobileTooltipOpen = this.props.openTooltip === name
+    const mobileTooltipOpen = mobile ? this.props.openTooltip === name : false
 
     return (
       <div className="check">
