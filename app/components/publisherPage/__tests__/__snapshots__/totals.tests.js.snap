@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shallow snapshot 1`] = `
+<div
+  className="publisherTotals"
+>
+  <div
+    className="totalTooltip"
+  >
+    <p
+      key="journal-articles"
+    >
+      Journal articles: 12,345
+    </p>
+    <p
+      key="books"
+    >
+      Books: 1,234
+    </p>
+    <p
+      key="conference-papers"
+    >
+      Conference papers: 123
+    </p>
+    <p
+      key="reports"
+    >
+      Reports: 123
+    </p>
+  </div>
+  <div
+    className="tooltipHoverArea"
+  >
+    <p
+      key="journal-articles"
+    >
+      Journal articles: 12,345
+    </p>
+    <p
+      key="books"
+    >
+      Books: 1,234
+    </p>
+    <p
+      key="conference-papers"
+    >
+      Conference papers: 123
+    </p>
+    <p
+      key="reports"
+    >
+      Reports: 123
+    </p>
+  </div>
+  <p
+    className="totalNumber"
+  >
+    13,825
+  </p>
+  <p
+    className="totalText"
+  >
+    Total registered content items
+  </p>
+</div>
+`;

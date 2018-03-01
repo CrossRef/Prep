@@ -57,23 +57,51 @@ body {
         margin: 0;
       }
 
+      .license {
+        a:link {
+          text-decoration: none;
+          color: white
+        }
+        a:visited {
+          color: white
+        }
+        a:hover {
+          color: #fbc52d
+        }
+      }
+
       .privacy {
         position: absolute;
         right: 16px;
         top: 8px;
+
+        a:link {
+          color: white;
+          text-decoration: none;
+        }
+        a:visited {
+          color: white
+        }
+        a:hover {
+          color: #fbc52d
+        }
       } @media (max-width: 700px) {
-      .privacy {
-        top: 17px;
+        .privacy {
+          top: 17px;
+        }
       }
-    }
 
       .crossref {
         margin-right: 17.5px;
 
         a:link {
           color: white
-        } a:visited {
+        }
+        a:visited {
           color: white
+        }
+        a:hover {
+          color: #fbc52d
         }
 
       } @media (max-width: 700px) {
@@ -95,9 +123,3 @@ body {
     }
   }
 }
-
-
-//@font-face {
-//  font-family: "HelveticaNeue-Regular";
-//  src: url(../fonts/HelveticaNeue-Regular.ttf);
-//}

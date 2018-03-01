@@ -7,7 +7,7 @@
     "build": "brunch build -p",
     "test": "jest --no-cache --verbose",
     "testupdate": "jest -u --no-cache --verbose",
-    "debugtest": "node --inspect node_modules/.bin/jest --runInBand --no-cache"
+    "debugtest": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache"
   },
   "author": "",
   "license": "ISC",

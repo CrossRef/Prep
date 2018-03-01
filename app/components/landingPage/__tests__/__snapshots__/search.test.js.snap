@@ -1,67 +1,98 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`focus input should show saved searches 1`] = `
-<div
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
-  style={
-    Object {
-      "backgroundColor": "white",
-      "border": "1px black solid",
-      "borderRadius": "0",
-      "boxShadow": "none",
-      "display": "initial",
-      "left": "auto",
-      "maxHeight": "207px",
-      "minWidth": 0,
-      "overflow": "auto",
-      "padding": "13px 0 0 0",
-      "position": "absolute",
-      "top": "48px",
-    }
-  }
->
+Array [
   <div
     className="searchItem"
-    key="21"
+    key="0-0"
     onClick={[Function]}
-    onMouseEnter={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
   >
     saved search 21
-  </div>
+  </div>,
   <div
     className="searchItem"
-    key="22"
+    key="1-0"
     onClick={[Function]}
-    onMouseEnter={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
   >
     saved search 22
-  </div>
+  </div>,
   <div
     className="searchItem"
-    key="23"
+    key="2-0"
     onClick={[Function]}
-    onMouseEnter={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
   >
     saved search 23
-  </div>
+  </div>,
   <div
     className="searchItem"
-    key="24"
+    key="3-0"
     onClick={[Function]}
-    onMouseEnter={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
   >
     saved search 24
-  </div>
+  </div>,
   <div
     className="searchItem"
-    key="25"
+    key="4-0"
     onClick={[Function]}
-    onMouseEnter={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
   >
     saved search 25
-  </div>
-</div>
+  </div>,
+]
 `;
 
 exports[`mount snapshot 1`] = `
@@ -103,17 +134,14 @@ exports[`mount snapshot 1`] = `
     }
     menuStyle={
       Object {
-        "backgroundColor": "white",
-        "border": "1px black solid",
-        "borderRadius": "0",
-        "boxShadow": "none",
-        "display": "initial",
-        "left": "auto",
-        "maxHeight": "207px",
+        "background": "rgba(255, 255, 255, 0.9)",
+        "borderRadius": "3px",
+        "boxShadow": "0 2px 12px rgba(0, 0, 0, 0.1)",
+        "fontSize": "90%",
+        "maxHeight": "50%",
         "overflow": "auto",
-        "padding": "13px 0 0 0",
-        "position": "absolute",
-        "top": "48px",
+        "padding": "2px 0",
+        "position": "fixed",
       }
     }
     onChange={[Function]}
@@ -160,41 +188,42 @@ exports[`mount snapshot 1`] = `
 `;
 
 exports[`searching items array should be filtered by typed input, not case sensitive 1`] = `
-<div
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
-  style={
-    Object {
-      "backgroundColor": "white",
-      "border": "1px black solid",
-      "borderRadius": "0",
-      "boxShadow": "none",
-      "display": "initial",
-      "left": "auto",
-      "maxHeight": "207px",
-      "minWidth": 0,
-      "overflow": "auto",
-      "padding": "13px 0 0 0",
-      "position": "absolute",
-      "top": "48px",
-    }
-  }
->
+Array [
   <div
     className="searchItem"
-    key="2"
+    key="0-0"
     onClick={[Function]}
-    onMouseEnter={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
   >
     cambridge Core
-  </div>
+  </div>,
   <div
     className="searchItem"
-    key="5"
+    key="1-0"
     onClick={[Function]}
-    onMouseEnter={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
   >
     cambridge University Press
-  </div>
-</div>
+  </div>,
+]
 `;

@@ -24,6 +24,11 @@ const shallowComponent = shallow(<ChecksSection />)
 
 
 
+test('shallow snapshot', () => {
+
+})
+
+
 describe('filter is set to new value', () => {
   test('new checks are rendered', () => {
 

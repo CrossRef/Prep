@@ -12,6 +12,11 @@ import {prettyKeys} from '../../../utilities/helpers'
 
 export default class ChecksSection extends React.Component {
 
+  static propTypes = {
+    coverage: is.object.isRequired
+  }
+
+
   state = {
     filter: 'journal-articles'
   }
@@ -68,11 +73,9 @@ export default class ChecksSection extends React.Component {
 
               <div className="barContainer">
                 <div className="bar">
-                  <div style={{
-                    width: `${percentage}%`,
-                    height: "100%",
-                    backgroundColor: "#3EB1CB"
-                  }}/>
+                  <div className="barWidth" style={{width: `${percentage}%`}}>
+                    <div className="animateBounce" style={{backgroundColor: "#3EB1CB"}}/>
+                  </div>
                 </div>
 
                 <div className="percent">{percentage}<span>%</span></div>
