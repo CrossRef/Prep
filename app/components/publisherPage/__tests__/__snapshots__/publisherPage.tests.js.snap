@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mount snapshot 1`] = `
+<PublisherPage
+  match={
+    Object {
+      "params": Object {
+        "publisherName": "publisher name",
+      },
+    }
+  }
+>
+  <div
+    className="publisherPage"
+  >
+    <div
+      className="topStripe"
+    >
+      <div
+        className="widthContainer"
+      >
+        <div
+          className="topBar"
+        >
+          <div
+            className="button"
+          >
+            Find publisher
+          </div>
+          <div
+            className="button"
+          >
+            Learn more
+          </div>
+        </div>
+        <div
+          className="contentBox"
+        >
+          <div
+            className="leftBox"
+          >
+            <p
+              className="firstText"
+            >
+              Comprehensive metadata makes publications discoverable.
+            </p>
+            <p
+              className="blueText"
+            >
+              Make sure your content can be found.
+            </p>
+          </div>
+          <div
+            className="rightBox"
+          >
+            <div
+              className="publisherTitle"
+            >
+              publisher name
+            </div>
+            <div
+              className="totals"
+            >
+              <div
+                className="totalTooltip"
+              />
+              <p
+                className="totalNumber"
+              >
+                0
+              </p>
+              <p
+                className="totalText"
+              >
+                Total registered content items
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="checksSection"
+    >
+      Checks go here
+    </div>
+    <div
+      className="chartSection"
+    >
+      Chart goes here
+    </div>
+  </div>
+</PublisherPage>
+`;
