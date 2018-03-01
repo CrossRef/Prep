@@ -38,11 +38,11 @@ export default class ContentTypeFilter extends React.Component {
         {this.state.menuOpen &&
           <div className="filterList">
             {this.props.filters.map( filter =>
-              <div key={filter} className="filterButton" onClick={() => this.props.setFilter(filter)}>
+              <div key={filter} id={`${filter}_button`} className="filterButton" onClick={() => this.props.setFilter(filter)}>
                 <div className="checkmark">
 
                   {filter === this.props.currentFilter &&
-                  <img style={{width: "14px", height: "14px"}} src={`${deployConfig.baseUrl}/images/iconmonstr-check-mark-1.svg`}/>}
+                  <img id={`${filter}_checkmark`} style={{width: "14px", height: "14px"}} src={`${deployConfig.baseUrl}/images/iconmonstr-check-mark-1.svg`}/>}
 
                 </div>
 
