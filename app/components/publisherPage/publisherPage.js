@@ -4,6 +4,7 @@ import is from 'prop-types'
 import Totals from './components/totals'
 import {prettyKeys} from '../../utilities/helpers'
 import deployConfig from "../../../deployConfig"
+import ChecksSection from './components/checksSection'
 
 
 
@@ -21,14 +22,15 @@ export default class PublisherPage extends React.Component {
 
 
   state = {
-    totals: {}
+    totals: {},
+    coverage: {}
   }
 
 
   componentDidMount () {
     fetch(`https://apps.crossref.org/prep-staging/data?op=participation-summary&memberid=${this.props.match.params.memberId}`)
       .then( r => r.json())
-      .then( r => this.setState({totals: r.message.totals}))
+      .then( r => this.setState({totals: r.message.totals, coverage: r.message.Coverage[0]}))
       .catch(e=>{
         console.error(e)
       })
@@ -67,9 +69,7 @@ export default class PublisherPage extends React.Component {
           </div>
         </div>
 
-        <div className="checksSection">
-          Checks go here
-        </div>
+        <ChecksSection coverage={this.state.coverage}/>
 
         <div className="chartSection">
           Chart goes here
