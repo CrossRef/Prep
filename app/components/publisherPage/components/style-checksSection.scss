@@ -1,0 +1,147 @@
+@import '../../../style/variables';
+
+.checksSection {
+  margin-top: 32px;
+  margin-bottom: 48px;
+  background-color: white;
+  height: auto;
+  max-width: 960px;
+  width: 100%;
+
+  .titleBar {
+    height: 48px;
+    width: 100%;
+    background-color: #4F5757;
+    padding-left: 32px;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-family: $regularFont;
+    box-sizing: border-box;
+  }
+
+  .filters {
+    min-height: 101px;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 32px 45px 32px;
+    box-sizing: border-box;
+    align-items: flex-end;
+    position: relative;
+
+    .filter {
+      height: 40px;
+      min-width: 192px;
+      border: black solid 1px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      font-size: 13px;
+      font-family: $regularFont;
+    }
+
+    .publicationFilter {
+      width: 272px
+    }
+
+    .timeFilter {
+      position: absolute;
+      right: 32px;
+    }
+
+
+  } @media (max-width: 767px) {
+    .filters {
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 184px;
+      padding: 16px 0 0 0;
+      margin-bottom: 46px;
+
+
+      .publicationFilter {
+        width: 256px;
+      }
+
+      .timeFilter {
+        position: initial;
+        right: auto;
+        width: 256px;
+      }
+    }
+  }
+
+  .checksContainer {
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: -21px;
+
+    .check {
+      height: 91px;
+      width: 256px;
+      margin: 0 32px 69px 32px;
+
+      .title {
+        width: 100%;
+        height: 43px;
+        font-size: 19px;
+        font-family: $regularFont;
+        color: #4F5757;
+        display: flex;
+        align-items: center;
+      }
+
+      .barContainer {
+        height: 48px;
+        width: 100%;
+        padding: 8px;
+        background-color: #4F5757;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 3px;
+
+        .bar {
+          height: 16px;
+          width: 160px;
+          background-color: white;
+        }
+
+        .percent {
+          color: white;
+          font-family: $regularFont;
+          font-size: 28px;
+          display: flex;
+
+          span {
+            font-size: 18px;
+            display: flex;
+            justify-content: flex-start;
+            padding: 3px 0 0 3px
+          }
+        }
+      }
+    } @media (max-width: 960px)  {
+      .check {
+        margin: 0 48px 69px 48px;
+      }
+    } @media (max-width: 704px)  {
+      .check {
+        margin: 0 auto 69px auto;
+      }
+    }  @media (max-width: 600px)  {
+      .check {
+        margin: 0 25px 53px 25px;
+      }
+    }
+  }
+}
