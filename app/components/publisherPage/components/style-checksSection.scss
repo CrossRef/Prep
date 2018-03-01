@@ -114,6 +114,74 @@
           height: 16px;
           width: 160px;
           background-color: white;
+
+          .barWidth {
+            height: 100%;
+
+            .animateBounce {
+              visibility: hidden;
+              height: 100%;
+              animation-name: bounce;
+              animation-duration: 1s;
+              animation-delay: .3s;
+              animation-fill-mode: forwards;
+            }
+            @keyframes bounce {
+              from {
+                visibility: visible;
+                width: 0;
+                opacity: 0;
+                animation-timing-function: linear;
+              }
+
+              3% {
+                width: 0;
+                opacity: 0;
+                animation-timing-function: ease-in;
+              }
+
+              30% {
+                animation-timing-function: ease-out;
+                width: 100%;
+                opacity: 1;
+              }
+
+              50% {
+                animation-timing-function: ease-out;
+                width: 83%;
+                opacity: .83;
+              }
+
+              52% {
+                animation-timing-function: ease-in;
+                width: 80%;
+                opacity: .80;
+              }
+
+              73% {
+                animation-timing-function: ease-out;
+                width: 100%;
+                opacity: 1;
+              }
+
+              87% {
+                animation-timing-function: ease-in;
+                width: 96%;
+                opacity: .94;
+              }
+
+              91% {
+                width: 100%;
+                opacity: 1
+              }
+
+              to {
+                visibility: visible;
+                width: 100%;
+                opacity: 1;
+              }
+            }
+          }
         }
 
         .percent {
