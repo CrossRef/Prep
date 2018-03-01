@@ -48,7 +48,7 @@ describe('filter is set to new value', () => {
     instance.setFilter(newFilter)
     expect(setState.callCount).toBe(1)
     shallowComponent.update()
-    const checks = shallowComponent.find('.check')
+    const checks = shallowComponent.find('CheckBox')
     expect(checks.length).toBe(coverage[newFilter].length)
     expect(toJson(shallowComponent)).toMatchSnapshot()
   })
