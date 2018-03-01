@@ -1,0 +1,155 @@
+@import '../../style/variables';
+
+
+.publisherPage {
+  background-color: #F2F1F1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 32px;
+
+  .topStripe {
+    width: 100%;
+    height: 240px;
+    background-image: url("../images/PR_Banner_2.png");
+    display: flex;
+    justify-content: center;
+
+    .widthContainer {
+      max-width: 960px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+
+      .topBar {
+        height: 64px;
+        width: 100%;
+        background-color: #4F5757;
+        display: flex;
+
+        .button {
+          flex: 1;
+          height: 100%;
+          max-width: 240px;
+          color: white;
+          font-size: 18px;
+          font-family: $regularFont;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+        }
+      }
+
+      .contentBox {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: flex-end;
+
+        .leftBox {
+          flex: .715;
+          max-width: 400px;
+          min-width: 301px;
+          margin-top: 16px;
+          padding-left: 15px;
+
+          .firstText {
+            margin: 0;
+            font-size: 20px;
+            font-family: $regularFont;
+            color: #4F5757;
+          }
+
+          .blueText {
+            margin: 0 0 3px 0;
+            font-size: 20px;
+            font-family: $regularFont;
+            color: #3EB1CB;
+            font-weight: bold;
+            max-width: 266px
+          } @media(max-width: 875px) {
+            .blueText {
+              max-width: 560px;
+              line-height: 17px;
+            }
+          }
+
+        } @media(max-width: 875px) {
+          .leftBox {
+            max-width: 560px;
+            flex: 1;
+            flex-basis: 100%;
+          }
+        } @media(max-width: 600px) {
+          .leftBox {
+            display: none
+          }
+        }
+
+        .rightBox {
+          height: 128px;
+          flex: 1;
+          min-width: 560px;
+          max-width: 560px;
+          background-color: white;
+          display: flex;
+          margin-top: 10px;
+
+          .publisherTitle {
+            height: 100%;
+            width: 399px;
+            box-sizing: border-box;
+            padding: 11px 7px 10px 16px;
+            color: #4F5757;
+            font-size: 22px;
+            font-family: $regularFont;
+            display: flex;
+            align-items: center;
+          } @media(max-width: 600px) {
+            .publisherTitle {
+              max-width: 399px;
+              width: 100%
+            }
+          }
+
+        } @media(max-width: 600px) {
+          .rightBox {
+            min-width: auto;
+          }
+        }
+      }
+    }
+  } @media(max-width: 875px) {
+    .topStripe {
+      height: 272px;
+      background-position: 0 28px;
+    }
+  }
+
+  .checksSection {
+    margin-top: 32px;
+    margin-bottom: 48px;
+    background-color: white;
+    height: 768px;
+    max-width: 960px;
+    width: 100%;
+  }
+
+  .chartSection {
+    margin-bottom: 64px;
+    height: 464px;
+    background-color: white;
+    max-width: 960px;
+    width: 100%;
+  }
+
+} @media(max-width: 700px) {
+  .publisherPage {
+    margin-bottom: 96px;
+  }
+}
