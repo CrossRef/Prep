@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
+import 'whatwg-fetch'
 
 import deployConfig from '../deployConfig'
 import MainContainer from './components/mainContainer/mainContainer'
@@ -20,7 +21,7 @@ function renderApp () {
     <Router>
       <Switch>
         <MainContainer exact path={`${deployConfig.baseUrl}`} Component={LandingPage}/>
-        <MainContainer exact path={`${deployConfig.baseUrl}:publisherId`} Component={PublisherPage}/>
+        <MainContainer exact path={`${deployConfig.baseUrl}:publisherId/:memberId`} Component={PublisherPage}/>
         <Redirect to={`${deployConfig.baseUrl}`} />
       </Switch>
     </Router>

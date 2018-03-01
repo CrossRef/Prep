@@ -14,13 +14,11 @@ export default class LandingPage extends React.Component {
 
           <div className="searchContainer">
             <div className="searchTitle">
-              Find a Publisher
+              Find a member
               <p className="bannerText">How good is your metadata?</p>
             </div>
 
-            <div className="searchInputHolder">
-              <Search/>
-            </div>
+            <Search history={this.props.history}/>
           </div>
 
         </div>
@@ -28,7 +26,7 @@ export default class LandingPage extends React.Component {
         <div className="content">
 
           <div className="greyBar">
-            <img src={`${deployConfig.baseUrl}/images/light-bulb.svg`}/>
+            <img src={`${deployConfig.baseUrl}images/light-bulb.svg`}/>
             <div className="greyBarContent">
               <p className="smallText">Comprehensive metadata makes publications discoverable.</p>
               <p className="bigText">Make sure your content can be found.</p>

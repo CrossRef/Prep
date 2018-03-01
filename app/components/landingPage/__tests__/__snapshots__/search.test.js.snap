@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`focus input should show saved searches 1`] = `
+Array [
+  <div
+    className="searchItem"
+    key="0-0"
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+  >
+    saved search 21
+  </div>,
+  <div
+    className="searchItem"
+    key="1-0"
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+  >
+    saved search 22
+  </div>,
+  <div
+    className="searchItem"
+    key="2-0"
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+  >
+    saved search 23
+  </div>,
+  <div
+    className="searchItem"
+    key="3-0"
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+  >
+    saved search 24
+  </div>,
+  <div
+    className="searchItem"
+    key="4-0"
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+  >
+    saved search 25
+  </div>,
+]
+`;
+
+exports[`mount snapshot 1`] = `
+<Search
+  history={
+    Object {
+      "push": [Function],
+    }
+  }
+>
+  <Autocomplete
+    autoHighlight={true}
+    getItemValue={[Function]}
+    inputProps={Object {}}
+    isItemSelectable={[Function]}
+    items={
+      Array [
+        Object {
+          "id": 21,
+          "name": "saved search 21",
+        },
+        Object {
+          "id": 22,
+          "name": "saved search 22",
+        },
+        Object {
+          "id": 23,
+          "name": "saved search 23",
+        },
+        Object {
+          "id": 24,
+          "name": "saved search 24",
+        },
+        Object {
+          "id": 25,
+          "name": "saved search 25",
+        },
+      ]
+    }
+    menuStyle={
+      Object {
+        "background": "rgba(255, 255, 255, 0.9)",
+        "borderRadius": "3px",
+        "boxShadow": "0 2px 12px rgba(0, 0, 0, 0.1)",
+        "fontSize": "90%",
+        "maxHeight": "50%",
+        "overflow": "auto",
+        "padding": "2px 0",
+        "position": "fixed",
+      }
+    }
+    onChange={[Function]}
+    onMenuVisibilityChange={[Function]}
+    onSelect={[Function]}
+    renderInput={[Function]}
+    renderItem={[Function]}
+    renderMenu={[Function]}
+    selectOnBlur={false}
+    value=""
+    wrapperProps={
+      Object {
+        "className": "searchInputHolder",
+        "style": Object {},
+      }
+    }
+    wrapperStyle={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  >
+    <div
+      className="searchInputHolder"
+      style={Object {}}
+    >
+      <input
+        aria-autocomplete="list"
+        aria-expanded={false}
+        autoComplete="off"
+        className="searchInput "
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        placeholder="Search by member"
+        role="combobox"
+        value=""
+      />
+    </div>
+  </Autocomplete>
+</Search>
+`;
+
+exports[`searching items array should be filtered by typed input, not case sensitive 1`] = `
+Array [
+  <div
+    className="searchItem"
+    key="0-0"
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+  >
+    cambridge Core
+  </div>,
+  <div
+    className="searchItem"
+    key="1-0"
+    onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseEnter={null}
+    style={
+      Object {
+        "height": 0,
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }
+  >
+    cambridge University Press
+  </div>,
+]
+`;

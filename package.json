@@ -5,16 +5,21 @@
   "scripts": {
     "start": "brunch watch --server",
     "build": "brunch build -p",
-    "test": "jest",
-    "testupdate": "jest -u"
+    "test": "jest --no-cache --verbose",
+    "testupdate": "jest -u --no-cache --verbose",
+    "debugtest": "node --inspect-brk node_modules/.bin/jest --runInBand --no-cache"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
+    "react-autocomplete": "^1.8.0",
     "react-dom": "^16.2.0",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "react-virtualized": "^9.18.5",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "auto-reload-brunch": "^2.7.1",
@@ -32,5 +37,10 @@
     "jest": "^22.2.1",
     "sass-brunch": "^2.10.4",
     "sinon": "^4.2.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "<rootDir>/jest.transform.js"
+    }
   }
 }
