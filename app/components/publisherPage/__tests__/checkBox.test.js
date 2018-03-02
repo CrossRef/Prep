@@ -31,9 +31,7 @@ let openTooltip = undefined
 const setOpenTooltip = sandbox.stub().callsFake((name) => openTooltip = name)
 
 
-window.matchMedia = sandbox.stub().callsFake(() => ({
-  matches: window.innerWidth <= 639
-}))
+window.matchMedia = sandbox.stub().callsFake(() => ({matches: window.innerWidth <= 639}))
 sandbox.spy(window, 'addEventListener')
 sandbox.spy(window, 'removeEventListener')
 
@@ -50,19 +48,17 @@ const mountComponent = mount(<CheckBox item={item} openTooltip={openTooltip} set
 
 test('mount snapshot', () => {
   expect(didMount.callCount).toBe(1)
-  //expect(toJson(mountComponent)).toMatchSnapshot()
+  expect(toJson(mountComponent)).toMatchSnapshot()
 })
 
 
 describe('componentDidMount', () => {
   test('should update tooltip positioning and add event listener', () => {
     expect(updatePosition.callCount).toBe(1)
-    expect(
-      !!window.addEventListener.args.find(([event, func]) => {
-        return event === 'resize' && func === mountComponent.instance().debouncedUpdate
-      })
-    ).toBe(true)
+    expect(window.addEventListener.calledWith('resize', mountComponent.instance().debouncedUpdate)).toBe(true)
   })
+
+
 })
 
 
@@ -119,7 +115,7 @@ describe('non mobile', () => {
   })
 
   test('clicking on tooltip icon should do nothing', () => {
-    expect(mountComponent.find('.icon').prop('onClick')).toBe(null)
+    expect(mountComponent.find('.hoverIcon').prop('onClick')).toBe(null)
   })
 
   test('changing openTooltip prop should not show tooltip', () => {
@@ -127,31 +123,50 @@ describe('non mobile', () => {
     mountComponent.update()
     expect(mountComponent.find('.mobileTooltipOpen').length).toBe(0)
     expect(mountComponent.find('.mobileTooltip').length).toBe(0)
+    mountComponent.setProps({openTooltip: undefined})
+    mountComponent.update()
   })
 })
 
 
 describe('on mobile', () => {
   test('tooltip has special mobile styling', () => {
-
+    xPosition = 20
+    window.innerWidth = 320
+    mountComponent.unmount()
+    mountComponent.mount()
+    expect(mountComponent.find('.mobileTooltip').length).toBe(1)
   })
 
   test('clicking icon should fire "setOpenTooltip" with name param', () => {
-
+    sandbox.resetHistory()
+    mountComponent.find('.hoverIcon').prop('onClick')()
+    expect(setOpenTooltip.calledWith(item.name)).toBe(true)
   })
 
-  test('clicking close icon should fire "setOpenTooltip" with undefined param', () => {
-
+  test('setting tooltipOpen prop to item name should give class mobileTooltipOpen', () => {
+    expect(mountComponent.find('.mobileTooltipOpen').length).toBe(0)
+    mountComponent.setProps({openTooltip: item.name})
+    mountComponent.update()
+    expect(mountComponent.find('.mobileTooltipOpen').length).toBe(1)
   })
 
-  test('openItem prop should determine tooltip visibility', () => {
-
+  test('clicking close icon should fire "setOpenTooltip" with undefined param and remove mobileTooltipOpen class', () => {
+    mountComponent.find('.tooltipCloseButton').prop('onClick')()
+    expect(setOpenTooltip.calledWith(undefined)).toBe(true)
+    mountComponent.setProps({openTooltip: undefined})
+    mountComponent.update()
+    expect(mountComponent.find('.mobileTooltipOpen').length).toBe(0)
   })
 })
 
 
 describe('componentWillUnmount', () => {
   test('should remove event listener', () => {
+    sandbox.resetHistory()
+    const debouncedUpdate = mountComponent.instance().debouncedUpdate
+    mountComponent.unmount()
+    expect(window.removeEventListener.calledWith('resize', debouncedUpdate)).toBe(true)
 
   })
 })

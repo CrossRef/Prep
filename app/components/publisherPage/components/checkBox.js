@@ -79,15 +79,13 @@ export default class CheckBox extends React.Component {
         <div className="title">
           {name}
           <div className="tooltipIconContainer">
-            <div className="hoverArea">
+            <div className="hoverArea" ref={ node => this.icon = node }>
 
               {!mobileTooltipOpen &&
-              <img
-                className="icon"
-                onClick={mobile ? () => this.props.setOpenTooltip(name) : null}
-                ref={ node => this.icon = node }
-                style={{width: '22px', height: '22px'}}
-                src={`${deployConfig.baseUrl}/images/Asset_Icons_Grey_Help.png`}/>}
+                <img
+                  className="icon"
+                  style={{width: '22px', height: '22px'}}
+                  src={`${deployConfig.baseUrl}/images/Asset_Icons_Grey_Help.png`}/>}
 
               <img
                 className="hoverIcon"
@@ -114,6 +112,7 @@ export default class CheckBox extends React.Component {
 
                 {mobile &&
                   <img
+                    className="tooltipCloseButton"
                     style={{
                       position: 'absolute',
                       top: 6,

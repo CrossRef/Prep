@@ -25,7 +25,7 @@ const coverage = {
 
 //Mocks
 const sandbox = sinon.sandbox.create()
-const setState = sandbox.spy(ChecksSection.prototype, 'setState')
+let setState = sandbox.spy(ChecksSection.prototype, 'setState')
 
 
 
@@ -39,11 +39,43 @@ test('shallow snapshot', () => {
 })
 
 
+describe('setOpenTooltip', () => {
+  const openTooltip = 'Abstracts'
+
+  test('should call setState with openTooltip and set CheckBox prop', () => {
+    sandbox.resetHistory()
+    setState.restore()
+
+    const instance = shallowComponent.instance()
+
+    const checkSetStateReturn = sandbox.stub()
+    setState = sandbox.stub(instance, 'setState').callsFake( (newState) => {
+      if(typeof newState === 'function') {
+        const prevState = instance.state
+        checkSetStateReturn(newState(prevState))
+      } else {
+        checkSetStateReturn(newState)
+      }
+    })
+
+    instance.setOpenTooltip(openTooltip)
+    expect(setState.callCount).toBe(1)
+    expect(checkSetStateReturn.calledWithMatch({openTooltip})).toBe(true)
+    setState.restore()
+    setState = sandbox.spy(instance, 'setState')
+
+    shallowComponent.setState({openTooltip})
+    shallowComponent.update()
+    expect(shallowComponent.find('CheckBox').first().prop('openTooltip')).toBe(openTooltip)
+  })
+})
+
+
 describe('filter is set to new value', () => {
   let newFilter = 'books'
 
-
   test('new checks are rendered', () => {
+    sandbox.resetHistory()
     const instance = shallowComponent.instance()
     instance.setFilter(newFilter)
     expect(setState.callCount).toBe(1)
