@@ -26,6 +26,7 @@
         .hoverArea {
           position: relative;
           height: 22px;
+          width: 22px;
 
           img {
             cursor: pointer;
@@ -38,14 +39,14 @@
             position: absolute;
             height: 352px;
             width: 343px;
-            left: -10px;
+            left: 12px;
             top: -165px;
             visibility: hidden;
             cursor: auto;
           }
 
           .tooltipHoverAreaLeft {
-            left: -354px
+            left: -332px
           }
 
           .tooltipContentContainer {
@@ -54,7 +55,7 @@
             background-color: #4F5757;
             height: 352px;
             width: 328px;
-            left: 4px;
+            left: 26px;
             top: -165px;
             color: white;
             font-size: 12px;
@@ -71,13 +72,13 @@
           }
 
           .tooltipContentContainerLeft {
-            left: -354px
+            left: -332px
           }
 
           .mobileTooltip {
             top: 26px;
             width: 288px;
-            left: -268px;
+            left: -246px;
             pointer-events: auto;
           }
 
@@ -86,6 +87,14 @@
             visibility: visible;
           }
 
+        }
+        .hoverArea:hover {
+          .hoverIcon {
+            display: inline !important
+          }
+          .icon {
+            display: none
+          }
         }
         @media(min-width: 640px) {
           .hoverArea:hover {
