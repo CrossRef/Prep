@@ -119,11 +119,11 @@ describe('non mobile', () => {
   })
 
   test('clicking on tooltip icon should do nothing', () => {
-    expect(mountComponent.find('.hoverArea img').prop('onClick')).toBe(null)
+    expect(mountComponent.find('.icon').prop('onClick')).toBe(null)
   })
 
   test('changing openTooltip prop should not show tooltip', () => {
-    mountComponent.setProps({openTooltip: 'Abstracts'})
+    mountComponent.setProps({openTooltip: item.name})
     mountComponent.update()
     expect(mountComponent.find('.mobileTooltipOpen').length).toBe(0)
     expect(mountComponent.find('.mobileTooltip').length).toBe(0)
