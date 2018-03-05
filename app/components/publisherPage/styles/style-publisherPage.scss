@@ -1,4 +1,5 @@
 @import '../../../style/variables';
+@import '../../../style/commonStyles';
 
 
 .publisherPage {
@@ -10,46 +11,12 @@
   margin-bottom: 32px;
 
   .topStripe {
-    width: 100%;
-    height: 240px;
+    @extend %topStripe;
     background-image: url("../images/PR_Banner_2.png");
-    display: flex;
-    justify-content: center;
 
     .widthContainer {
-      max-width: 960px;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-
-
-      .topBar {
-        height: 64px;
-        width: 100%;
-        background-color: #4F5757;
-        display: flex;
-
-        .button {
-          flex: 1;
-          height: 100%;
-          max-width: 240px;
-          color: white;
-          font-size: 18px;
-          font-family: $regularFont;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-        }
-      }
 
       .contentBox {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        align-items: flex-end;
 
         .leftBox {
           flex: .715;
