@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mount snapshot 1`] = `
+<CheckBox
+  item={
+    Object {
+      "info": "tooltip text",
+      "name": "Abstracts",
+      "percentage": 39,
+    }
+  }
+  setOpenTooltip={[Function]}
+>
+  <div
+    className="check"
+  >
+    <div
+      className="title"
+    >
+      Abstracts
+      <div
+        className="tooltipIconContainer"
+      >
+        <div
+          className="hoverArea"
+        >
+          <img
+            className="icon"
+            src="/participationreports//images/Asset_Icons_Grey_Help.png"
+            style={
+              Object {
+                "height": "22px",
+                "width": "22px",
+              }
+            }
+          />
+          <img
+            className="hoverIcon"
+            onClick={null}
+            src="/participationreports//images/Asset_Icons_LightGrey_Help.svg"
+            style={
+              Object {
+                "display": "none",
+                "height": "22px",
+                "width": "22px",
+              }
+            }
+          />
+          <div
+            className="tooltipHoverArea "
+          />
+          <div
+            className="tooltipContentContainer   "
+          >
+            <p>
+              tooltip text
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="barContainer"
+    >
+      <div
+        className="bar"
+      >
+        <div
+          className="barWidth"
+          style={
+            Object {
+              "width": "39%",
+            }
+          }
+        >
+          <div
+            className="animateBounce"
+            style={
+              Object {
+                "backgroundColor": "#3EB1CB",
+              }
+            }
+          />
+        </div>
+      </div>
+      <div
+        className="percent"
+      >
+        39
+        <span>
+          %
+        </span>
+      </div>
+    </div>
+  </div>
+</CheckBox>
+`;

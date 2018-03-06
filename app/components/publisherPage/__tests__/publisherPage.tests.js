@@ -5,6 +5,7 @@ import sinon from 'sinon'
 
 
 import PublisherPage from '../publisherPage'
+jest.mock('../components/checksSection', () => 'CheckSection')
 
 
 
@@ -21,7 +22,18 @@ const participationSummary = {
         "posted-content": 0,
         "standards": 0
     },
-    "Coverage": []
+    "Coverage": [{
+      'journal-articles': [
+        {name: 'ja item 1', percentage: 15, info: 'some tooltip info'},
+        {name: 'ja item 2', percentage: 25, info: 'some tooltip info'},
+      ],
+
+      'books': [
+        {name: 'books item 1', percentage: 15, info: 'some tooltip info'},
+        {name: 'books item 2', percentage: 25, info: 'some tooltip info'},
+        {name: 'books item 2', percentage: 25, info: 'some tooltip info'},
+      ]
+    }]
   }
 }
 
@@ -53,7 +65,7 @@ test('mount snapshot', () => {
 describe('componentDidMount', () => {
   test('should get totals from api', () => {
     expect(global.fetch.callCount).toBe(1)
-    expect(setState.args[0][0]).toEqual({totals: participationSummary.message.totals})
+    expect(setState.args[0][0]).toEqual({totals: participationSummary.message.totals, coverage: participationSummary.message.Coverage[0]})
     expect(mountComponent.state('totals')).toEqual(participationSummary.message.totals)
   })
 })

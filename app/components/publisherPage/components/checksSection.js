@@ -1,6 +1,7 @@
 import React from 'react'
 import is from 'prop-types'
 
+import CheckBox from "./checkBox"
 import ContentTypeFilter from "./contentTypeFilter"
 import {prettyKeys} from '../../../utilities/helpers'
 
@@ -18,7 +19,13 @@ export default class ChecksSection extends React.Component {
 
 
   state = {
+    openTooltip: undefined,
     filter: 'journal-articles'
+  }
+
+
+  setOpenTooltip = (selection) => {
+    this.setState( prevState => prevState.openTooltip === selection ? null : {openTooltip: selection})
   }
 
 
@@ -68,20 +75,12 @@ export default class ChecksSection extends React.Component {
 
         <div className="checksContainer">
 
-          {(this.props.coverage[this.state.filter] || []).map(({name, percentage, info}) =>
-            <div className="check" key={name}>
-              <div className="title">{name}</div>
-
-              <div className="barContainer">
-                <div className="bar">
-                  <div className="barWidth" style={{width: `${percentage}%`}}>
-                    <div className="animateBounce" style={{backgroundColor: "#3EB1CB"}}/>
-                  </div>
-                </div>
-
-                <div className="percent">{percentage}<span>%</span></div>
-              </div>
-            </div>
+          {(this.props.coverage[this.state.filter] || []).map( item =>
+            <CheckBox
+              key={item.name}
+              item={item}
+              openTooltip={this.state.openTooltip}
+              setOpenTooltip={this.setOpenTooltip}/>
           )}
 
         </div>

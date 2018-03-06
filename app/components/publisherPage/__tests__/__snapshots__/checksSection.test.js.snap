@@ -37,135 +37,42 @@ exports[`filter is set to new value new checks are rendered 1`] = `
   <div
     className="checksContainer"
   >
-    <div
-      className="check"
+    <CheckBox
+      item={
+        Object {
+          "info": "some tooltip info",
+          "name": "books item 1",
+          "percentage": 15,
+        }
+      }
       key="books item 1"
-    >
-      <div
-        className="title"
-      >
-        books item 1
-      </div>
-      <div
-        className="barContainer"
-      >
-        <div
-          className="bar"
-        >
-          <div
-            className="barWidth"
-            style={
-              Object {
-                "width": "15%",
-              }
-            }
-          >
-            <div
-              className="animateBounce"
-              style={
-                Object {
-                  "backgroundColor": "#3EB1CB",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="percent"
-        >
-          15
-          <span>
-            %
-          </span>
-        </div>
-      </div>
-    </div>
-    <div
-      className="check"
+      openTooltip="Abstracts"
+      setOpenTooltip={[Function]}
+    />
+    <CheckBox
+      item={
+        Object {
+          "info": "some tooltip info",
+          "name": "books item 2",
+          "percentage": 25,
+        }
+      }
       key="books item 2"
-    >
-      <div
-        className="title"
-      >
-        books item 2
-      </div>
-      <div
-        className="barContainer"
-      >
-        <div
-          className="bar"
-        >
-          <div
-            className="barWidth"
-            style={
-              Object {
-                "width": "25%",
-              }
-            }
-          >
-            <div
-              className="animateBounce"
-              style={
-                Object {
-                  "backgroundColor": "#3EB1CB",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="percent"
-        >
-          25
-          <span>
-            %
-          </span>
-        </div>
-      </div>
-    </div>
-    <div
-      className="check"
+      openTooltip="Abstracts"
+      setOpenTooltip={[Function]}
+    />
+    <CheckBox
+      item={
+        Object {
+          "info": "some tooltip info",
+          "name": "books item 2",
+          "percentage": 25,
+        }
+      }
       key="books item 2"
-    >
-      <div
-        className="title"
-      >
-        books item 2
-      </div>
-      <div
-        className="barContainer"
-      >
-        <div
-          className="bar"
-        >
-          <div
-            className="barWidth"
-            style={
-              Object {
-                "width": "25%",
-              }
-            }
-          >
-            <div
-              className="animateBounce"
-              style={
-                Object {
-                  "backgroundColor": "#3EB1CB",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="percent"
-        >
-          25
-          <span>
-            %
-          </span>
-        </div>
-      </div>
-    </div>
+      openTooltip="Abstracts"
+      setOpenTooltip={[Function]}
+    />
   </div>
 </div>
 `;
@@ -207,92 +114,28 @@ exports[`shallow snapshot 1`] = `
   <div
     className="checksContainer"
   >
-    <div
-      className="check"
+    <CheckBox
+      item={
+        Object {
+          "info": "some tooltip info",
+          "name": "ja item 1",
+          "percentage": 15,
+        }
+      }
       key="ja item 1"
-    >
-      <div
-        className="title"
-      >
-        ja item 1
-      </div>
-      <div
-        className="barContainer"
-      >
-        <div
-          className="bar"
-        >
-          <div
-            className="barWidth"
-            style={
-              Object {
-                "width": "15%",
-              }
-            }
-          >
-            <div
-              className="animateBounce"
-              style={
-                Object {
-                  "backgroundColor": "#3EB1CB",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="percent"
-        >
-          15
-          <span>
-            %
-          </span>
-        </div>
-      </div>
-    </div>
-    <div
-      className="check"
+      setOpenTooltip={[Function]}
+    />
+    <CheckBox
+      item={
+        Object {
+          "info": "some tooltip info",
+          "name": "ja item 2",
+          "percentage": 25,
+        }
+      }
       key="ja item 2"
-    >
-      <div
-        className="title"
-      >
-        ja item 2
-      </div>
-      <div
-        className="barContainer"
-      >
-        <div
-          className="bar"
-        >
-          <div
-            className="barWidth"
-            style={
-              Object {
-                "width": "25%",
-              }
-            }
-          >
-            <div
-              className="animateBounce"
-              style={
-                Object {
-                  "backgroundColor": "#3EB1CB",
-                }
-              }
-            />
-          </div>
-        </div>
-        <div
-          className="percent"
-        >
-          25
-          <span>
-            %
-          </span>
-        </div>
-      </div>
-    </div>
+      setOpenTooltip={[Function]}
+    />
   </div>
 </div>
 `;
