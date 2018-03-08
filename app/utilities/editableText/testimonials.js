@@ -13,7 +13,7 @@ export default {
 
     <p className="testimonialAuthor">
 
-      {`Laura Knight from SciMed Pub`}
+      {`Laura Knight, SciMed Pub`}
 
     </p>
   </Fragment>,
@@ -28,7 +28,7 @@ export default {
 
     <p className="testimonialAuthor">
 
-      {`Seth Jones from HyperNitro Pub`}
+      {`Seth Jones, HyperNitro Pub`}
 
     </p>
   </Fragment>,
@@ -43,7 +43,7 @@ export default {
 
     <pre className="testimonialAuthor">
 
-      {`Jimmy Bone\nfrom Ultra LightSpeed Publications`}
+      {`Jimmy Bone\n,Ultra LightSpeed Publications`}
 
     </pre>
   </Fragment>
