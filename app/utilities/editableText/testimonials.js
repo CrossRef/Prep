@@ -7,7 +7,7 @@ export default {
   testimonial1: <Fragment>
     <p className="testimonialBody">
 
-      {`“Our team deposit a lot of metadata. With metadata Reports we now have a central dashboard for viewing all our depositing activity.“`}
+      {`“Our team deposit a lot of metadata. With Participation Reports we now have a central dashboard for viewing all our activity.“`}
 
     </p>
 
