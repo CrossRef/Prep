@@ -22,7 +22,7 @@ export default {
   testimonial2: <Fragment>
     <p className="testimonialBody">
 
-      {`“Metadata Reports meets our needs perfectly. For visualising and sharing metadata activity to all our organisation.”`}
+      {`“Your butt needs more metadata.”`}
 
     </p>
 
