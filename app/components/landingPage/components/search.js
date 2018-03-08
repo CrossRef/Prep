@@ -44,8 +44,8 @@ export default class Search extends React.Component {
       .then( r => {
         this.fuseSearchEngine = new Fuse(r.message, {
           keys: ['name'],
-          shouldSort: false,
-          threshold: 0.6
+          shouldSort: true,
+          threshold: 0.4
         })
         this.setState({data: r.message})
       })
