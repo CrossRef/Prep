@@ -43,7 +43,7 @@ export default {
 
     <pre className="testimonialAuthor">
 
-      {`Jimmy Bone\n,Ultra LightSpeed Publications`}
+      {`Jimmy Bone,\nUltra LightSpeed Publications`}
 
     </pre>
   </Fragment>
