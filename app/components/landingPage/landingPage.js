@@ -2,6 +2,7 @@ import React from 'react'
 
 import deployConfig from '../../../deployConfig'
 import Search from './components/search'
+import headlineText from '../../utilities/editableText/headlineText'
 
 
 
@@ -28,8 +29,8 @@ export default class LandingPage extends React.Component {
           <div className="greyBar">
             <img src={`${deployConfig.baseUrl}images/light-bulb.svg`}/>
             <div className="greyBarContent">
-              <p className="smallText">Comprehensive metadata makes publications discoverable.</p>
-              <p className="bigText">Make sure your content can be found.</p>
+              <p className="smallText">{headlineText.smallText}</p>
+              <p className="bigText">{headlineText.bigText}</p>
               <div className="button">Learn More</div>
             </div>
 
