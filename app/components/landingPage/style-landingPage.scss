@@ -8,7 +8,7 @@
   align-items: center;
 
   .topStripe {
-    background-image: url("../images/PR_Banner_1.png");
+    background-image: url("images/PR_Banner_1.png");
     height: 368px;
     width: 100%;
     display: flex;
@@ -63,7 +63,7 @@
           font-size: 13px;
           font-family: $regularFont;
 
-          background: url("../images/Asset_Icons_lightgrey_Search.svg") no-repeat white;
+          background: url("images/Asset_Icons_lightgrey_Search.svg") no-repeat white;
           background-size: 27px 27px;
           background-position: 15px 60%;
         } .searchInput::placeholder {
