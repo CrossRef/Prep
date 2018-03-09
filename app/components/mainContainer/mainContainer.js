@@ -16,7 +16,7 @@ export default class MainContainer extends React.Component {
 
           <div className="header">
             <div className="widthContainer">
-              <img style={{width: '140px', marginTop: '15px'}}
+              <img style={{width: '140px', marginTop: '15px', cursor: 'pointer'}} onClick={()=>routeProps.history.push(`${deployConfig.baseUrl}`)}
                    src={`${deployConfig.baseUrl}/images/crossref-preport-logo-200-BETA.svg`}/>
               <img style={{width: '96px', marginTop: '15px'}}
                    src={`${deployConfig.baseUrl}/images/Crossref_Logo_Stacked_RGB.svg`}/>
