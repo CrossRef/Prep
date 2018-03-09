@@ -3,7 +3,7 @@ import is from 'prop-types'
 import Autocomplete from 'react-autocomplete'
 import { List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 
-import deployConfig from '../../../../deployConfig'
+import deployConfig from '../../../deployConfig'
 
 
 
@@ -11,13 +11,16 @@ import deployConfig from '../../../../deployConfig'
 export default class Search extends React.Component {
 
   static propTypes = {
-    history: is.shape({
-      push: is.func.isRequired
-    }).isRequired
+    searchData: is.array.isRequired,
+    savedSearches: is.array,
+    placeHolder: is.string.isRequired,
+    onSelect: is.func.isRequired,
+    listWidth: is.number,
+    notFound: is.string
   }
 
 
-  constructor () {
+  constructor (props) {
     super()
 
     this.cellHeightCache = new CellMeasurerCache({defaultHeight: 42, fixedWidth: true})
@@ -26,54 +29,13 @@ export default class Search extends React.Component {
       focused: false,
       searchingFor: '',
       data: [],
-      savedSearches: undefined
+      savedSearches: props.savedSearches
     }
   }
 
 
-  componentDidMount () {
-    const savedSearches = localStorage.getItem('savedSearches')
-    if(savedSearches) {
-      this.setState({savedSearches: JSON.parse(savedSearches)})
-    }
-    fetch('https://apps.crossref.org/prep-staging/data?op=members')
-      .then( r => r.json())
-      .then( r => this.setState({data: r.message}))
-      .catch(e=>{
-        console.error(e)
-      })
-  }
-
-
-  onSelect = (value, selection) => {
-    let savedSearches = JSON.parse(localStorage.getItem('savedSearches'))
-
-    if(!savedSearches) {
-      savedSearches = [selection]
-
-    } else {
-      let savedIndex
-      const alreadySaved = savedSearches.some( (savedItem, i) => {
-        if(savedItem.id === selection.id && savedItem.name === selection.name) {
-          savedIndex = i
-          return true
-        }
-      })
-
-      if(alreadySaved) {
-        savedSearches.splice(savedIndex, 1)
-        savedSearches.unshift(selection)
-
-      } else {
-        if(savedSearches.length === 6) {
-          savedSearches.pop()
-        }
-        savedSearches.unshift(selection)
-      }
-    }
-
-    localStorage.setItem('savedSearches', JSON.stringify(savedSearches))
-    this.props.history.push(`${deployConfig.baseUrl}${encodeURIComponent(selection.name)}/${selection.id}`)
+  componentWillReceiveProps (nextProps) {
+    this.setState({data: nextProps.searchData})
   }
 
 
@@ -90,7 +52,7 @@ export default class Search extends React.Component {
           props.onBlur()
           this.setState({focused: false})
         }}
-        placeholder={`${this.state.focused ? '' : 'Search by member'}`}/>
+        placeholder={`${this.state.focused ? '' : this.props.placeHolder}`}/>
     )
   }
 
@@ -130,18 +92,11 @@ export default class Search extends React.Component {
         height={207}
         rowCount={items.length}
         rowRenderer={rowRenderer}
-        width={Math.ceil(autocompleteStyle.minWidth) + 2 || 0}
+        width={this.props.listWidth || Math.ceil(autocompleteStyle.minWidth) + 2 || 0}
         scrollToIndex={0}
         style={{
           position: 'absolute',
-          top: '48px',
-          right: '-1px',
-          backgroundColor: 'white',
-          border: "1px solid black",
-          paddingTop: '10px',
           height: 'auto',
-          maxHeight: '207px',
-          outline: 'none',
           display: (this.state.searchingFor && items.length) || (!this.state.searchingFor && this.state.savedSearches) ? 'initial' : 'none',
         }}
       />
@@ -159,7 +114,7 @@ export default class Search extends React.Component {
       } else {
         data = this.state.data.filter( item => item.name && item.name.toLowerCase().includes(this.state.searchingFor.toLowerCase()))
         if(!data.length) {
-          data = []
+          data = this.props.notFound ? [{name: this.props.notFound}] : []
         }
       }
     }
@@ -174,7 +129,7 @@ export default class Search extends React.Component {
 
         value={this.state.searchingFor}
         onChange={(e, value)=> this.setState({searchingFor: value})}
-        onSelect={this.onSelect}
+        onSelect={this.props.onSelect}
 
         renderMenu={this.renderMenu}
 

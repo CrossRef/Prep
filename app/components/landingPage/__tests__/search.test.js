@@ -4,7 +4,7 @@ import toJson from 'enzyme-to-json';
 import sinon from 'sinon'
 
 import deployConfig from '../../../../deployConfig'
-import Search from '../components/search'
+import Search from '../../common/search'
 
 
 //Dummy Data

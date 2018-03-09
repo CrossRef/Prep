@@ -4,6 +4,7 @@ import is from 'prop-types'
 import CheckBox from "./checkBox"
 import ContentTypeFilter from "./contentTypeFilter"
 import {prettyKeys} from '../../../utilities/helpers'
+import Search from "../../common/search"
 
 
 
@@ -14,13 +15,22 @@ import {prettyKeys} from '../../../utilities/helpers'
 export default class ChecksSection extends React.Component {
 
   static propTypes = {
-    coverage: is.object.isRequired
+    coverage: is.object.isRequired,
+    memberId: is.string.isRequired
   }
 
 
   state = {
     openTooltip: undefined,
-    filter: 'journal-articles'
+    filter: 'journal-articles',
+    titleFilter: undefined,
+    titleSearchData: [],
+    titleChecksData: undefined,
+  }
+
+
+  componentDidMount () {
+    this.getSearchData()
   }
 
 
@@ -31,6 +41,22 @@ export default class ChecksSection extends React.Component {
 
   setFilter = (filter) => {
     this.setState({filter})
+    this.getSearchData(filter)
+  }
+
+
+  getSearchData = (filter = this.state.filter) => {
+    const translateFilter = {
+      'journal-articles': 'Journal',
+      'books': 'books'
+    }
+
+    return fetch(`https://apps.crossref.org/prep-staging/data?op=publications&memberid=${this.props.memberId}&contenttype=${translateFilter[filter]}`)
+      .then( r => r.json())
+      .then( r => this.setState({titleSearchData: r.message}))
+      .catch(e=>{
+        console.error(e)
+      })
   }
 
 
@@ -52,6 +78,8 @@ export default class ChecksSection extends React.Component {
     ]
 
 
+    const mobile = window.matchMedia("(max-width: 639px)").matches
+
 
     return (
       <div className="checksSection">
@@ -68,7 +96,14 @@ export default class ChecksSection extends React.Component {
             setFilter={this.setFilter}
           />
 
-          <div className="filter publicationFilter">Publication Filter</div>
+          <div className="filter publicationFilter">
+            <Search
+              searchData={this.state.titleSearchData}
+              placeHolder="Search by Title"
+              onSelect={()=>{}}
+              listWidth={mobile ? 256 : 456}
+              notFound="Not found in this content type"/>
+          </div>
           <div className="filter timeFilter">Last 12 months</div>
         </div>
 
