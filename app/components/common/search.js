@@ -28,7 +28,7 @@ export default class Search extends React.Component {
     this.state = {
       focused: false,
       searchingFor: '',
-      data: [],
+      data: Array.isArray(props.searchData) ? props.searchData : [],
       savedSearches: props.savedSearches
     }
   }
@@ -58,7 +58,7 @@ export default class Search extends React.Component {
 
 
   renderItem = (item) => {
-    return <div className='searchItem'>{item.name}</div>
+    return <div className={`searchItem ${item.notFound ? 'unclickable' : ''}`}>{item.name}</div>
   }
 
 
@@ -114,7 +114,7 @@ export default class Search extends React.Component {
       } else {
         data = this.state.data.filter( item => item.name && item.name.toLowerCase().includes(this.state.searchingFor.toLowerCase()))
         if(!data.length) {
-          data = this.props.notFound ? [{name: this.props.notFound}] : []
+          data = this.props.notFound ? [{name: this.props.notFound, notFound: true}] : []
         }
       }
     }

@@ -65,5 +65,9 @@
     .searchItem:hover {
       background-color: #E5E5E5;
     }
+
+    .unclickable {
+      pointer-events: none;
+    }
   }
 }

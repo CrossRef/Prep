@@ -45,7 +45,20 @@
     }
 
     .publicationFilter {
-      width: 272px
+      width: 272px;
+    }
+
+    .titleFilterActive {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 13px 0 16px;
+      border-radius: 4px;
+
+      .titleFilterX {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
     }
 
     .timeFilter {
