@@ -77,7 +77,7 @@ export default class LandingPage extends React.Component {
         <div className="content">
 
           <div className="greyBar">
-            <img src={`${deployConfig.baseUrl}images/light-bulb.svg`}/>
+            <img src={`${deployConfig.baseUrl}assets/images/light-bulb.svg`}/>
             <div className="greyBarContent">
               <p className="smallText">Comprehensive metadata makes publications discoverable.</p>
               <p className="bigText">Make sure your content can be found.</p>

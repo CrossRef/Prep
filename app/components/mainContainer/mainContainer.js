@@ -17,9 +17,9 @@ export default class MainContainer extends React.Component {
           <div className="header">
             <div className="widthContainer">
               <img style={{width: '140px', marginTop: '15px'}}
-                   src={`${deployConfig.baseUrl}/images/crossref-preport-logo-200-BETA.svg`}/>
+                   src={`${deployConfig.baseUrl}assets/images/crossref-preport-logo-200-BETA.svg`}/>
               <img style={{width: '96px', marginTop: '15px'}}
-                   src={`${deployConfig.baseUrl}/images/Crossref_Logo_Stacked_RGB.svg`}/>
+                   src={`${deployConfig.baseUrl}assets/images/Crossref_Logo_Stacked_RGB.svg`}/>
             </div>
           </div>
 
