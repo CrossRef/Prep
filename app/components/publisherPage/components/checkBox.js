@@ -85,12 +85,12 @@ export default class CheckBox extends React.Component {
                 <img
                   className="icon"
                   style={{width: '22px', height: '22px'}}
-                  src={`${deployConfig.baseUrl}/images/Asset_Icons_Grey_Help.png`}/>}
+                  src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Help.png`}/>}
 
               <img
                 className="hoverIcon"
                 style={{width: '22px', height: '22px', display: mobileTooltipOpen ? 'inline' : 'none'}}
-                src={`${deployConfig.baseUrl}/images/Asset_Icons_LightGrey_Help.svg`}
+                src={`${deployConfig.baseUrl}assets/images/Asset_Icons_LightGrey_Help.svg`}
                 onClick={mobile ? () => this.props.setOpenTooltip(name) : null}/>
 
 
@@ -121,7 +121,7 @@ export default class CheckBox extends React.Component {
                       width:20,
                       cursor: 'pointer'
                     }}
-                    src={`${deployConfig.baseUrl}/images/Asset_Icons_White_Close.svg`}
+                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_White_Close.svg`}
                     onClick={() => this.props.setOpenTooltip(undefined)}/>
                 }
               </div>

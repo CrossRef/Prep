@@ -33,7 +33,7 @@ export default class ContentTypeFilter extends React.Component {
       >
 
         Content Type
-        <img style={{width: "20px", height: "20px", marginTop: "-2px"}} src={`${deployConfig.baseUrl}/images/Asset_Icons_Grey_Chevron.png`}/>
+        <img style={{width: "20px", height: "20px", marginTop: "-2px"}} src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Chevron.png`}/>
 
         {this.state.menuOpen &&
           <div className="filterList">
@@ -42,7 +42,7 @@ export default class ContentTypeFilter extends React.Component {
                 <div className="checkmark">
 
                   {filter === this.props.currentFilter &&
-                  <img id={`${filter}_checkmark`} style={{width: "14px", height: "14px"}} src={`${deployConfig.baseUrl}/images/iconmonstr-check-mark-1.svg`}/>}
+                  <img id={`${filter}_checkmark`} style={{width: "14px", height: "14px"}} src={`${deployConfig.baseUrl}assets/images/iconmonstr-check-mark-1.svg`}/>}
 
                 </div>
 
