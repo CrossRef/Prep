@@ -20,7 +20,7 @@ export default class ChecksSection extends React.Component {
 
   state = {
     openTooltip: undefined,
-    filter: 'journal-articles'
+    filter: 'Journal Article'
   }
 
 
@@ -35,23 +35,6 @@ export default class ChecksSection extends React.Component {
 
 
   render () {
-    //TODO: Dummy data just to see filter working, need to remove once real data is available
-    this.props.coverage.reports = [
-      {name: 'Reports item 1', percentage: 15, info: 'some tooltip info'},
-      {name: 'Reports item 2', percentage: 25, info: 'some tooltip info'},
-      {name: 'Reports item 3', percentage: 65, info: 'some tooltip info'},
-      {name: 'Reports item 4', percentage: 4, info: 'some tooltip info'},
-      {name: 'Reports item 5', percentage: 9, info: 'some tooltip info'},
-      {name: 'Reports item 6', percentage: 45, info: 'some tooltip info'},
-      {name: 'Reports item 7', percentage: 97, info: 'some tooltip info'},
-      {name: 'Reports item 8', percentage: 54, info: 'some tooltip info'},
-      {name: 'Reports item 9', percentage: 44, info: 'some tooltip info'},
-      {name: 'Reports item 10', percentage: 82, info: 'some tooltip info'},
-      {name: 'Reports item 11', percentage: 3, info: 'some tooltip info'},
-      {name: 'Reports item 12', percentage: 9, info: 'some tooltip info'},
-    ]
-
-
 
     return (
       <div className="checksSection">
