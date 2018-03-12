@@ -60,7 +60,7 @@ export default class ChecksSection extends React.Component {
 
           {(this.props.coverage[this.state.filter] || []).map( item =>
             <CheckBox
-              key={item.name}
+              key={this.state.filter + '-' + item.name}
               item={item}
               openTooltip={this.state.openTooltip}
               setOpenTooltip={this.setOpenTooltip}/>
