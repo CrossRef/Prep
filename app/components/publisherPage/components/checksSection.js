@@ -23,7 +23,7 @@ export default class ChecksSection extends React.Component {
 
   state = {
     openTooltip: undefined,
-    filter: 'journal-articles',
+    filter: 'Journal Article',
     titleFilter: undefined,
     titleSearchData: [],
     titleChecksData: undefined,
@@ -48,7 +48,7 @@ export default class ChecksSection extends React.Component {
 
   getSearchData = (filter = this.state.filter) => {
     const translateFilter = {
-      'journal-articles': 'Journal',
+      'Journal Article': 'Journal',
       'books': 'books'
     }
 
@@ -70,6 +70,9 @@ export default class ChecksSection extends React.Component {
 
 
   render () {
+    const {filter, titleFilter, titleSearchData, titleChecksData} = this.state
+    const {coverage} = this.props
+
     //TODO: Dummy data just to see filter working, need to remove once real data is available
     this.props.coverage.reports = [
       {name: 'Reports item 1', percentage: 15, info: 'some tooltip info'},
@@ -93,24 +96,24 @@ export default class ChecksSection extends React.Component {
     return (
       <div className="checksSection">
         <div className="titleBar">
-          {`Content type: ${prettyKeys(this.state.filter)}`}
+          {`Content type: ${prettyKeys(filter)}`}
         </div>
 
 
         <div className="filters">
 
           <ContentTypeFilter
-            filters={Object.keys(this.props.coverage)}
-            currentFilter={this.state.filter}
+            filters={Object.keys(coverage)}
+            currentFilter={filter}
             setFilter={this.setFilter}
-            inactive={!!this.state.titleFilter}
+            inactive={!!titleFilter}
           />
 
           <div className={`filter publicationFilter ${this.state.titleFilter ? 'titleFilterActive' : ''}`}>
 
-            {this.state.titleFilter ?
+            {titleFilter ?
               <Fragment>
-                {this.state.titleFilter}
+                {titleFilter}
                 <img
                   className="titleFilterX"
                   src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
@@ -118,7 +121,7 @@ export default class ChecksSection extends React.Component {
               </Fragment>
             :
               <Search
-                searchData={this.state.titleSearchData}
+                searchData={titleSearchData}
                 placeHolder="Search by Title"
                 onSelect={this.selectTitle}
                 listWidth={mobile ? 256 : 456}
@@ -130,20 +133,16 @@ export default class ChecksSection extends React.Component {
 
         <div className="checksContainer">
 
-          {(this.state.titleChecksData || this.props.coverage[this.state.filter] || []).map( item =>
-            this.state.titleChecksData ?
-              <Fragment key={item.name}>
-                <CheckBox
-                  item={item}
-                  openTooltip={this.state.openTooltip}
-                  setOpenTooltip={this.setOpenTooltip}/>
-              </Fragment>
-              :
-              <CheckBox
-                key={item.name}
-                item={item}
-                openTooltip={this.state.openTooltip}
-                setOpenTooltip={this.setOpenTooltip}/>
+          {(titleChecksData || coverage[filter] || []).map( item =>
+            <CheckBox
+              key={
+                `${titleFilter ? `${titleFilter}-` : ''
+                }${filter ? `${filter}-` : ''
+                }${item.name}`
+              }
+              item={item}
+              openTooltip={this.state.openTooltip}
+              setOpenTooltip={this.setOpenTooltip}/>
           )}
 
         </div>

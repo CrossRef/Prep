@@ -31,7 +31,7 @@ export default class PublisherPage extends React.Component {
   componentDidMount () {
     fetch(`https://apps.crossref.org/prep-staging/data?op=participation-summary&memberid=${this.props.match.params.memberId}`)
       .then( r => r.json())
-      .then( r => this.setState({totals: r.message.totals, coverage: r.message.Coverage[0]}))
+      .then( r => this.setState({totals: r.message.totals, coverage: r.message.Coverage}))
       .catch(e=>{
         console.error(e)
       })
