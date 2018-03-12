@@ -5,6 +5,7 @@ import Totals from './components/totals'
 import {prettyKeys} from '../../utilities/helpers'
 import deployConfig from "../../../deployConfig"
 import ChecksSection from './components/checksSection'
+import headlineText from '../../utilities/editableText/headlineText'
 
 
 
@@ -53,8 +54,8 @@ export default class PublisherPage extends React.Component {
             <div className="contentBox">
 
               <div className="leftBox">
-                <p className="firstText">Comprehensive metadata makes publications discoverable.</p>
-                <p className="blueText">Make sure your content can be found.</p>
+                <p className="firstText">{headlineText.smallText}</p>
+                <p className="blueText">{headlineText.bigText}</p>
               </div>
 
               <div className="rightBox">
