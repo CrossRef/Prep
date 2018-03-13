@@ -95,7 +95,9 @@ export default class ChecksSection extends React.Component {
 
             {titleFilter ?
               <Fragment>
-                {elipsize(titleFilter, 50)}
+                <div style={{maxWidth: '200px', maxHeight: '30px', overflow: 'hidden'}}>
+                  {elipsize(titleFilter, 55)}
+                </div>
 
                 <img
                   className="titleFilterX"
