@@ -5,6 +5,7 @@ import Totals from './components/totals'
 import {prettyKeys} from '../../utilities/helpers'
 import deployConfig from "../../../deployConfig"
 import ChecksSection from './components/checksSection'
+import headlineText from '../../utilities/editableText/headlineText'
 
 
 
@@ -30,7 +31,7 @@ export default class PublisherPage extends React.Component {
   componentDidMount () {
     fetch(`https://apps.crossref.org/prep-staging/data?op=participation-summary&memberid=${this.props.match.params.memberId}`)
       .then( r => r.json())
-      .then( r => this.setState({totals: r.message.totals, coverage: r.message.Coverage[0]}))
+      .then( r => this.setState({totals: r.message.totals, coverage: r.message.Coverage}))
       .catch(e=>{
         console.error(e)
       })
@@ -53,8 +54,8 @@ export default class PublisherPage extends React.Component {
             <div className="contentBox">
 
               <div className="leftBox">
-                <p className="firstText">Comprehensive metadata makes publications discoverable.</p>
-                <p className="blueText">Make sure your content can be found.</p>
+                <p className="firstText">{headlineText.smallText}</p>
+                <p className="blueText">{headlineText.bigText}</p>
               </div>
 
               <div className="rightBox">

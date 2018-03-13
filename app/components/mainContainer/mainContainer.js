@@ -16,10 +16,16 @@ export default class MainContainer extends React.Component {
 
           <div className="header">
             <div className="widthContainer">
-              <img style={{width: '140px', marginTop: '15px'}}
-                   src={`${deployConfig.baseUrl}/images/crossref-preport-logo-200-BETA.svg`}/>
-              <img style={{width: '96px', marginTop: '15px'}}
-                   src={`${deployConfig.baseUrl}/images/Crossref_Logo_Stacked_RGB.svg`}/>
+              <img
+                style={{width: '140px', marginTop: '15px', cursor: 'pointer'}}
+                onClick={()=>routeProps.history.push(`${deployConfig.baseUrl}`)}
+                src={`${deployConfig.baseUrl}assets/images/crossref-preport-logo-200-BETA.svg`}/>
+
+              <a href={'http://www.crossref.org'} target="_blank">
+                <img
+                  style={{width: '96px', marginTop: '15px'}}
+                  src={`${deployConfig.baseUrl}assets/images/Crossref_Logo_Stacked_RGB.svg`}/>
+              </a>
             </div>
           </div>
 

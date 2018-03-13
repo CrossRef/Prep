@@ -92,11 +92,9 @@ exports[`mount snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div
-      className="checksSection"
-    >
-      Checks go here
-    </div>
+    <CheckSection
+      coverage={Object {}}
+    />
     <div
       className="chartSection"
     >

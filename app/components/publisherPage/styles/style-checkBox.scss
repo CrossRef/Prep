@@ -1,0 +1,229 @@
+@import '../../../style/variables';
+
+
+.checksContainer {
+  .check {
+    height: 91px;
+    width: 256px;
+    margin: 0 32px 69px 32px;
+
+    .title {
+      width: 100%;
+      height: 43px;
+      font-size: 19px;
+      font-family: $regularFont;
+      color: #4F5757;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      padding-right: 4px;
+
+
+      .tooltipIconContainer {
+        height: 100%;
+
+        .hoverArea {
+          position: relative;
+          height: 22px;
+          width: 22px;
+
+          img {
+            cursor: pointer;
+            position: absolute;
+            right: 0;
+            z-index: 1;
+          }
+
+          .tooltipHoverArea {
+            position: absolute;
+            height: 352px;
+            width: 343px;
+            left: 12px;
+            top: -165px;
+            visibility: hidden;
+            cursor: auto;
+          }
+
+          .tooltipHoverAreaLeft {
+            left: -332px
+          }
+
+          .tooltipContentContainer {
+            z-index: 2;
+            position: absolute;
+            background-color: #4F5757;
+            height: 352px;
+            width: 328px;
+            left: 26px;
+            top: -165px;
+            color: white;
+            font-size: 12px;
+            padding: 17.5px 15px;
+            box-sizing: border-box;
+            opacity: 0;
+            visibility: hidden;
+            -webkit-transition: opacity .5s, visibility .5s; /* Safari */
+            transition: opacity .5s, visibility .5s;
+            pointer-events: none;
+            cursor: auto;
+
+            p {margin: 0; pointer-events: auto}
+          }
+
+          .tooltipContentContainerLeft {
+            left: -332px
+          }
+
+          .mobileTooltip {
+            top: 26px;
+            width: 288px;
+            left: -246px;
+            pointer-events: auto;
+          }
+
+          .mobileTooltipOpen {
+            opacity: 1;
+            visibility: visible;
+          }
+
+        }
+        .hoverArea:hover {
+          .hoverIcon {
+            display: inline !important
+          }
+          .icon {
+            display: none
+          }
+        }
+        @media(min-width: 640px) {
+          .hoverArea:hover {
+
+            .tooltipHoverArea {
+              visibility: visible;
+            }
+            .tooltipContentContainer {
+              visibility: visible;
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+
+    .barContainer {
+      height: 48px;
+      width: 100%;
+      padding: 8px;
+      background-color: #4F5757;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 3px;
+
+      .bar {
+        height: 16px;
+        width: 160px;
+        background-color: white;
+
+        .barWidth {
+          height: 100%;
+
+          .animateBounce {
+            visibility: hidden;
+            height: 100%;
+            animation-name: bounce;
+            animation-duration: 1s;
+            animation-delay: .3s;
+            animation-fill-mode: forwards;
+          }
+          @keyframes bounce {
+            from {
+              visibility: visible;
+              width: 0;
+              opacity: 0;
+              animation-timing-function: linear;
+            }
+
+            3% {
+              width: 0;
+              opacity: 0;
+              animation-timing-function: ease-in;
+            }
+
+            30% {
+              animation-timing-function: ease-out;
+              width: 100%;
+              opacity: 1;
+            }
+
+            50% {
+              animation-timing-function: ease-out;
+              width: 83%;
+              opacity: .83;
+            }
+
+            52% {
+              animation-timing-function: ease-in;
+              width: 80%;
+              opacity: .80;
+            }
+
+            73% {
+              animation-timing-function: ease-out;
+              width: 100%;
+              opacity: 1;
+            }
+
+            87% {
+              animation-timing-function: ease-in;
+              width: 96%;
+              opacity: .94;
+            }
+
+            91% {
+              width: 100%;
+              opacity: 1
+            }
+
+            to {
+              visibility: visible;
+              width: 100%;
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      .percent {
+        color: white;
+        font-family: $regularFont;
+        font-size: 28px;
+        display: flex;
+
+        span {
+          font-size: 18px;
+          display: flex;
+          justify-content: flex-start;
+          padding: 3px 0 0 3px
+        }
+      }
+    }
+  }
+  @media (max-width: 960px)  {
+    .check {
+      margin: 0 48px 69px 48px;
+    }
+  }
+  @media (max-width: 704px)  {
+    .check {
+      margin: 0 auto 69px auto;
+    }
+  }
+  @media (max-width: 600px)  {
+    .check {
+      margin: 0 25px 53px 25px;
+    }
+  }
+}

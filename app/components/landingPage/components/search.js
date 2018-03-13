@@ -2,6 +2,7 @@ import React from 'react'
 import is from 'prop-types'
 import Autocomplete from 'react-autocomplete'
 import { List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
+const Fuse = require('fuse.js')
 
 import deployConfig from '../../../../deployConfig'
 
@@ -22,6 +23,8 @@ export default class Search extends React.Component {
 
     this.cellHeightCache = new CellMeasurerCache({defaultHeight: 42, fixedWidth: true})
 
+
+
     this.state = {
       focused: false,
       searchingFor: '',
@@ -38,7 +41,14 @@ export default class Search extends React.Component {
     }
     fetch('https://apps.crossref.org/prep-staging/data?op=members')
       .then( r => r.json())
-      .then( r => this.setState({data: r.message}))
+      .then( r => {
+        this.fuseSearchEngine = new Fuse(r.message, {
+          keys: ['name'],
+          shouldSort: true,
+          threshold: 0.4
+        })
+        this.setState({data: r.message})
+      })
       .catch(e=>{
         console.error(e)
       })
@@ -157,7 +167,7 @@ export default class Search extends React.Component {
       if(!this.state.searchingFor) {
         data = []
       } else {
-        data = this.state.data.filter( item => item.name && item.name.toLowerCase().includes(this.state.searchingFor.toLowerCase()))
+        data = this.fuseSearchEngine.search(this.state.searchingFor)
         if(!data.length) {
           data = []
         }
