@@ -13,7 +13,8 @@ export default class ContentTypeFilter extends React.Component {
   static propTypes = {
     filters: is.array.isRequired,
     currentFilter: is.string.isRequired,
-    setFilter: is.func.isRequired
+    setFilter: is.func.isRequired,
+    inactive: is.bool.isRequired
   }
 
   state = {
@@ -26,7 +27,7 @@ export default class ContentTypeFilter extends React.Component {
     return (
 
       <div
-        className='contentTypeFilter'
+        className={`contentTypeFilter ${this.props.inactive ? 'inactiveTypeFilter' : ''}`}
         onClick={() => this.setState((prevState) => ({menuOpen: !prevState.menuOpen}))}
         onBlur={() => this.setState({menuOpen: false})}
         tabIndex="0"

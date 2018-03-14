@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import is from 'prop-types'
 
 import CheckBox from "./checkBox"
 import ContentTypeFilter from "./contentTypeFilter"
-import {prettyKeys} from '../../../utilities/helpers'
+import {prettyKeys, elipsize} from '../../../utilities/helpers'
+import Search from "../../common/search"
+import deployConfig from '../../../../deployConfig'
 
 
 
@@ -14,13 +16,22 @@ import {prettyKeys} from '../../../utilities/helpers'
 export default class ChecksSection extends React.Component {
 
   static propTypes = {
-    coverage: is.object.isRequired
+    coverage: is.object.isRequired,
+    memberId: is.string.isRequired
   }
 
 
   state = {
     openTooltip: undefined,
-    filter: 'Journal Article'
+    filter: 'Journal Article',
+    titleFilter: undefined,
+    titleSearchData: [],
+    titleChecksData: undefined,
+  }
+
+
+  componentDidMount () {
+    this.getSearchData()
   }
 
 
@@ -31,36 +42,89 @@ export default class ChecksSection extends React.Component {
 
   setFilter = (filter) => {
     this.setState({filter})
+    this.getSearchData(filter)
+  }
+
+
+  getSearchData = (filter = this.state.filter) => {
+    const translateFilter = {
+      'Journal Article': 'Journal',
+      'books': 'books'
+    }
+
+    return fetch(`https://apps.crossref.org/prep-staging/data?op=publications&memberid=${this.props.memberId}&contenttype=${filter}`)
+      .then( r => r.json())
+      .then( r => this.setState({titleSearchData: r.message}))
+      .catch(e=>{
+        console.error(e)
+      })
+  }
+
+
+  selectTitle = (value, selection) => {
+    this.setState({titleFilter: value})
+    fetch(`https://apps.crossref.org/prep-staging/data?op=participation-summary&memberid=123&pubid=123`)
+      .then( r => r.json())
+      .then( r => this.setState({titleChecksData: r.message.titledata.Coverage}))
   }
 
 
   render () {
+    const {filter, titleFilter, titleSearchData, titleChecksData} = this.state
+    const {coverage} = this.props
+
+    const mobile = window.matchMedia("(max-width: 639px)").matches
 
     return (
       <div className="checksSection">
         <div className="titleBar">
-          {`Content type: ${prettyKeys(this.state.filter)}`}
+          {`Content type: ${prettyKeys(filter)}`}
         </div>
 
 
         <div className="filters">
 
           <ContentTypeFilter
-            filters={Object.keys(this.props.coverage)}
-            currentFilter={this.state.filter}
+            filters={Object.keys(coverage)}
+            currentFilter={filter}
             setFilter={this.setFilter}
+            inactive={!!titleFilter}
           />
 
-          <div className="filter publicationFilter">Publication Filter</div>
+          <div className={`filter publicationFilter ${titleFilter ? 'titleFilterActive' : ''}`}>
+
+            {titleFilter ?
+              <Fragment>
+                <div style={{maxWidth: '200px', maxHeight: '30px', overflow: 'hidden'}}>
+                  {elipsize(titleFilter, 55)}
+                </div>
+
+                <img
+                  className="titleFilterX"
+                  src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
+                  onClick={()=>this.setState({titleFilter: undefined, titleChecksData: undefined})}/>
+              </Fragment>
+            :
+              <Search
+                searchData={titleSearchData}
+                placeHolder="Search by Title"
+                onSelect={this.selectTitle}
+                listWidth={mobile ? 256 : 456}
+                notFound="Not found in this content type"/>}
+          </div>
           <div className="filter timeFilter">Last 12 months</div>
         </div>
 
 
         <div className="checksContainer">
 
-          {(this.props.coverage[this.state.filter] || []).map( item =>
+          {(titleChecksData || coverage[filter] || []).map( item =>
             <CheckBox
-              key={this.state.filter + '-' + item.name}
+              key={
+                `${titleFilter ? `${titleFilter}-` : ''
+                }${filter ? `${filter}-` : ''
+                }${item.name}`
+              }
               item={item}
               openTooltip={this.state.openTooltip}
               setOpenTooltip={this.setOpenTooltip}/>
