@@ -1,0 +1,73 @@
+@import '../../../style/variables';
+
+.checksSection {
+  .searchInputHolder {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    height: 100%;
+    position: relative;
+
+
+    .searchInput {
+      width: 100%;
+      height: 100%;
+      border: none;
+      padding: 0 0 0 48px;
+      box-sizing: border-box;
+      font-size: 13px;
+      font-family: $regularFont;
+
+      background: url("images/Asset_Icons_lightgrey_Search.svg") no-repeat white;
+      background-size: 27px 27px;
+      background-position: 15px 60%;
+    }
+    .searchInput::placeholder {
+      color: #C1C0C0
+    }
+
+
+    .ReactVirtualized__List {
+      position: absolute;
+      top: 37px;
+      right: -186px;
+      background-color: white;
+      border: 1px solid black;
+      padding-top: 10px;
+      height: auto;
+      max-height: 257px;
+      outline: none;
+      z-index: 5;
+    }
+    @media (max-width: 767px) {
+      .ReactVirtualized__List {
+        right: -2px;
+      }
+    }
+
+
+    .searchFocused {
+      padding-left: 15px;
+      background: none;
+      background-color: white;
+      outline: none;
+    }
+
+
+    .searchItem {
+      height: auto;
+      box-sizing: border-box;
+      font-family: $regularFont;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 5px 17px 5px 17px;
+    }
+    .searchItem:hover {
+      background-color: #E5E5E5;
+    }
+
+    .unclickable {
+      pointer-events: none;
+    }
+  }
+}

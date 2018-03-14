@@ -1,13 +1,60 @@
 import React from 'react'
 
 import deployConfig from '../../../deployConfig'
-import Search from './components/search'
+import Search from '../common/search'
 import headlineText from '../../utilities/editableText/headlineText'
 import testimonials from '../../utilities/editableText/testimonials'
 
 
 
 export default class LandingPage extends React.Component {
+
+  state={
+    searchData: []
+  }
+
+
+  componentDidMount () {
+    fetch('https://apps.crossref.org/prep-staging/data?op=members')
+      .then( r => r.json())
+      .then( r => this.setState({searchData: r.message}))
+      .catch(e=>{
+        console.error(e)
+      })
+  }
+
+
+  onSelect = (value, selection) => {
+    let savedSearches = JSON.parse(localStorage.getItem('savedSearches'))
+
+    if(!savedSearches) {
+      savedSearches = [selection]
+
+    } else {
+      let savedIndex
+      const alreadySaved = savedSearches.some( (savedItem, i) => {
+        if(savedItem.id === selection.id && savedItem.name === selection.name) {
+          savedIndex = i
+          return true
+        }
+      })
+
+      if(alreadySaved) {
+        savedSearches.splice(savedIndex, 1)
+        savedSearches.unshift(selection)
+
+      } else {
+        if(savedSearches.length === 6) {
+          savedSearches.pop()
+        }
+        savedSearches.unshift(selection)
+      }
+    }
+
+    localStorage.setItem('savedSearches', JSON.stringify(savedSearches))
+    this.props.history.push(`${deployConfig.baseUrl}${encodeURIComponent(selection.name)}/${selection.id}`)
+  }
+
 
   render() {
     return (
@@ -20,7 +67,11 @@ export default class LandingPage extends React.Component {
               <p className="bannerText">How good is your metadata?</p>
             </div>
 
-            <Search history={this.props.history}/>
+            <Search
+              onSelect={this.onSelect}
+              searchData={this.state.searchData}
+              savedSearches={JSON.parse(localStorage.getItem('savedSearches'))}
+              placeHolder='Search by member'/>
           </div>
 
         </div>

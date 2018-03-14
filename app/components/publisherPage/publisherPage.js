@@ -15,7 +15,8 @@ export default class PublisherPage extends React.Component {
   static propTypes = {
     match: is.shape({
       params: is.shape({
-        publisherName: is.string.isRequired
+        publisherName: is.string.isRequired,
+        memberId: is.string.isRequired
       }).isRequired
     }).isRequired,
     history: is.object.isRequired
@@ -70,7 +71,7 @@ export default class PublisherPage extends React.Component {
           </div>
         </div>
 
-        <ChecksSection coverage={this.state.coverage}/>
+        <ChecksSection coverage={this.state.coverage} memberId={this.props.match.params.memberId}/>
 
         <div className="chartSection">
           Chart goes here
