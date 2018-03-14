@@ -2,6 +2,7 @@ import React from 'react'
 import is from 'prop-types'
 import Autocomplete from 'react-autocomplete'
 import { List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
+const Fuse = require('fuse.js')
 
 import deployConfig from '../../../deployConfig'
 
@@ -31,10 +32,21 @@ export default class Search extends React.Component {
       data: Array.isArray(props.searchData) ? props.searchData : [],
       savedSearches: props.savedSearches
     }
+
+    this.fuseSearchEngine = new Fuse(this.state.data, {
+      keys: ['name'],
+      shouldSort: true,
+      threshold: 0.4
+    })
   }
 
 
   componentWillReceiveProps (nextProps) {
+    this.fuseSearchEngine = new Fuse(nextProps.searchData, {
+      keys: ['name'],
+      shouldSort: true,
+      threshold: 0.4
+    })
     this.setState({data: nextProps.searchData})
   }
 
@@ -112,7 +124,7 @@ export default class Search extends React.Component {
       if(!this.state.searchingFor) {
         data = []
       } else {
-        data = this.state.data.filter( item => item.name && item.name.toLowerCase().includes(this.state.searchingFor.toLowerCase()))
+        data = this.fuseSearchEngine.search(this.state.searchingFor)
         if(!data.length) {
           data = this.props.notFound ? [{name: this.props.notFound, notFound: true}] : []
         }

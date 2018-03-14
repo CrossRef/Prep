@@ -2,6 +2,8 @@ import React from 'react'
 
 import deployConfig from '../../../deployConfig'
 import Search from '../common/search'
+import headlineText from '../../utilities/editableText/headlineText'
+import testimonials from '../../utilities/editableText/testimonials'
 
 
 
@@ -79,8 +81,8 @@ export default class LandingPage extends React.Component {
           <div className="greyBar">
             <img src={`${deployConfig.baseUrl}assets/images/light-bulb.svg`}/>
             <div className="greyBarContent">
-              <p className="smallText">Comprehensive metadata makes publications discoverable.</p>
-              <p className="bigText">Make sure your content can be found.</p>
+              <p className="smallText">{headlineText.smallText}</p>
+              <p className="bigText">{headlineText.bigText}</p>
               <div className="button">Learn More</div>
             </div>
 
@@ -90,24 +92,16 @@ export default class LandingPage extends React.Component {
           <div className="testimonialContainer">
 
             <div className="testimonial">
-              <p className="testimonialBody">
-                “Our team deposit a lot of metadata. With metadata Reports we now have a central dashboard for viewing all our depositing activity.“
-              </p>
-              <p className="testimonialAuthor">Laura Knight from SciMed Pub</p>
+              {testimonials.testimonial1}
+
             </div>
 
             <div className="testimonial">
-              <p className="testimonialBody">
-                “Metadata Reports meets our needs perfectly. For visualising and sharing metadata activity to all our organisation.”
-              </p>
-              <p className="testimonialAuthor">Seth Jones from HyperNitro Pub</p>
+              {testimonials.testimonial2}
             </div>
 
             <div className="testimonial">
-              <p className="testimonialBody">
-                “Easy to use and super helpful, exactly what our team needed.”
-              </p>
-              <pre className="testimonialAuthor">{`Jimmy Bone\nfrom Ultra LightSpeed Publications`}</pre>
+              {testimonials.testimonial3}
             </div>
 
           </div>
