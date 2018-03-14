@@ -40,36 +40,36 @@ export default class LearnMorePage extends React.Component {
             <div className="leftSide"/>
             <div className="rightSide">
               <div className="textSection">
-                <p style={{fontSize: "16px", fontWeight: 'bold', width: "200px", marginBottom: "23px"}}>Learn more about Participation Reports</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p className='boldText'>Learn more about Participation Reports</p>
+                <p className='mainText'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
               </div>
             </div>
           </div>
 
 
           <div className="orangeSection">
-            <div style={{flex: 1, display: 'flex', justifyContent: 'flex-end'}}>
+            <div className="leftSide">
               <div className="textSection">
-                <p style={{fontSize: "16px", fontWeight: 'bold', width: "220px", marginBottom: "23px"}}>What problem does Participation Reports solve?</p>
-                <p style={{maxWidth: "353px"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p className='boldText'>What problem does Participation Reports solve?</p>
+                <p className='mainText' style={{maxWidth: "353px"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
               </div>
             </div>
 
-            <div style={{flex: 1, display: 'flex', justifyContent: 'center'}}>
+            <div className="rightSide">
               <img src={`${deployConfig.baseUrl}images/cog_globe.svg`} style={{}}/>
             </div>
           </div>
 
 
           <div className="blueSection">
-            <div style={{flex: .7, display: 'flex', justifyContent: 'center', marginRight: "20px", paddingLeft: "28px"}}>
+            <div className="leftSide">
               <img src={`${deployConfig.baseUrl}images/laptop_icon.svg`} style={{}}/>
             </div>
 
-            <div style={{flex: .715, display: 'flex', justifyContent: 'flex-start', paddingLeft: "15px", maxWidth: "400px"}}>
+            <div className="rightSide">
               <div className="textSection">
-                <p style={{fontSize: "16px", fontWeight: 'bold', maxWidth: "300px", marginBottom: "23px", color: 'white'}}>How does Participation Reports work?</p>
-                <p style={{maxWidth: "353px", color: 'white'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p className='boldText'>How does Participation Reports work?</p>
+                <p className='mainText' style={{maxWidth: "353px"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
               </div>
             </div>
           </div>
