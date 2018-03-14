@@ -21,7 +21,7 @@ export default class LearnMorePage extends React.Component {
             <div className="contentBox">
 
               <div className="leftBox">
-                <img src={`${deployConfig.baseUrl}images/browser-asset-1.png`} style={{maxWidth: "486px", width: '100%', height: "auto"}}/>
+                <img src={`${deployConfig.baseUrl}assets/images/browser-asset-1.png`} style={{maxWidth: "486px", width: '100%', height: "auto"}}/>
               </div>
 
               <div className="rightBox">
@@ -56,14 +56,14 @@ export default class LearnMorePage extends React.Component {
             </div>
 
             <div className="rightSide">
-              <img src={`${deployConfig.baseUrl}images/cog_globe.svg`} style={{height: '370px', width: '224px'}}/>
+              <img src={`${deployConfig.baseUrl}assets/images/cog_globe.svg`} style={{}}/>
             </div>
           </div>
 
 
           <div className="blueSection">
             <div className="leftSide">
-              <img src={`${deployConfig.baseUrl}images/laptop_icon.svg`} style={{height: '350px', width: '224px'}}/>
+              <img src={`${deployConfig.baseUrl}assets/images/laptop_icon.svg`} style={{}}/>
             </div>
 
             <div className="rightSide">
