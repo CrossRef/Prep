@@ -62,9 +62,17 @@
       }
     }
 
-    .timeFilter {
-      position: absolute;
-      right: 32px;
+    .timeFilterContainer {
+      //position: absolute;
+      //right: 32px;
+
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+
+      .timeFilter {
+
+      }
     }
 
 
@@ -82,10 +90,12 @@
         width: 256px;
       }
 
-      .timeFilter {
-        position: initial;
-        right: auto;
-        width: 256px;
+      .timeFilterContainer {
+        flex: none;
+
+        .timeFilter {
+          width: 256px;
+        }
       }
     }
   }

@@ -3,7 +3,7 @@ import is from 'prop-types'
 
 import CheckBox from "./checkBox"
 import ContentTypeFilter from "./contentTypeFilter"
-import {prettyKeys, elipsize} from '../../../utilities/helpers'
+import {prettyKeys, elipsize, debounce} from '../../../utilities/helpers'
 import Search from "../../common/search"
 import deployConfig from '../../../../deployConfig'
 
@@ -32,6 +32,17 @@ export default class ChecksSection extends React.Component {
 
   componentDidMount () {
     this.getSearchData()
+    window.addEventListener('resize', this.debouncedUpdate);
+  }
+
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.debouncedUpdate);
+  }
+
+
+  debouncedUpdate = () => {
+    debounce(()=>this.setState({}), 500, this)
   }
 
 
@@ -73,7 +84,7 @@ export default class ChecksSection extends React.Component {
     const {filter, titleFilter, titleSearchData, titleChecksData} = this.state
     const {coverage} = this.props
 
-    const mobile = window.matchMedia("(max-width: 639px)").matches
+    const mobile = window.matchMedia("(max-width: 767px)").matches
 
     return (
       <div className="checksSection">
@@ -112,7 +123,11 @@ export default class ChecksSection extends React.Component {
                 listWidth={mobile ? 256 : 456}
                 notFound="Not found in this content type"/>}
           </div>
-          <div className="filter timeFilter">Last 12 months</div>
+
+          <div className="timeFilterContainer">
+            <div className="timeFilter filter">Last 12 months</div>
+          </div>
+
         </div>
 
 

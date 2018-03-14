@@ -56,14 +56,14 @@ export default class LearnMorePage extends React.Component {
             </div>
 
             <div className="rightSide">
-              <img src={`${deployConfig.baseUrl}images/cog_globe.svg`} style={{}}/>
+              <img src={`${deployConfig.baseUrl}images/cog_globe.svg`}/>
             </div>
           </div>
 
 
           <div className="blueSection">
             <div className="leftSide">
-              <img src={`${deployConfig.baseUrl}images/laptop_icon.svg`} style={{}}/>
+              <img src={`${deployConfig.baseUrl}images/laptop_icon.svg`} style={{height: '350px', width: '224px'}}/>
             </div>
 
             <div className="rightSide">
