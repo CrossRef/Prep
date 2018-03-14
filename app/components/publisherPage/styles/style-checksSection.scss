@@ -35,7 +35,7 @@
     .filter {
       height: 40px;
       min-width: 192px;
-      border: black solid 1px;
+      border: black solid 2px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -45,7 +45,21 @@
     }
 
     .publicationFilter {
-      width: 272px
+      width: 272px;
+    }
+
+    .titleFilterActive {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 13px 0 16px;
+      border-radius: 4px;
+
+      .titleFilterX {
+        min-width: 20px;
+        min-height: 20px;
+        cursor: pointer;
+        margin-left: 5px;
+      }
     }
 
     .timeFilter {
