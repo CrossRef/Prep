@@ -7,6 +7,7 @@ import deployConfig from '../deployConfig'
 import MainContainer from './components/mainContainer/mainContainer'
 import LandingPage from './components/landingPage/landingPage'
 import PublisherPage from './components/publisherPage/publisherPage'
+import LearnMorePage from './components/learnMorePage/learnMorePage'
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,6 +24,7 @@ function renderApp () {
         <Switch>
           <MainContainer exact path={`${deployConfig.baseUrl}`} Component={LandingPage}/>
           <MainContainer exact path={`${deployConfig.baseUrl}:publisherName/:memberId`} Component={PublisherPage}/>
+          <MainContainer exact path={`${deployConfig.baseUrl}info`} Component={LearnMorePage}/>
           <Redirect to={`${deployConfig.baseUrl}`} />
         </Switch>
       </OnNavigationWrapper>

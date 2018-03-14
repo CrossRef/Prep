@@ -83,7 +83,7 @@ export default class LandingPage extends React.Component {
             <div className="greyBarContent">
               <p className="smallText">{headlineText.smallText}</p>
               <p className="bigText">{headlineText.bigText}</p>
-              <div className="button">Learn More</div>
+              <div className="button" onClick={() => this.props.history.push(`${deployConfig.baseUrl}info`)}>Learn More</div>
             </div>
 
           </div>
