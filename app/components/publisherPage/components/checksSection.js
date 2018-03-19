@@ -112,7 +112,8 @@ export default class ChecksSection extends React.Component {
                 listWidth={mobile ? 256 : 456}
                 notFound="Not found in this content type"/>}
           </div>
-          <div className="filter timeFilter">Last 12 months</div>
+
+          <div className="filter timeFilter inactiveTimeFilter">Last 12 months</div>
         </div>
 
 

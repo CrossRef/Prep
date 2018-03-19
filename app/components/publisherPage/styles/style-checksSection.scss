@@ -67,6 +67,12 @@
       right: 32px;
     }
 
+    .inactiveTimeFilter {
+      pointer-events: none;
+      border: #a1a1a1 solid 2px;
+      color: #a1a1a1;
+    }
+
 
   } @media (max-width: 767px) {
     .filters {
