@@ -63,9 +63,9 @@ export default class ChecksSection extends React.Component {
 
   selectTitle = (value, selection) => {
     this.setState({titleFilter: value})
-    fetch(`https://apps.crossref.org/prep-staging/data?op=participation-summary&memberid=123&pubid=123`)
+    fetch(`https://apps.crossref.org/prep-staging/data?op=participation-summary&memberid=${this.props.memberId}&pubid=${value}`)
       .then( r => r.json())
-      .then( r => this.setState({titleChecksData: r.message.titledata.Coverage}))
+      .then( r => this.setState({titleChecksData: r.message.Coverage}))
   }
 
 
@@ -126,7 +126,7 @@ export default class ChecksSection extends React.Component {
           {(titleChecksData || coverage[filter] || []).map( item =>
             <CheckBox
               key={
-                `${titleFilter ? `${titleFilter}-` : ''
+                `${titleChecksData ? `${titleFilter}-` : ''
                 }${filter ? `${filter}-` : ''
                 }${item.name}`
               }
