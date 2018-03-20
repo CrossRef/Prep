@@ -95,7 +95,7 @@ export default class ChecksSection extends React.Component {
             className={
               `filter publicationFilter ${
               titleFilter ? 'titleFilterActive' : ''} ${
-              this.state.filter !== 'Journal Article' ? 'inactivePublicationFilter' : ''}`
+              this.state.filter !== 'Journals' ? 'inactivePublicationFilter' : ''}`
             }>
 
             {titleFilter ?
