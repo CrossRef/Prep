@@ -24,6 +24,9 @@ export default class extends React.Component {
     this.state = {
       data: props.data || [],
     }
+
+    this.ww1 = new Worker('wwArray/ww1.js')
+    this.ww1.postMessage({searchList: this.state.data})
   }
 
 
@@ -31,7 +34,16 @@ export default class extends React.Component {
 
     if(nextProps.searchingFor && nextProps.searchingFor !== this.props.searchingFor) {
 
+
       this.state.waitingFor = nextProps.searchingFor
+
+      this.ww1.postMessage({searchingFor: nextProps.searchingFor})
+
+      this.ww1.onmessage = event => {
+        console.log(event.data)
+      }
+
+
 
       // fetch(`testSearch`, {
       //   method: 'POST',
@@ -51,11 +63,14 @@ export default class extends React.Component {
       //     })
       //   })
 
-      fetch(`sw?searchingFor=${nextProps.searchingFor}`).then(r=>r.json()).then(r => {
-        if(this.state.waitingFor !== r.searchingFor) return
 
-        this.setState({data: r.data, waiting: false})
-      })
+
+      // fetch(`sw?searchingFor=${nextProps.searchingFor}`).then(r=>r.json()).then(r => {
+      //   if(this.state.waitingFor !== r.searchingFor) return
+      //
+      //   this.setState({data: r.data, waiting: false})
+      // })
+
 
 
       // new Promise(function(resolve, reject){
@@ -86,6 +101,8 @@ export default class extends React.Component {
 
 
     } else {
+
+      this.ww1.postMessage({searchList: nextProps.data})
       this.setState({data: nextProps.data})
     }
   }

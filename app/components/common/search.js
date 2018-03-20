@@ -28,14 +28,8 @@ export default class Search extends React.Component {
     this.state = {
       focused: false,
       searchingFor: '',
-      data: Array.isArray(props.searchData) ? props.searchData : [],
       listWidth: props.listWidth
     }
-  }
-
-
-  componentWillReceiveProps (nextProps) {
-    this.setState({data: nextProps.searchData})
   }
 
 
@@ -76,10 +70,12 @@ export default class Search extends React.Component {
 
         <SearchMenu
           data={data}
+          searchData={this.prosp.searchData}
           onSelect={this.props.onSelect}
           listWidth={this.state.listWidth || 500}
           searchingFor={this.state.searchingFor}
-          notFound={this.props.notFound}/>
+          notFound={this.props.notFound}
+          />
       </div>
     )
   }
