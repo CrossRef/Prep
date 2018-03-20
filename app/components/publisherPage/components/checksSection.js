@@ -23,7 +23,7 @@ export default class ChecksSection extends React.Component {
 
   state = {
     openTooltip: undefined,
-    filter: 'Journal Article',
+    filter: 'Journals',
     titleFilter: undefined,
     titleSearchData: [],
     titleChecksData: undefined,
