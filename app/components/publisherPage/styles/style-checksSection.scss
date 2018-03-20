@@ -48,6 +48,12 @@
       width: 272px;
     }
 
+    .inactivePublicationFilter {
+      pointer-events: none;
+      border: #a1a1a1 solid 2px;
+      color: #a1a1a1;
+    }
+
     .titleFilterActive {
       display: flex;
       justify-content: space-between;
