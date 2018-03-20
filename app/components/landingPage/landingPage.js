@@ -15,33 +15,17 @@ export default class LandingPage extends React.Component {
 
 
   componentDidMount () {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then((reg) => {
-          // registration worked
-          console.log('Registration succeeded. Scope is ' + reg.scope);
-
-          fetch('https://apps.crossref.org/prep-staging/data?op=members')
-            .then( r => r.json())
-            .then( r => this.setState({searchData: r.message}))
-            .catch(e=>{
-              console.error(e)
-            })
-
-
-        }).catch(function(error) {
-        // registration failed
-        console.log('Registration failed with ' + error);
-      });
-
-    } else {
-      console.log('no service worker')
-    }
-
+    fetch('https://apps.crossref.org/prep-staging/data?op=members')
+      .then( r => r.json())
+      .then( r => this.setState({searchData: r.message}))
+      .catch(e=>{
+        console.error(e)
+      })
   }
 
 
   onSelect = (value, selection) => {
+    console.log(value)
     let savedSearches = JSON.parse(localStorage.getItem('savedSearches'))
 
     if(!savedSearches) {

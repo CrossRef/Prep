@@ -27,37 +27,6 @@ app.use(deployConfig.baseUrl, express.static(__dirname + '/public'));
 
 app.use(bodyParser({limit: '50mb'}))
 
-app.route('/participationreports/testSearch')
-  .post(bodyParser.json(), (req, res) => {
-
-    const {data, searchingFor} = req.body
-
-    const cacheResult = cache[searchingFor]
-
-    if(searchingFor.length === 1) {
-      cache = {}
-      cache[searchingFor] = cacheResult
-    }
-
-    if(cacheResult) {
-      res.send(cacheResult)
-      return
-    }
-
-    const engine = new Fuse(data, {
-      keys: ['name'],
-      shouldSort: true,
-      threshold: 0.4
-    })
-
-    const searchResult = engine.search(searchingFor)
-
-    cache[searchingFor] = {data: searchResult, searchingFor}
-
-    res.send({data: searchResult, searchingFor: searchingFor})
-  })
-
-
 app.get('*', (req, res, next) => {
   res.render('index.html');
 })

@@ -1,8 +1,5 @@
 import React from 'react'
 import is from 'prop-types'
-import Autocomplete from 'react-autocomplete'
-import { List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
-const Fuse = require('fuse.js')
 
 import deployConfig from '../../../deployConfig'
 import SearchMenu from './searchMenu'
@@ -33,19 +30,26 @@ export default class Search extends React.Component {
   }
 
 
-  render () {
-    let data
-    if(!this.state.searchingFor && this.props.savedSearches) {
-      data = this.props.savedSearches
-    } else {
-      if(!this.state.searchingFor) {
-        data = []
-      } else {
-        data = this.state.data
+  componentDidMount () {
+    this.setState({listWidth: parseFloat(window.getComputedStyle(this.input).width) + 2})
+  }
 
-        // if(!data.length) {
-        //   data = this.props.notFound ? [{name: this.props.notFound, notFound: true}] : []
-        // }
+
+  render () {
+    let data = []
+
+    if(this.state.focused) {
+
+      if(!this.state.searchingFor && this.props.savedSearches) {
+        data = this.props.savedSearches
+
+      } else {
+        if(!this.state.searchingFor) {
+          data = []
+
+        } else {
+          data = this.props.searchData
+        }
       }
     }
 
@@ -55,12 +59,14 @@ export default class Search extends React.Component {
 
         <input
           className={`searchInput ${this.state.focused ? 'searchFocused' : ''}`}
+          ref={ node => this.input = node}
           onFocus={()=>{
-            this.setState({focused: true})
+            this.setState({
+              focused: true,
+              listWidth: parseFloat(window.getComputedStyle(this.input).width) + 2
+            })
           }}
-          onBlur={()=>{
-            this.setState({focused: false})
-          }}
+          onBlur={()=>this.setState({focused: false})}
           placeholder={`${this.state.focused ? '' : this.props.placeHolder}`}
           onChange={(e)=> {
             this.setState({searchingFor: e.target.value})
@@ -68,34 +74,16 @@ export default class Search extends React.Component {
           value={this.state.searchingFor}
         />
 
+
         <SearchMenu
           data={data}
-          searchData={this.prosp.searchData}
+          searchData={this.props.searchData}
           onSelect={this.props.onSelect}
-          listWidth={this.state.listWidth || 500}
+          listWidth={this.props.listWidth || this.state.listWidth || 0}
           searchingFor={this.state.searchingFor}
           notFound={this.props.notFound}
-          />
+        />
       </div>
     )
   }
-
 }
-
-{/*<Autocomplete*/}
-  {/*renderInput={this.renderInput}*/}
-  {/*renderItem={this.renderItem}*/}
-  {/*items={data}*/}
-  {/*getItemValue={ item => item.name }*/}
-
-  {/*value={this.state.searchingFor}*/}
-  {/*onChange={(e, value)=> this.setState({searchingFor: value})}*/}
-  {/*onSelect={this.props.onSelect}*/}
-
-  {/*renderMenu={this.renderMenu}*/}
-
-  {/*wrapperProps={{*/}
-    {/*className: 'searchInputHolder',*/}
-    {/*style:{}*/}
-  {/*}}*/}
-{/*/>*/}
