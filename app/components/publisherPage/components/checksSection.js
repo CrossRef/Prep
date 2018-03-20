@@ -76,7 +76,7 @@ export default class ChecksSection extends React.Component {
     this.setState({titleFilter: value})
     fetch(`https://apps.crossref.org/prep-staging/data?op=participation-summary&memberid=${this.props.memberId}&pubid=${value}`)
       .then( r => r.json())
-      .then( r => this.setState({titleChecksData: r.message.titledata.Coverage}))
+      .then( r => this.setState({titleChecksData: r.message.Coverage}))
   }
 
 
@@ -84,7 +84,7 @@ export default class ChecksSection extends React.Component {
     const {filter, titleFilter, titleSearchData, titleChecksData} = this.state
     const {coverage} = this.props
 
-    const mobile = window.matchMedia("(max-width: 767px)").matches
+    const mobile = window.matchMedia("(max-width: 639px)").matches
 
     return (
       <div className="checksSection">
@@ -102,7 +102,12 @@ export default class ChecksSection extends React.Component {
             inactive={!!titleFilter}
           />
 
-          <div className={`filter publicationFilter ${titleFilter ? 'titleFilterActive' : ''}`}>
+          <div
+            className={
+              `filter publicationFilter ${
+              titleFilter ? 'titleFilterActive' : ''} ${
+              this.state.filter !== 'Journals' ? 'inactivePublicationFilter' : ''}`
+            }>
 
             {titleFilter ?
               <Fragment>
@@ -136,7 +141,7 @@ export default class ChecksSection extends React.Component {
           {(titleChecksData || coverage[filter] || []).map( item =>
             <CheckBox
               key={
-                `${titleFilter ? `${titleFilter}-` : ''
+                `${titleChecksData ? `${titleFilter}-` : ''
                 }${filter ? `${filter}-` : ''
                 }${item.name}`
               }

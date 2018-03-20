@@ -60,6 +60,11 @@ export default class SearchMenu extends React.Component {
   }
 
 
+  componentWillUnmount() {
+    this.webWorker.terminate()
+  }
+
+
   shouldComponentUpdate (nextProps, nextState) {
     if(!nextProps.searchingFor) return true
     return nextProps.searchingFor === this.props.searchingFor
