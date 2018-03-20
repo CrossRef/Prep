@@ -1,16 +1,6 @@
 self.importScripts('fuse.js');
 
 
-let engine = new Fuse([], {
-  keys: ['name'],
-  shouldSort: true,
-  threshold: 0.4
-})
-
-
-let cache = {}
-
-
 function getSearchQuery (url) {
   var name = 'searchingFor'
   var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -23,51 +13,137 @@ function getSearchQuery (url) {
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
-    fetch('https://apps.crossref.org/prep-staging/data?op=members')
-      .then( r => r.json())
-      .then( r => {
-        console.log(r.message.length)
-
-        engine = new Fuse(r.message, {
-          keys: ['name'],
-          shouldSort: true,
-          threshold: 0.4
-        })
-      })
+    caches.open('memberData').then(function(cache) {
+      return cache.add('https://apps.crossref.org/prep-staging/data?op=members')
+    })
   );
 });
 
 
 self.addEventListener('fetch', function(event) {
   if(event.request.url.includes('http://localhost:3333/participationreports/sw')) {
+
     const searchingFor = getSearchQuery(event.request.url)
 
-    const cacheResult = cache[searchingFor]
-
-    if(searchingFor.length === 1) {
-      cache = {}
-      cache[searchingFor] = cacheResult
-    }
-
-    const init = {
-      status: 200,
-      statusText: "OK",
-      headers: {'Content-Type': 'application/json'}
-    };
-
-    if(cacheResult) {
-      const response = new Response(JSON.stringify({data: cacheResult, searchingFor: searchingFor}), init);
-
-      event.respondWith(response)
-      return
-    }
-
-    cache[searchingFor] = engine.search(searchingFor)
-
-    const response = new Response(JSON.stringify({data: cache[searchingFor], searchingFor: searchingFor}), init);
-
     event.respondWith(
-      response
+      caches.match(event.request).then(function(cachedResponse){
+        if (cachedResponse) {
+          return cachedResponse
+
+        } else {
+          return caches.match('https://apps.crossref.org/prep-staging/data?op=members').then(function(cachedMembers) {
+
+            return cachedMembers.json().then( members => {
+
+              const engine = new Fuse(members.message, {
+                keys: ['name'],
+                shouldSort: true,
+                threshold: 0.4
+              })
+
+              const searchResult = engine.search(searchingFor)
+
+              const init = {
+                status: 200,
+                statusText: "OK",
+                headers: {'Content-Type': 'application/json'}
+              };
+
+              const stringifiedBody = JSON.stringify({data: searchResult, searchingFor: searchingFor})
+
+              const newResponse = new Response(stringifiedBody, init);
+              const responseClone = newResponse.clone()
+
+              caches.open('searchResults').then(function(cache){
+                cache.put(event.request, responseClone)
+              })
+
+              return newResponse
+            })
+          })
+        }
+      })
+    )
+  }
+
+  if(event.request.url.includes('https://apps.crossref.org/prep-staging/data?op=participation')) {
+    caches.delete('searchResults')
+  }
+
+  if(event.request.url.includes('https://apps.crossref.org/prep-staging/data?op=members')) {
+    event.respondWith(
+      caches.match('https://apps.crossref.org/prep-staging/data?op=members').then(function(cachedMembers) {
+        return cachedMembers || fetch(event.request).then(function(membersResponse) {
+          return caches.open('memberData').then(function(cache){
+            cache.put(event.request, membersResponse.clone())
+            return membersResponse
+          })
+        })
+      })
     )
   }
 });
+
+
+self.addEventListener('message', function(event){
+
+  const searchingFor = event.data
+
+
+  caches.match(searchingFor).then(function(cachedResponse){
+    if (cachedResponse) {
+      cachedResponse.json().then( r => event.ports[0].postMessage(r) )
+
+
+    } else {
+      caches.match('https://apps.crossref.org/prep-staging/data?op=members').then(function(cachedMembers) {
+
+        cachedMembers.json().then( members => {
+
+          const engine = new Fuse(members.message, {
+            keys: ['name'],
+            shouldSort: true,
+            threshold: 0.4
+          })
+
+          const searchResult = engine.search(searchingFor)
+
+          const init = {
+            status: 200,
+            statusText: "OK",
+            headers: {'Content-Type': 'application/json'}
+          };
+
+          const stringifiedBody = JSON.stringify({data: searchResult, searchingFor: searchingFor})
+
+          const newResponse = new Response(stringifiedBody, init);
+          const responseClone = newResponse.clone()
+
+          caches.open('searchResults').then(function(cache){
+            cache.put(searchingFor, responseClone)
+          })
+
+          newResponse.json().then( r => event.ports[0].postMessage(r))
+        })
+      })
+    }
+  })
+
+});
+
+
+// self.addEventListener('activate', function(event) {
+//   event.waitUntil(
+//     caches.keys().then(function(cacheNames) {
+//       return Promise.all(
+//         cacheNames.filter(function(cacheName) {
+//           // Return true if you want to remove this cache,
+//           // but remember that caches are shared across
+//           // the whole origin
+//         }).map(function(cacheName) {
+//           return caches.delete(cacheName);
+//         })
+//       );
+//     })
+//   );
+// });

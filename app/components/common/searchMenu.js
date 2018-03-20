@@ -58,6 +58,33 @@ export default class extends React.Component {
       })
 
 
+      // new Promise(function(resolve, reject){
+      //   // Create a Message Channel
+      //   const msg_chan = new MessageChannel();
+      //
+      //   // Handler for recieving message reply from service worker
+      //   msg_chan.port1.onmessage = function(event){
+      //     if(event.data.error){
+      //       reject(event.data.error);
+      //     }else{
+      //       resolve(event.data);
+      //     }
+      //   };
+      //
+      //   // Send message to service worker along with port for reply
+      //
+      //   performance.mark('start')
+      //   navigator.serviceWorker.controller.postMessage(nextProps.searchingFor, [msg_chan.port2]);
+      // })
+      //   .then( r => {
+      //     performance.mark('end')
+      //     performance.measure('postMessage time', 'start', 'end')
+      //     if(this.state.waitingFor !== r.searchingFor) return
+      //
+      //     this.setState({data: r.data, waiting: false})
+      //   })
+
+
     } else {
       this.setState({data: nextProps.data})
     }
