@@ -26,7 +26,7 @@ export default class SearchMenu extends React.Component {
       waitingFor: false
     }
 
-    this.webWorker = new Worker('webWorkers/ww1.js')
+    this.webWorker = new Worker('assets/webWorkers/ww1.js')
     this.webWorker.postMessage({searchList: props.searchList})
   }
 

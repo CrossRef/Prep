@@ -19,8 +19,6 @@ app.set('views', __dirname + '/public')
 
 app.use(deployConfig.baseUrl, express.static(__dirname + '/public'));
 
-app.use(bodyParser({limit: '50mb'}))
-
 app.get('*', (req, res, next) => {
   res.render('index.html');
 })

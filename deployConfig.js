@@ -21,11 +21,11 @@ var presets = {
   },
 
   staging: {
-    baseUrl: '/participationreports/',
+    baseUrl: '/prep-staging/',
     apiBaseUrl: '',
     babelConfig: babelDev
   }
 }
 
 //Set preset here:
-module.exports = presets.production
+module.exports = presets.staging
