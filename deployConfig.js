@@ -15,7 +15,7 @@ var babelDev = {
 
 var presets = {
   production: {
-    baseUrl: '',
+    baseUrl: '/participationreports/',
     apiBaseUrl: '',
     babelConfig: babelCompatibility
   },
@@ -28,4 +28,4 @@ var presets = {
 }
 
 //Set preset here:
-module.exports = presets.staging
+module.exports = presets.production

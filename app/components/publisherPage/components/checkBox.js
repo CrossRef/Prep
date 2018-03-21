@@ -1,5 +1,6 @@
 import React from 'react'
 import is from 'prop-types'
+
 import deployConfig from "../../../../deployConfig"
 import {debounce} from '../../../utilities/helpers'
 
@@ -81,17 +82,20 @@ export default class CheckBox extends React.Component {
           <div className="tooltipIconContainer">
             <div className="hoverArea" ref={ node => this.icon = node }>
 
-              {!mobileTooltipOpen &&
+              <div className="iconContainer">
+                {!mobileTooltipOpen &&
                 <img
                   className="icon"
                   style={{width: '22px', height: '22px'}}
-                  src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Help.png`}/>}
+                  src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Help.png`}/>
+                }
 
-              <img
-                className="hoverIcon"
-                style={{width: '22px', height: '22px', display: mobileTooltipOpen ? 'inline' : 'none'}}
-                src={`${deployConfig.baseUrl}assets/images/Asset_Icons_LightGrey_Help.svg`}
-                onClick={mobile ? () => this.props.setOpenTooltip(name) : null}/>
+                <img
+                  className="hoverIcon"
+                  style={{width: '22px', height: '22px', display: mobileTooltipOpen ? 'inline' : 'none'}}
+                  src={`${deployConfig.baseUrl}assets/images/Asset_Icons_LightGrey_Help.svg`}
+                  onClick={mobile ? () => this.props.setOpenTooltip(name) : null}/>
+              </div>
 
 
               {!mobile &&
@@ -122,7 +126,9 @@ export default class CheckBox extends React.Component {
                       cursor: 'pointer'
                     }}
                     src={`${deployConfig.baseUrl}assets/images/Asset_Icons_White_Close.svg`}
-                    onClick={() => this.props.setOpenTooltip(undefined)}/>
+                    onClick={() => {
+                      this.props.setOpenTooltip(undefined)
+                    }}/>
                 }
               </div>
 
