@@ -41,27 +41,20 @@
 
           .tooltipHoverArea {
             z-index: 3;
-            height: 352px;
-            width: 343px;
-            margin-left: 12px;
-            top: -165px;
+            background-color: transparent;
+            height: auto;
+            width: 100px;
             visibility: hidden;
-            cursor: auto;
-            background-color: #3EB1CB;
-          }
-
-          .tooltipHoverAreaLeft {
-            left: -332px
           }
 
           .tooltipContentContainer {
-            z-index: 2;
+            direction: ltr;
+            z-index: 3;
             background-color: #4F5757;
             max-height: 368px;
             min-height: 112px;
             height: auto;
             width: 336px;
-            margin-left: 26px;
             color: white;
             font-size: 12px;
             padding: 17.5px 15px;
@@ -73,14 +66,11 @@
             pointer-events: none;
             cursor: auto;
 
-            p {margin: 0; pointer-events: auto}
-          }
-
-          .tooltipContentContainerLeft {
-            left: -332px
+            pre {margin: 0; white-space: pre-wrap; font-family: $regularFont}
           }
 
           .mobileTooltip {
+            position: absolute;
             top: 26px;
             width: 288px;
             left: -246px;
@@ -110,6 +100,7 @@
             .tooltipContentContainer {
               visibility: visible;
               opacity: 1;
+              pointer-events: auto;
             }
           }
         }
