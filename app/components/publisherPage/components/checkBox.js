@@ -75,8 +75,6 @@ export default class CheckBox extends React.Component {
 
     const mobileTooltipOpen = mobile ? this.props.openTooltip === name : false
 
-    console.log(mobileTooltipOpen)
-
     return (
       <div className="check">
         <div className="title">
@@ -130,7 +128,6 @@ export default class CheckBox extends React.Component {
                     src={`${deployConfig.baseUrl}assets/images/Asset_Icons_White_Close.svg`}
                     onClick={() => {
                       this.props.setOpenTooltip(undefined)
-                      //this.icon.blur()
                     }}/>
                 }
               </div>
