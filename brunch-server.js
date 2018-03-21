@@ -8,12 +8,6 @@ const express = require('express')
 
 const app = express();
 
-const Fuse = require('fuse.js')
-const bodyParser = require('body-parser');
-
-
-let cache = {}
-
 
 app.use(function logRequest (req, res, next) {
   console.log(`${req.method}: ${req.originalUrl}`);
