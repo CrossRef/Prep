@@ -23,6 +23,7 @@ export default class SearchMenu extends React.Component {
 
     this.state = {
       data: props.data || [],
+      waitingFor: false
     }
 
     this.webWorker = new Worker('webWorkers/ww1.js')
@@ -36,9 +37,10 @@ export default class SearchMenu extends React.Component {
       this.webWorker.postMessage({searchData: nextProps.searchData})
     }
 
+
     if(nextProps.searchingFor && nextProps.searchingFor !== this.props.searchingFor) {
 
-      this.state.waitingFor = nextProps.searchingFor
+      this.setState({waitingFor: nextProps.searchingFor})
 
       this.webWorker.postMessage({searchingFor: nextProps.searchingFor})
 
@@ -49,13 +51,14 @@ export default class SearchMenu extends React.Component {
         if(this.state.waitingFor === searchingFor) {
           this.setState({
             data: !searchResult.length && this.props.notFound ? [{name: this.props.notFound, notFound: true}] : searchResult,
-            waiting: false
+            waitingFor: false
           })
         }
       }
 
+
     } else {
-      this.setState({data: nextProps.data})
+      this.setState({data: nextProps.data, waitingFor: false})
     }
   }
 
@@ -66,8 +69,11 @@ export default class SearchMenu extends React.Component {
 
 
   shouldComponentUpdate (nextProps, nextState) {
-    if(!nextProps.searchingFor) return true
-    return nextProps.searchingFor === this.props.searchingFor
+    /*Since getting an updated search query dispatches an asynchronous call to the webWorker to do the search, there
+    is no need to update the results menu on that initial change to the search query. It should instead wait for the
+    webworker to finish before updating. This code declines updates while waiting for the result to come back. */
+
+    return nextState.waitingFor === false
   }
 
 
