@@ -114,7 +114,7 @@ export default class CheckBox extends React.Component {
                   style={{margin: tooltipRight ? "0 0 0 14px" : "0 14px 0 0"}}
                 >
 
-                  <pre>{longInfo}</pre>
+                  <pre>{this.props.item.name === 'References' ? longInfo : info}</pre>
 
                   {mobile &&
                   <img
