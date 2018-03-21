@@ -10,7 +10,7 @@ import SearchMenu from './searchMenu'
 export default class Search extends React.Component {
 
   static propTypes = {
-    searchData: is.array.isRequired,
+    searchList: is.array.isRequired,
     savedSearches: is.array,
     placeHolder: is.string.isRequired,
     onSelect: is.func.isRequired,
@@ -48,7 +48,7 @@ export default class Search extends React.Component {
           data = []
 
         } else {
-          data = this.props.searchData
+          data = this.props.searchList
         }
       }
     }
@@ -77,7 +77,7 @@ export default class Search extends React.Component {
 
         <SearchMenu
           data={data}
-          searchData={this.props.searchData}
+          searchList={this.props.searchList}
           onSelect={this.props.onSelect}
           listWidth={this.props.listWidth || this.state.listWidth || 0}
           searchingFor={this.state.searchingFor}

@@ -25,7 +25,7 @@ export default class ChecksSection extends React.Component {
     openTooltip: undefined,
     filter: 'Journals',
     titleFilter: undefined,
-    titleSearchData: [],
+    titleSearchList: [],
     titleChecksData: undefined,
   }
 
@@ -65,7 +65,7 @@ export default class ChecksSection extends React.Component {
 
     return fetch(`https://apps.crossref.org/prep-staging/data?op=publications&memberid=${this.props.memberId}&contenttype=${filter}`)
       .then( r => r.json())
-      .then( r => this.setState({titleSearchData: r.message}))
+      .then( r => this.setState({titleSearchList: r.message}))
       .catch(e=>{
         console.error(e)
       })
@@ -81,7 +81,7 @@ export default class ChecksSection extends React.Component {
 
 
   render () {
-    const {filter, titleFilter, titleSearchData, titleChecksData} = this.state
+    const {filter, titleFilter, titleSearchList, titleChecksData} = this.state
     const {coverage} = this.props
 
     const mobile = window.matchMedia("(max-width: 639px)").matches
@@ -122,7 +122,7 @@ export default class ChecksSection extends React.Component {
               </Fragment>
             :
               <Search
-                searchData={titleSearchData}
+                searchList={titleSearchList}
                 placeHolder="Search by Title"
                 onSelect={this.selectTitle}
                 listWidth={mobile ? 256 : 456}

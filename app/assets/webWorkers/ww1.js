@@ -1,12 +1,12 @@
 self.importScripts('fuse.js');
 
-let searchData = []
+let searchList = []
 
 let cache = {}
 
 self.addEventListener('message', function(e) {
-  if(e.data.searchData) {
-    searchData = e.data.searchData
+  if(e.data.searchList) {
+    searchList = e.data.searchList
     cache = {}
   }
 
@@ -21,7 +21,7 @@ self.addEventListener('message', function(e) {
       return
     }
 
-    const engine = new Fuse(searchData, {
+    const engine = new Fuse(searchList, {
       keys: ['name'],
       shouldSort: true,
       threshold: 0.4

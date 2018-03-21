@@ -8,7 +8,7 @@ export default class SearchMenu extends React.Component {
 
   static propTypes = {
     data: is.array.isRequired,
-    searchData: is.array.isRequired,
+    searchList: is.array.isRequired,
     searchingFor: is.string,
     listWidth: is.number,
     onSelect: is.func.isRequired,
@@ -27,14 +27,14 @@ export default class SearchMenu extends React.Component {
     }
 
     this.webWorker = new Worker('webWorkers/ww1.js')
-    this.webWorker.postMessage({searchData: props.searchData})
+    this.webWorker.postMessage({searchList: props.searchList})
   }
 
 
   componentWillReceiveProps (nextProps) {
 
-    if(nextProps.searchData.length > this.props.searchData.length) {
-      this.webWorker.postMessage({searchData: nextProps.searchData})
+    if(nextProps.searchList.length > this.props.searchList.length) {
+      this.webWorker.postMessage({searchList: nextProps.searchList})
     }
 
 

@@ -10,14 +10,14 @@ import testimonials from '../../utilities/editableText/testimonials'
 export default class LandingPage extends React.Component {
 
   state={
-    searchData: []
+    searchList: []
   }
 
 
   componentDidMount () {
     fetch('https://apps.crossref.org/prep-staging/data?op=members')
       .then( r => r.json())
-      .then( r => this.setState({searchData: r.message}))
+      .then( r => this.setState({searchList: r.message}))
       .catch(e=>{
         console.error(e)
       })
@@ -70,7 +70,7 @@ export default class LandingPage extends React.Component {
 
             <Search
               onSelect={this.onSelect}
-              searchData={this.state.searchData}
+              searchList={this.state.searchList}
               savedSearches={JSON.parse(localStorage.getItem('savedSearches'))}
               placeHolder='Search by member'/>
           </div>
