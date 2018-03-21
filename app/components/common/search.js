@@ -37,20 +37,8 @@ export default class Search extends React.Component {
 
   render () {
     let data = []
-
-    if(this.state.focused) {
-
-      if(!this.state.searchingFor && this.props.savedSearches) {
-        data = this.props.savedSearches
-
-      } else {
-        if(!this.state.searchingFor) {
-          data = []
-
-        } else {
-          data = this.props.searchList
-        }
-      }
+    if(this.state.focused && !this.state.searchingFor && this.props.savedSearches) {
+      data = this.props.savedSearches
     }
 
 
