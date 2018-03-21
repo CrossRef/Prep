@@ -32,7 +32,7 @@ export default class SearchMenu extends React.Component {
 
   componentWillReceiveProps (nextProps) {
 
-    if(nextProps.searchData.length > this.props.searchData) {
+    if(nextProps.searchData.length > this.props.searchData.length) {
       this.webWorker.postMessage({searchData: nextProps.searchData})
     }
 
