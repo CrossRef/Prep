@@ -27,6 +27,10 @@
           position: relative;
           height: 22px;
           width: 22px;
+          overflow: visible;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
 
           img {
             cursor: pointer;
@@ -36,13 +40,14 @@
           }
 
           .tooltipHoverArea {
-            position: absolute;
+            z-index: 3;
             height: 352px;
             width: 343px;
-            left: 12px;
+            margin-left: 12px;
             top: -165px;
             visibility: hidden;
             cursor: auto;
+            background-color: #3EB1CB;
           }
 
           .tooltipHoverAreaLeft {
@@ -51,12 +56,12 @@
 
           .tooltipContentContainer {
             z-index: 2;
-            position: absolute;
             background-color: #4F5757;
-            height: 352px;
-            width: 328px;
-            left: 26px;
-            top: -165px;
+            max-height: 368px;
+            min-height: 112px;
+            height: auto;
+            width: 336px;
+            margin-left: 26px;
             color: white;
             font-size: 12px;
             padding: 17.5px 15px;

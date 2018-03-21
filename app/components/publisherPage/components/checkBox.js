@@ -45,7 +45,7 @@ export default class CheckBox extends React.Component {
     const windowWidth = window.innerWidth
     if(this.icon) {
       const xPosition = this.icon.getBoundingClientRect().x
-      if(windowWidth - (xPosition + 11) < 343) {
+      if(windowWidth - (xPosition + 11) < 500) {
         this.setState( prevState => prevState.tooltipRight ? {tooltipRight: false} : null)
       } else {
         this.setState( prevState => prevState.tooltipRight ? null : {tooltipRight: true})
