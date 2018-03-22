@@ -8,6 +8,7 @@ const express = require('express')
 
 const app = express();
 
+
 app.use(function logRequest (req, res, next) {
   console.log(`${req.method}: ${req.originalUrl}`);
   next()

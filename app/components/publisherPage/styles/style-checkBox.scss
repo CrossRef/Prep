@@ -32,11 +32,25 @@
           flex-direction: column;
           justify-content: center;
 
-          img {
-            cursor: pointer;
-            position: absolute;
-            right: 0;
-            z-index: 1;
+          .iconContainer {
+            height: 22px;
+            width: 22px;
+
+            img {
+              cursor: pointer;
+              position: absolute;
+              right: 0;
+              z-index: 1;
+            }
+          }
+
+          .iconContainer:hover {
+            .hoverIcon {
+              display: inline !important
+            }
+            .icon {
+              display: none
+            }
           }
 
           .tooltipHoverArea {
@@ -82,14 +96,6 @@
             visibility: visible;
           }
 
-        }
-        .hoverArea:hover {
-          .hoverIcon {
-            display: inline !important
-          }
-          .icon {
-            display: none
-          }
         }
         @media(min-width: 640px) {
           .hoverArea:hover {

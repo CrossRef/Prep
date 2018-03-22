@@ -13,7 +13,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "fuse.js": "^3.2.0",
+    "promise-polyfill": "^7.1.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-autocomplete": "^1.8.0",
@@ -37,7 +39,8 @@
     "express": "^4.16.2",
     "jest": "^22.2.1",
     "sass-brunch": "^2.10.4",
-    "sinon": "^4.2.2"
+    "sinon": "^4.2.2",
+    "uglify-js-brunch": "^2.10.0"
   },
   "jest": {
     "transform": {

@@ -1,5 +1,6 @@
 import React from 'react'
 import is from 'prop-types'
+
 import deployConfig from "../../../../deployConfig"
 import {debounce} from '../../../utilities/helpers'
 
@@ -87,17 +88,20 @@ export default class CheckBox extends React.Component {
               ref={ node => this.icon = node }
             >
 
-              {!mobileTooltipOpen &&
-              <img
-                className="icon"
-                style={{width: '22px', height: '22px'}}
-                src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Help.png`}/>}
+              <div className="iconContainer">
+                {!mobileTooltipOpen &&
+                <img
+                  className="icon"
+                  style={{width: '22px', height: '22px'}}
+                  src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Help.png`}/>
+                }
 
-              <img
-                className="hoverIcon"
-                style={{width: '22px', height: '22px', display: mobileTooltipOpen ? 'inline' : 'none'}}
-                src={`${deployConfig.baseUrl}assets/images/Asset_Icons_LightGrey_Help.svg`}
-                onClick={mobile ? () => this.props.setOpenTooltip(name) : null}/>
+                <img
+                  className="hoverIcon"
+                  style={{width: '22px', height: '22px', display: mobileTooltipOpen ? 'inline' : 'none'}}
+                  src={`${deployConfig.baseUrl}assets/images/Asset_Icons_LightGrey_Help.svg`}
+                  onClick={mobile ? () => this.props.setOpenTooltip(name) : null}/>
+              </div>
 
 
               <div
@@ -114,7 +118,7 @@ export default class CheckBox extends React.Component {
                   style={{margin: tooltipRight ? "0 0 0 14px" : "0 14px 0 0"}}
                 >
 
-                  <pre>{this.props.item.name === 'References' ? longInfo : info}</pre>
+                  <pre>{info}</pre>
 
                   {mobile &&
                   <img
@@ -152,7 +156,3 @@ export default class CheckBox extends React.Component {
   }
 }
 
-
-const longInfo = "Maecenas viverra tortor eu purus dignissim suscipit. Vestibulum volutpat enim vel consectetur eleifend. Duis ut molestie sem. Donec dignissim orci in posuere dapibus. Nunc et egestas ipsum, eu molestie est. Praesent rhoncus, ligula et commodo convallis, justo odio faucibus tortor, eu rutrum odio tortor sit amet ipsum. Proin quis molestie mauris, eu ultricies ipsum. Proin ligula eros, porta sit amet nisl quis, lacinia vulputate urna. Morbi dapibus ante tellus, nec scelerisque enim pellentesque at.\n" +
-  "\n" +
-  "Sed nec laoreet magna. Sed non sem vitae ligula bibendum maximus ac ut enim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec elementum lorem sit amet arcu vestibulum consequat. Donec dictum augue a congue auctor. Pellentesque nec condimentum sapien, sit amet molestie mauris. In scelerisque eget odio ut malesuada. Aenean bibendum ipsum et tortor ultricies laoreet. Praesent ultricies pellentesque est nec laoreet. Cras ullamcorper ex vel risus interdum, ut tincidunt urna varius. Etiam vitae purus nisl."

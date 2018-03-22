@@ -61,16 +61,22 @@
       border-radius: 4px;
 
       .titleFilterX {
-        min-width: 20px;
-        min-height: 20px;
+        width: 20px;
+        height: 20px;
         cursor: pointer;
         margin-left: 5px;
       }
     }
 
-    .timeFilter {
-      position: absolute;
-      right: 32px;
+    .timeFilterContainer {
+
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+
+      .timeFilter {
+
+      }
     }
 
     .inactiveTimeFilter {
@@ -94,10 +100,12 @@
         width: 256px;
       }
 
-      .timeFilter {
-        position: initial;
-        right: auto;
-        width: 256px;
+      .timeFilterContainer {
+        flex: none;
+
+        .timeFilter {
+          width: 256px;
+        }
       }
     }
   }

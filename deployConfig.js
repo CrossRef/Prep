@@ -15,13 +15,13 @@ var babelDev = {
 
 var presets = {
   production: {
-    baseUrl: '',
+    baseUrl: '/participationreports/',
     apiBaseUrl: '',
     babelConfig: babelCompatibility
   },
 
   staging: {
-    baseUrl: '/participationreports/',
+    baseUrl: '/prep-staging/',
     apiBaseUrl: '',
     babelConfig: babelDev
   }
