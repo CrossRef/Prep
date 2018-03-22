@@ -1,6 +1,5 @@
 import React from 'react'
 import is from 'prop-types'
-
 import deployConfig from "../../../../deployConfig"
 import {debounce} from '../../../utilities/helpers'
 
@@ -45,8 +44,9 @@ export default class CheckBox extends React.Component {
   updateTooltipPosition (onMount) {
     const windowWidth = window.innerWidth
     if(this.icon) {
-      const xPosition = this.icon.getBoundingClientRect().x
-      if(windowWidth - (xPosition + 11) < 360) {
+      const xPosition = this.icon.getBoundingClientRect().left
+
+      if(windowWidth - (xPosition + 11) < 343) {
         this.setState( prevState => prevState.tooltipRight ? {tooltipRight: false} : null)
       } else {
         this.setState( prevState => prevState.tooltipRight ? null : {tooltipRight: true})
