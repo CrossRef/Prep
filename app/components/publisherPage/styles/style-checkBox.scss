@@ -27,16 +27,20 @@
           position: relative;
           height: 22px;
           width: 22px;
+          overflow: visible;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
 
           .iconContainer {
+            position: absolute;
             height: 22px;
             width: 22px;
+            cursor: pointer;
 
             img {
-              cursor: pointer;
               position: absolute;
               right: 0;
-              z-index: 1;
             }
           }
 
@@ -50,27 +54,21 @@
           }
 
           .tooltipHoverArea {
-            position: absolute;
-            height: 352px;
-            width: 343px;
-            left: 12px;
-            top: -165px;
+            z-index: 3;
+            background-color: transparent;
+            height: auto;
+            width: 100px;
             visibility: hidden;
-            cursor: auto;
-          }
-
-          .tooltipHoverAreaLeft {
-            left: -332px
           }
 
           .tooltipContentContainer {
-            z-index: 2;
-            position: absolute;
+            direction: ltr;
+            z-index: 3;
             background-color: #4F5757;
-            height: 352px;
-            width: 328px;
-            left: 26px;
-            top: -165px;
+            max-height: 368px;
+            min-height: 112px;
+            height: auto;
+            width: 336px;
             color: white;
             font-size: 12px;
             padding: 17.5px 15px;
@@ -82,14 +80,11 @@
             pointer-events: none;
             cursor: auto;
 
-            p {margin: 0; pointer-events: auto}
-          }
-
-          .tooltipContentContainerLeft {
-            left: -332px
+            pre {margin: 0; white-space: pre-wrap; font-family: $regularFont}
           }
 
           .mobileTooltip {
+            position: absolute;
             top: 26px;
             width: 288px;
             left: -246px;
@@ -105,12 +100,17 @@
         @media(min-width: 640px) {
           .hoverArea:hover {
 
+            .iconContainer {
+              z-index: 4;
+            }
+
             .tooltipHoverArea {
               visibility: visible;
             }
             .tooltipContentContainer {
               visibility: visible;
               opacity: 1;
+              pointer-events: auto;
             }
           }
         }

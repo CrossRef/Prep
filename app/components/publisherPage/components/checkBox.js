@@ -1,6 +1,5 @@
 import React from 'react'
 import is from 'prop-types'
-
 import deployConfig from "../../../../deployConfig"
 import {debounce} from '../../../utilities/helpers'
 
@@ -45,7 +44,8 @@ export default class CheckBox extends React.Component {
   updateTooltipPosition (onMount) {
     const windowWidth = window.innerWidth
     if(this.icon) {
-      const xPosition = this.icon.getBoundingClientRect().x
+      const xPosition = this.icon.getBoundingClientRect().left
+
       if(windowWidth - (xPosition + 11) < 343) {
         this.setState( prevState => prevState.tooltipRight ? {tooltipRight: false} : null)
       } else {
@@ -79,8 +79,14 @@ export default class CheckBox extends React.Component {
       <div className="check">
         <div className="title">
           {name}
+
           <div className="tooltipIconContainer">
-            <div className="hoverArea" ref={ node => this.icon = node }>
+
+            <div
+              className="hoverArea"
+              style={{direction: tooltipRight ? 'ltr' : 'rtl'}}
+              ref={ node => this.icon = node }
+            >
 
               <div className="iconContainer">
                 {!mobileTooltipOpen &&
@@ -98,23 +104,23 @@ export default class CheckBox extends React.Component {
               </div>
 
 
-              {!mobile &&
+              <div
+                className='tooltipHoverArea'
+                style={{margin: tooltipRight ? "0 0 0 12px" : "0 12px 0 0"}}
+              >
+
                 <div
                   className={
-                    `tooltipHoverArea ${!tooltipRight ? 'tooltipHoverAreaLeft' : ''}`
+                    `tooltipContentContainer ${
+                    mobile ? 'mobileTooltip' : ''} ${
+                    mobileTooltipOpen ? 'mobileTooltipOpen' : ''}`
                   }
-                />
-              }
+                  style={{margin: tooltipRight ? "0 0 0 14px" : "0 14px 0 0"}}
+                >
 
-              <div
-                className={
-                  `tooltipContentContainer ${!mobile && !tooltipRight ? 'tooltipContentContainerLeft' : ''
-                  } ${mobile ? 'mobileTooltip' : ''} ${mobileTooltipOpen ? 'mobileTooltipOpen' : ''}`
-                }
-              >
-                <p>{info}</p>
+                  <pre>{info}</pre>
 
-                {mobile &&
+                  {mobile &&
                   <img
                     className="tooltipCloseButton"
                     style={{
@@ -126,10 +132,9 @@ export default class CheckBox extends React.Component {
                       cursor: 'pointer'
                     }}
                     src={`${deployConfig.baseUrl}assets/images/Asset_Icons_White_Close.svg`}
-                    onClick={() => {
-                      this.props.setOpenTooltip(undefined)
-                    }}/>
-                }
+                    onClick={() => this.props.setOpenTooltip(undefined)}/>}
+
+                  </div>
               </div>
 
             </div>
@@ -150,3 +155,4 @@ export default class CheckBox extends React.Component {
     )
   }
 }
+
