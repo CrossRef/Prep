@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, { shallow, mount, render } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import sinon from 'sinon'
-import ContentTypeFilter from "../components/contentTypeFilter"
+import ContentTypeFilter from "../components/checksFilter"
 
 
 

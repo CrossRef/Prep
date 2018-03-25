@@ -2,7 +2,7 @@ import React, {Fragment} from 'react'
 import is from 'prop-types'
 
 import CheckBox from "./checkBox"
-import ContentTypeFilter from "./contentTypeFilter"
+import ChecksFilter from "./checksFilter"
 import {prettyKeys, elipsize, debounce} from '../../../utilities/helpers'
 import Search from "../../common/search"
 import deployConfig from '../../../../deployConfig'
@@ -10,7 +10,10 @@ import deployConfig from '../../../../deployConfig'
 
 
 
-
+const translateDateFilter = {
+  'All time': null,
+  'Year to date': '2018'
+}
 
 
 export default class ChecksSection extends React.Component {
@@ -24,6 +27,7 @@ export default class ChecksSection extends React.Component {
   state = {
     openTooltip: undefined,
     filter: 'Journals',
+    dateFilter: 'All time',
     titleFilter: undefined,
     titleSearchList: [],
     titleChecksData: undefined,
@@ -57,13 +61,24 @@ export default class ChecksSection extends React.Component {
   }
 
 
-  getSearchData = (filter = this.state.filter) => {
-    const translateFilter = {
-      'Journal Article': 'Journal',
-      'books': 'books'
-    }
+  setDateFilter = (filterName) => {
+    this.setState({dateFilter: filterName})
 
-    return fetch(`https://apps.crossref.org/prep-staging/data?op=publications&memberid=${this.props.memberId}&contenttype=${filter}`)
+    const dateFilter = translateDateFilter[filterName]
+
+    const baseApiUrl = 'https://apps.crossref.org/prep-staging/data?op=participation-summary'
+    const member = `&memberid=${this.props.memberId}`
+    const pubyear = dateFilter ? `&pubyear=${dateFilter}` : ''
+    const pubid = this.state.titleFilter ? `&pubid=${this.state.titleFilter}` : ''
+
+    fetch(baseApiUrl + member + pubyear + pubid)
+      .then( r => r.json())
+      .then( r => this.setState({titleChecksData: r.message.Coverage.Journals}))
+  }
+
+
+  getSearchData = (filter = this.state.filter) => {
+    fetch(`https://apps.crossref.org/prep-staging/data?op=publications&memberid=${this.props.memberId}&contenttype=${filter}`)
       .then( r => r.json())
       .then( r => this.setState({titleSearchList: r.message}))
       .catch(e=>{
@@ -74,7 +89,15 @@ export default class ChecksSection extends React.Component {
 
   selectTitle = (value, selection) => {
     this.setState({titleFilter: value})
-    fetch(`https://apps.crossref.org/prep-staging/data?op=participation-summary&memberid=${this.props.memberId}&pubid=${value}`)
+
+    const dateFilter = translateDateFilter[this.state.dateFilter]
+
+    const baseApiUrl = 'https://apps.crossref.org/prep-staging/data?op=participation-summary'
+    const member = `&memberid=${this.props.memberId}`
+    const pubyear = dateFilter ? `&pubyear=${dateFilter}` : ''
+    const pubid = `&pubid=${value}`
+
+    fetch(baseApiUrl + member + pubyear + pubid)
       .then( r => r.json())
       .then( r => this.setState({titleChecksData: r.message.Coverage}))
   }
@@ -95,7 +118,8 @@ export default class ChecksSection extends React.Component {
 
         <div className="filters">
 
-          <ContentTypeFilter
+          <ChecksFilter
+            label={filter}
             filters={Object.keys(coverage)}
             currentFilter={filter}
             setFilter={this.setFilter}
@@ -130,7 +154,14 @@ export default class ChecksSection extends React.Component {
           </div>
 
           <div className="timeFilterContainer">
-            <div className="timeFilter filter">Last 12 months</div>
+            <ChecksFilter
+              label={this.state.dateFilter}
+              filters={Object.keys(translateDateFilter)}
+              currentFilter={this.state.dateFilter}
+              setFilter={this.setDateFilter}
+            >
+              <img style={{width: '22px'}} src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Calandar.svg`}/>
+            </ChecksFilter>
           </div>
 
         </div>
