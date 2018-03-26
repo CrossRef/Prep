@@ -2,8 +2,8 @@
 
 export default {
 
-  smallText: 'How good is your metadata?',
+  smallText: 'Richer metadata makes publications more discoverable.',
 
-  bigText: ''
+  bigText: 'Make sure your content can be found.'
 
 }
