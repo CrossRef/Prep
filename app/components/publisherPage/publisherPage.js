@@ -25,14 +25,15 @@ export default class PublisherPage extends React.Component {
 
   state = {
     totals: {},
-    coverage: {}
+    coverage: {},
+    loadingChecks: true
   }
 
 
   componentDidMount () {
     fetch(`https://apps.crossref.org/prep-staging/data?op=participation-summary&memberid=${this.props.match.params.memberId}`)
       .then( r => r.json())
-      .then( r => this.setState({totals: r.message.totals, coverage: r.message.Coverage}))
+      .then( r => this.setState({totals: r.message.totals, coverage: r.message.Coverage, loadingChecks: false}))
       .catch(e=>{
         console.error(e)
       })
@@ -71,7 +72,10 @@ export default class PublisherPage extends React.Component {
           </div>
         </div>
 
-        <ChecksSection coverage={this.state.coverage} memberId={this.props.match.params.memberId}/>
+        <ChecksSection
+          coverage={this.state.coverage}
+          memberId={this.props.match.params.memberId}
+          loadingChecks={this.state.loadingChecks}/>
 
         <div className="chartSection">
           Chart goes here
