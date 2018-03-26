@@ -43,10 +43,10 @@ body {
 
     .widthContainer {
       height: 100%;
-      max-width: 768px;
+      max-width: 960px;
       width: 100%;
       box-sizing: border-box;
-      padding: 8px 16px 0 16px;
+      padding: 8px 0 0 0;
       position: relative;
       display: flex;
 
@@ -72,7 +72,7 @@ body {
 
       .privacy {
         position: absolute;
-        right: 16px;
+        right: 0px;
         top: 8px;
 
         a:link {
@@ -88,6 +88,10 @@ body {
       } @media (max-width: 700px) {
         .privacy {
           top: 17px;
+        }
+      }  @media (max-width: 992px) {
+        .privacy {
+          right: 16px;
         }
       }
 
@@ -114,6 +118,10 @@ body {
     } @media (max-width: 700px) {
       .widthContainer {
         flex-direction: column;
+      }
+    }  @media (max-width: 992px) {
+      .widthContainer {
+        padding: 8px 16px 0 16px;
       }
     }
 

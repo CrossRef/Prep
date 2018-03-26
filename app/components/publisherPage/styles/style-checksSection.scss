@@ -115,7 +115,15 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     margin-bottom: -21px;
+  } @media (max-width: 960px) {
+    .checksContainer {
+      width: 704px
+    }
+  } @media (max-width: 704px) {
+    .checksContainer {
+      width: 352px
+    }
   }
 }

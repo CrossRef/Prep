@@ -136,20 +136,22 @@ export default class ChecksSection extends React.Component {
         </div>
 
 
-        <div className="checksContainer">
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <div className="checksContainer">
 
-          {(titleChecksData || coverage[filter] || []).map( item =>
-            <CheckBox
-              key={
-                `${titleChecksData ? `${titleFilter}-` : ''
-                }${filter ? `${filter}-` : ''
-                }${item.name}`
-              }
-              item={item}
-              openTooltip={this.state.openTooltip}
-              setOpenTooltip={this.setOpenTooltip}/>
-          )}
+            {(titleChecksData || coverage[filter] || []).map( item =>
+              <CheckBox
+                key={
+                  `${titleChecksData ? `${titleFilter}-` : ''
+                  }${filter ? `${filter}-` : ''
+                  }${item.name}`
+                }
+                item={item}
+                openTooltip={this.state.openTooltip}
+                setOpenTooltip={this.setOpenTooltip}/>
+            )}
 
+          </div>
         </div>
       </div>
     )
