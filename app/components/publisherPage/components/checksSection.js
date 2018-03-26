@@ -28,18 +28,35 @@ export default class ChecksSection extends React.Component {
     titleFilter: undefined,
     titleSearchList: [],
     titleChecksData: undefined,
-    loading: false
+    loadingFilter: false,
+    loadingStage: 0
   }
 
 
   componentDidMount () {
     this.getSearchData()
+    this.startLoadingTimeout()
     window.addEventListener('resize', this.debouncedUpdate);
   }
 
 
   componentWillUnmount () {
     window.removeEventListener('resize', this.debouncedUpdate);
+  }
+
+
+  startLoadingTimeout = () => {
+    this.loadingTimeout = setTimeout(()=>{
+      this.setState({loadingStage: 1})
+    }, 1000)
+  }
+
+
+  componentWillReceiveProps (nextProps) {
+    if(!nextProps.loadingChecks && this.props.loadingChecks) {
+      clearTimeout(this.loadingTimeout)
+      this.setState({loadingStage: 0})
+    }
   }
 
 
@@ -75,10 +92,15 @@ export default class ChecksSection extends React.Component {
 
 
   selectTitle = (value, selection) => {
-    this.setState({titleFilter: value, loading: true})
+    this.setState({titleFilter: value, loadingFilter: true})
+    this.startLoadingTimeout()
+
     fetch(`https://apps.crossref.org/prep-staging/data?op=participation-summary&memberid=${this.props.memberId}&pubid=${value}`)
       .then( r => r.json())
-      .then( r => this.setState({titleChecksData: r.message.Coverage, loading: false}))
+      .then( r => {
+        clearTimeout(this.loadingTimeout)
+        this.setState({titleChecksData: r.message.Coverage, loadingFilter: false, loadingStage: 0})
+      })
   }
 
 
@@ -94,6 +116,8 @@ export default class ChecksSection extends React.Component {
             marginBottom: '21px',
             zIndex: 10
           }}/>
+
+        {this.state.loadingStage === 1 &&
         <div
           style={{
             position: 'absolute',
@@ -114,7 +138,8 @@ export default class ChecksSection extends React.Component {
             src={`${deployConfig.baseUrl}assets/images/Asset_Load_Throbber_Load Throbber Teal.svg`}/>
 
           <p className="pleaseWait">Please wait, collecting data for you.</p>
-        </div>
+        </div>}
+
       </Fragment>
 
 
@@ -188,7 +213,7 @@ export default class ChecksSection extends React.Component {
           </div>
         :
           <div className="checksContainer">
-            {this.state.loading && this.renderLoader()}
+            {this.state.loadingFilter && this.renderLoader()}
 
             {(titleChecksData || coverage[filter]).map( item =>
               <CheckBox
