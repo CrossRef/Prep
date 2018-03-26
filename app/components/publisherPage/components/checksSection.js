@@ -17,7 +17,8 @@ export default class ChecksSection extends React.Component {
 
   static propTypes = {
     coverage: is.object.isRequired,
-    memberId: is.string.isRequired
+    memberId: is.string.isRequired,
+    loadingChecks: is.bool.isRequired
   }
 
 
@@ -27,6 +28,7 @@ export default class ChecksSection extends React.Component {
     titleFilter: undefined,
     titleSearchList: [],
     titleChecksData: undefined,
+    loading: false
   }
 
 
@@ -73,10 +75,50 @@ export default class ChecksSection extends React.Component {
 
 
   selectTitle = (value, selection) => {
-    this.setState({titleFilter: value})
+    this.setState({titleFilter: value, loading: true})
     fetch(`https://apps.crossref.org/prep-staging/data?op=participation-summary&memberid=${this.props.memberId}&pubid=${value}`)
       .then( r => r.json())
-      .then( r => this.setState({titleChecksData: r.message.Coverage}))
+      .then( r => this.setState({titleChecksData: r.message.Coverage, loading: false}))
+  }
+
+
+  renderLoader = () => {
+    return (
+      <Fragment>
+        <div
+          style={{
+            position: 'absolute',
+            top:0,bottom:0,left:0,right:0,
+            backgroundColor: 'white',
+            opacity: '.7',
+            marginBottom: '21px',
+            zIndex: 10
+          }}/>
+        <div
+          style={{
+            position: 'absolute',
+            top: -15,
+            width: '86%',
+            height: '150px',
+            backgroundColor: 'lightGrey',
+            zIndex: 11,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <img
+            className="loadThrobber"
+            style={{height: '70px'}}
+            src={`${deployConfig.baseUrl}assets/images/Asset_Load_Throbber_Load Throbber Teal.svg`}/>
+
+          <p className="pleaseWait">Please wait, collecting data for you.</p>
+        </div>
+      </Fragment>
+
+
+    )
   }
 
 
@@ -136,22 +178,38 @@ export default class ChecksSection extends React.Component {
         </div>
 
 
-        <div className="checksContainer">
+        {this.props.loadingChecks ?
+          <div className="checksContainer">
+            {this.renderLoader()}
 
-          {(titleChecksData || coverage[filter] || []).map( item =>
-            <CheckBox
-              key={
-                `${titleChecksData ? `${titleFilter}-` : ''
-                }${filter ? `${filter}-` : ''
-                }${item.name}`
-              }
-              item={item}
-              openTooltip={this.state.openTooltip}
-              setOpenTooltip={this.setOpenTooltip}/>
-          )}
+            {blankChecks.map( (item, index) =>
+              <CheckBox key={index} item={item} setOpenTooltip={this.setOpenTooltip} blank={true}/>
+            )}
+          </div>
+        :
+          <div className="checksContainer">
+            {this.state.loading && this.renderLoader()}
 
-        </div>
+            {(titleChecksData || coverage[filter]).map( item =>
+              <CheckBox
+                key={
+                  `${titleChecksData ? `${titleFilter}-` : ''
+                    }${filter ? `${filter}-` : ''
+                    }${item.name}`
+                }
+                item={item}
+                openTooltip={this.state.openTooltip}
+                setOpenTooltip={this.setOpenTooltip}
+              />
+            )}
+          </div>
+        }
+
+
       </div>
     )
   }
 }
+
+const bc = {name: '', percentage: 0, info: ''}
+const blankChecks = [bc, bc, bc, bc, bc, bc, bc, bc, bc, bc, bc, bc]
