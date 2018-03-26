@@ -12,7 +12,9 @@ import deployConfig from '../../../../deployConfig'
 
 const translateDateFilter = {
   'All time': null,
-  'Year to date': '2018'
+  '2018': '2018',
+  '2017': '2017',
+  '2016': '2016'
 }
 
 
@@ -156,7 +158,7 @@ export default class ChecksSection extends React.Component {
           <div className="timeFilterContainer">
             <ChecksFilter
               label={"Date range"}
-              filters={Object.keys(translateDateFilter)}
+              filters={Object.keys(translateDateFilter).reverse()}
               currentFilter={this.state.dateFilter}
               setFilter={this.setDateFilter}
             >
