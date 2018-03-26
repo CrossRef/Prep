@@ -46,6 +46,19 @@ export default class ChecksSection extends React.Component {
   }
 
 
+  componentWillReceiveProps (nextProps) {
+    const nextCoverage = Object.keys(nextProps.coverage)
+    if(
+      nextCoverage.length &&
+      !Object.keys(this.props.coverage).length &&
+      !nextProps.coverage[this.state.filter]
+    ) {
+      const newFilter = nextCoverage[0]
+      this.setState({filter: newFilter})
+    }
+  }
+
+
   setOpenTooltip = (selection) => {
     this.setState( prevState => prevState.openTooltip === selection ? null : {openTooltip: selection})
   }
