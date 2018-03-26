@@ -35,7 +35,7 @@ export default class ChecksFilter extends React.Component {
       >
         {this.props.children}
 
-        <p style={{margin: this.props.children ? "0 0 0 10px" : "0 0 0 16px"}}>{this.props.label}</p>
+        <p style={{margin: this.props.children ? "0 0 0 10px" : "0 0 0 16px"}}>{this.props.currentFilter}</p>
 
         <img
           style={{width: "20px", height: "20px", position: 'absolute', right: this.props.children ? '10px' : '14px'}}
@@ -43,6 +43,14 @@ export default class ChecksFilter extends React.Component {
 
         {this.state.menuOpen &&
         <div className="filterList">
+
+          <div
+            style={{margin: '10px 0 15px 0'}}
+            className="filterButton"
+          >
+            <div className="checkmark"/>
+            {this.props.label}
+          </div>
 
           {this.props.filters.map( filter =>
           <div key={filter} id={`${filter}_button`} className="filterButton" onClick={() => this.props.setFilter(filter)}>

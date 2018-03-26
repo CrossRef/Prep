@@ -119,7 +119,7 @@ export default class ChecksSection extends React.Component {
         <div className="filters">
 
           <ChecksFilter
-            label={filter}
+            label={'Content type'}
             filters={Object.keys(coverage)}
             currentFilter={filter}
             setFilter={this.setFilter}
@@ -155,7 +155,7 @@ export default class ChecksSection extends React.Component {
 
           <div className="timeFilterContainer">
             <ChecksFilter
-              label={this.state.dateFilter}
+              label={"Date range"}
               filters={Object.keys(translateDateFilter)}
               currentFilter={this.state.dateFilter}
               setFilter={this.setDateFilter}
