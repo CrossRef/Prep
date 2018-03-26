@@ -36,9 +36,9 @@ export default class Search extends React.Component {
 
 
   render () {
-    let data = []
+    let initialData = []
     if(this.state.focused && !this.state.searchingFor && this.props.savedSearches) {
-      data = this.props.savedSearches
+      initialData = this.props.savedSearches
     }
 
 
@@ -64,12 +64,13 @@ export default class Search extends React.Component {
 
 
         <SearchMenu
-          data={data}
+          initialData={initialData}
           searchList={this.props.searchList}
           onSelect={this.props.onSelect}
           listWidth={this.props.listWidth || this.state.listWidth || 0}
           searchingFor={this.state.searchingFor}
           notFound={this.props.notFound}
+          focused={this.state.focused}
         />
       </div>
     )

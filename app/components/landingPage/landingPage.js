@@ -25,7 +25,6 @@ export default class LandingPage extends React.Component {
 
 
   onSelect = (value, selection) => {
-    console.log(value)
     let savedSearches = JSON.parse(localStorage.getItem('savedSearches'))
 
     if(!savedSearches) {

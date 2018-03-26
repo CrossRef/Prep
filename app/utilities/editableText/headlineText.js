@@ -2,8 +2,8 @@
 
 export default {
 
-  smallText: 'How good is your metadata?',
+  smallText: 'Richer metadata makes content useful.',
 
-  bigText: ''
+  bigText: 'Make sure your work can be found.'
 
 }
