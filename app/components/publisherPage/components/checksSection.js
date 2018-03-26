@@ -26,16 +26,28 @@ export default class ChecksSection extends React.Component {
     loadingChecks: is.bool.isRequired
   }
 
+  constructor () {
+    super ()
 
-  state = {
-    openTooltip: undefined,
-    filter: 'Journals',
-    dateFilter: 'All time',
-    titleFilter: undefined,
-    titleSearchList: [],
-    titleChecksData: undefined,
-    loadingFilter: false,
-    loadingStage: 0
+    const defaultContent = 'Journals'
+    const defaultDate = 'All time'
+
+    this.generateKey = (contentFilter, dateFilter, titleFilter) => {
+      return `${contentFilter}-${dateFilter}${titleFilter ? `-${titleFilter}` : ''}`
+    }
+
+    this.state = {
+      openTooltip: undefined,
+      filter: defaultContent,
+      dateFilter: defaultDate,
+      titleFilter: undefined,
+      titleSearchList: [],
+      titleChecksData: undefined,
+      dateChecksData: undefined,
+      loadingFilter: false,
+      loadingStage: 0,
+      keySig: this.generateKey(defaultContent, defaultDate)
+    }
   }
 
 
@@ -77,24 +89,62 @@ export default class ChecksSection extends React.Component {
 
 
   setFilter = (filter) => {
-    this.setState({filter})
+    this.setState( prevState => ({filter, keySig: this.generateKey(filter, prevState.dateFilter)}))
     this.getSearchData(filter)
   }
 
 
   setDateFilter = (filterName) => {
-    this.setState({dateFilter: filterName})
-
-    const dateFilter = translateDateFilter[filterName]
+    const dateQuery = translateDateFilter[filterName]
 
     const baseApiUrl = 'https://apps.crossref.org/prep-staging/data?op=participation-summary'
     const member = `&memberid=${this.props.memberId}`
-    const pubyear = dateFilter ? `&pubyear=${dateFilter}` : ''
+    const pubyear = dateQuery ? `&pubyear=${dateQuery}` : ''
     const pubid = this.state.titleFilter ? `&pubid=${this.state.titleFilter}` : ''
 
-    fetch(baseApiUrl + member + pubyear + pubid)
-      .then( r => r.json())
-      .then( r => this.setState({titleChecksData: r.message.Coverage.Journals}))
+    this.setState({dateFilter: filterName, loadingFilter: !!(pubid || dateQuery)})
+    this.startLoadingTimeout()
+
+    if(pubid) {
+      fetch(baseApiUrl + member + pubyear + pubid)
+        .then( r => r.json())
+        .then( r => {
+          clearTimeout(this.loadingTimeout)
+
+          this.setState( prevState => ({
+            titleChecksData: r.message.Coverage,
+            loadingFilter: false,
+            loadingStage: 0,
+            keySig: this.generateKey(prevState.filter, filterName, prevState.titleFilter)
+          }))
+        })
+    }
+
+    if(dateQuery) {
+      fetch(baseApiUrl + member + pubyear)
+        .then( r => r.json())
+        .then( r => {
+          const setStatePayload = {dateChecksData: r.message.Coverage}
+
+          if(!pubid) {
+            clearTimeout(this.loadingTimeout)
+            setStatePayload.loadingFilter = false
+            setStatePayload.loadingStage = 0
+            setStatePayload.keySig = this.generateKey(this.state.filter, filterName)
+          }
+
+          this.setState(setStatePayload)
+        })
+
+    } else {
+      clearTimeout(this.loadingTimeout)
+      this.setState( prevState => ({
+        dateChecksData: undefined,
+        loadingFilter: false,
+        loadingStage: 0,
+        keySig: pubid ? prevState.keySig : this.generateKey(prevState.filter, filterName, prevState.titleFilter)
+      }))
+    }
   }
 
 
@@ -112,19 +162,34 @@ export default class ChecksSection extends React.Component {
     this.setState({titleFilter: value, loadingFilter: true})
     this.startLoadingTimeout()
 
-    const dateFilter = translateDateFilter[this.state.dateFilter]
+    const dateQuery = translateDateFilter[this.state.dateFilter]
 
     const baseApiUrl = 'https://apps.crossref.org/prep-staging/data?op=participation-summary'
     const member = `&memberid=${this.props.memberId}`
-    const pubyear = dateFilter ? `&pubyear=${dateFilter}` : ''
+    const pubyear = dateQuery ? `&pubyear=${dateQuery}` : ''
     const pubid = `&pubid=${value}`
 
     fetch(baseApiUrl + member + pubyear + pubid)
       .then( r => r.json())
       .then( r => {
         clearTimeout(this.loadingTimeout)
-        this.setState({titleChecksData: r.message.Coverage, loadingFilter: false, loadingStage: 0})
+
+        this.setState( prevState => ({
+          titleChecksData: r.message.Coverage,
+          loadingFilter: false,
+          loadingStage: 0,
+          keySig: this.generateKey(prevState.filter, prevState.dateFilter, value)
+        }))
       })
+  }
+
+
+  cancelTitleFilter = () => {
+    this.setState( prevState => ({
+      titleFilter: undefined,
+      titleChecksData: undefined,
+      keySig: this.generateKey(prevState.filter, prevState.dateFilter)
+    }))
   }
 
 
@@ -172,7 +237,7 @@ export default class ChecksSection extends React.Component {
 
 
   render () {
-    const {filter, titleFilter, titleSearchList, titleChecksData} = this.state
+    const {filter, titleFilter, titleSearchList, titleChecksData, dateChecksData} = this.state
     const {coverage} = this.props
 
     const mobile = window.matchMedia("(max-width: 639px)").matches
@@ -210,7 +275,7 @@ export default class ChecksSection extends React.Component {
                 <img
                   className="titleFilterX"
                   src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
-                  onClick={()=>this.setState({titleFilter: undefined, titleChecksData: undefined})}/>
+                  onClick={this.cancelTitleFilter}/>
               </Fragment>
             :
               <Search
@@ -247,13 +312,9 @@ export default class ChecksSection extends React.Component {
           <div className="checksContainer">
             {this.state.loadingFilter && this.renderLoader()}
 
-            {(titleChecksData || coverage[filter]).map( item =>
+            {(titleChecksData || (dateChecksData && dateChecksData[filter]) || coverage[filter]).map( item =>
               <CheckBox
-                key={
-                  `${titleChecksData ? `${titleFilter}-` : ''
-                    }${filter ? `${filter}-` : ''
-                    }${item.name}`
-                }
+                key={`${this.state.keySig}-${item.name}`}
                 item={item}
                 openTooltip={this.state.openTooltip}
                 setOpenTooltip={this.setOpenTooltip}
