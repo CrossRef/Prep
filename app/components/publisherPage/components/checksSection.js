@@ -299,31 +299,37 @@ export default class ChecksSection extends React.Component {
 
         </div>
 
-        <div style={{display: 'flex', justifyContent: 'center'}}>
+
           {this.props.loadingChecks ?
 
-            <div className="checksContainer">
+            <div className="checksWidthContainer">
               {this.renderLoader()}
 
-              {blankChecks.map( (item, index) =>
-                <CheckBox key={index} item={item} setOpenTooltip={this.setOpenTooltip} blank={true}/>
-              )}
+              <div className="checksContainer">
+
+                {blankChecks.map( (item, index) =>
+                  <CheckBox key={index} item={item} setOpenTooltip={this.setOpenTooltip} blank={true}/>
+                )}
+              </div>
             </div>
           :
-            <div className="checksContainer">
+            <div className="checksWidthContainer">
               {this.state.loadingFilter && this.renderLoader()}
 
-              {(titleChecksData || (dateChecksData && dateChecksData[filter]) || coverage[filter]).map( item =>
-                <CheckBox
-                  key={`${this.state.keySig}-${item.name}`}
-                  item={item}
-                  openTooltip={this.state.openTooltip}
-                  setOpenTooltip={this.setOpenTooltip}
-                />
-              )}
+              <div className="checksContainer">
+
+                {(titleChecksData || (dateChecksData && dateChecksData[filter]) || coverage[filter]).map( item =>
+                  <CheckBox
+                    key={`${this.state.keySig}-${item.name}`}
+                    item={item}
+                    openTooltip={this.state.openTooltip}
+                    setOpenTooltip={this.setOpenTooltip}
+                  />
+                )}
+              </div>
             </div>
           }
-        </div>
+
 
 
       </div>
