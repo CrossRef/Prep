@@ -8,12 +8,13 @@ export default class CheckBox extends React.Component {
 
   static propTypes = {
     item: is.shape({
-      name: is.string.isrequired,
+      name: is.string.isRequired,
       info: is.string.isRequired,
       percentage: is.number.isRequired
     }).isRequired,
     openTooltip: is.string,
-    setOpenTooltip: is.func.isRequired
+    setOpenTooltip: is.func.isRequired,
+    blank: is.bool
   }
 
 
@@ -30,6 +31,7 @@ export default class CheckBox extends React.Component {
 
 
   componentDidMount () {
+    if(this.props.blank) return
     const onMount = true
     this.updateTooltipPosition(onMount)
     window.addEventListener('resize', this.debouncedUpdate);
@@ -80,6 +82,7 @@ export default class CheckBox extends React.Component {
         <div className="title">
           {name}
 
+          {!this.props.blank &&
           <div className="tooltipIconContainer">
 
             <div
@@ -137,7 +140,7 @@ export default class CheckBox extends React.Component {
               </div>
 
             </div>
-          </div>
+          </div>}
 
         </div>
 
@@ -148,7 +151,7 @@ export default class CheckBox extends React.Component {
             </div>
           </div>
 
-          <div className="percent">{percentage}<span>%</span></div>
+          <div className="percent">{this.props.blank ? '' : percentage}<span>%</span></div>
         </div>
       </div>
     )

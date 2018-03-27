@@ -7,11 +7,12 @@ import { List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 export default class SearchMenu extends React.Component {
 
   static propTypes = {
-    data: is.array.isRequired,
+    initialData: is.array.isRequired,
     searchList: is.array.isRequired,
     searchingFor: is.string,
     listWidth: is.number,
     onSelect: is.func.isRequired,
+    focused: is.bool.isRequired,
     notFound: is.string
   }
 
@@ -22,7 +23,7 @@ export default class SearchMenu extends React.Component {
     this.cellHeightCache = new CellMeasurerCache({defaultHeight: 42, fixedWidth: true})
 
     this.state = {
-      data: props.data || [],
+      data: props.initialData || [],
       waitingFor: false
     }
 
@@ -56,9 +57,8 @@ export default class SearchMenu extends React.Component {
         }
       }
 
-
     } else {
-      this.setState({data: nextProps.data, waitingFor: false})
+      this.setState({data: !nextProps.searchingFor ? nextProps.initialData : this.state.data, waitingFor: false})
     }
   }
 
@@ -108,7 +108,7 @@ export default class SearchMenu extends React.Component {
   render() {
     this.cellHeightCache.clearAll()
 
-    return (
+    return this.state.data.length && this.props.focused ?
       <List
         rowHeight={this.cellHeightCache.rowHeight}
         height={207}
@@ -119,9 +119,10 @@ export default class SearchMenu extends React.Component {
         style={{
           position: 'absolute',
           height: 'auto',
-          display: this.state.data.length ? 'initial' : 'none',
         }}
       />
-    )
+    :
+      null
+
   }
 }
