@@ -226,7 +226,7 @@ export default class ChecksSection extends React.Component {
             style={{height: '70px'}}
             src={`${deployConfig.baseUrl}assets/images/Asset_Load_Throbber_Load Throbber Teal.svg`}/>
 
-          <p className="pleaseWait">Please wait, collecting data for you.</p>
+          <p className="pleaseWait">Please wait, we are collecting your data.</p>
         </div>}
 
       </Fragment>
