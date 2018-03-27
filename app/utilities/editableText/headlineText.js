@@ -2,8 +2,15 @@
 
 export default {
 
-  smallText: 'Richer metadata makes content useful.',
+  homePage: {
+    smallText: 'Richer metadata makes content useful.',
 
-  bigText: 'Make sure your work can be found.'
+    bigText: 'Make sure your work can be found.'
+  },
 
+  checksPage: {
+    smallText: 'Richer metadata makes content useful.',
+
+    bigText: 'Make sure your work can be found.'
+  }
 }
