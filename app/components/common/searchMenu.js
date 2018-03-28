@@ -118,7 +118,7 @@ export default class SearchMenu extends React.Component {
         scrollToIndex={0}
         style={{
           position: 'absolute',
-          height: 'auto',
+          height: 'auto'
         }}
       />
     :
