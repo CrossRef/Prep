@@ -56,8 +56,8 @@ export default class PublisherPage extends React.Component {
             <div className="contentBox">
 
               <div className="leftBox">
-                <p className="firstText">{headlineText.smallText}</p>
-                <p className="blueText">{headlineText.bigText}</p>
+                <p className="firstText">{headlineText.checksPage.smallText}</p>
+                <p className="blueText">{headlineText.checksPage.bigText}</p>
               </div>
 
               <div className="rightBox">

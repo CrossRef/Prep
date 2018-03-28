@@ -15,13 +15,3 @@ export function debounce (func, m, timeoutContainer, timeoutKey = 'timeout') {
 
   timeoutContainer[timeoutKey] = setTimeout(func, m)
 }
-
-
-
-export function elipsize (text, length) {
-  if(text.length > length) {
-    return text.substr(0, length) + '...'
-  } else {
-    return text
-  }
-}

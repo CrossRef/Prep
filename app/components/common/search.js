@@ -15,7 +15,13 @@ export default class Search extends React.Component {
     placeHolder: is.string.isRequired,
     onSelect: is.func.isRequired,
     listWidth: is.number,
-    notFound: is.string
+    notFound: is.string,
+    addWidth: is.number
+  }
+
+
+  static defaultProps = {
+    addWidth: 0
   }
 
 
@@ -67,7 +73,7 @@ export default class Search extends React.Component {
           initialData={initialData}
           searchList={this.props.searchList}
           onSelect={this.props.onSelect}
-          listWidth={this.props.listWidth || this.state.listWidth || 0}
+          listWidth={(this.props.listWidth || this.state.listWidth || 0) + this.props.addWidth}
           searchingFor={this.state.searchingFor}
           notFound={this.props.notFound}
           focused={this.state.focused}
