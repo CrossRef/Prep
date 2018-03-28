@@ -75,15 +75,7 @@ export default class ChecksSection extends React.Component {
       clearTimeout(this.loadingTimeout)
       this.setState({loadingStage: 0})
     }
-  }
 
-
-  debouncedUpdate = () => {
-    debounce(()=>this.setState({}), 500, this)
-  }
-
-
-  componentWillReceiveProps (nextProps) {
     const nextCoverage = Object.keys(nextProps.coverage)
     if(
       nextCoverage.length &&
@@ -93,6 +85,11 @@ export default class ChecksSection extends React.Component {
       const newFilter = nextCoverage[0]
       this.setState({filter: newFilter})
     }
+  }
+
+
+  debouncedUpdate = () => {
+    debounce(()=>this.setState({}), 500, this)
   }
 
 
@@ -315,28 +312,38 @@ export default class ChecksSection extends React.Component {
         </div>
 
 
-        {this.props.loadingChecks ?
-          <div className="checksContainer">
-            {this.renderLoader()}
+          {this.props.loadingChecks ?
 
-            {blankChecks.map( (item, index) =>
-              <CheckBox key={index} item={item} setOpenTooltip={this.setOpenTooltip} blank={true}/>
-            )}
-          </div>
-        :
-          <div className="checksContainer">
-            {this.state.loadingFilter && this.renderLoader()}
+            <div className="checksWidthContainer">
+              {this.renderLoader()}
 
-            {(titleChecksData || (dateChecksData && dateChecksData[filter]) || coverage[filter]).map( item =>
-              <CheckBox
-                key={`${this.state.keySig}-${item.name}`}
-                item={item}
-                openTooltip={this.state.openTooltip}
-                setOpenTooltip={this.setOpenTooltip}
-              />
-            )}
-          </div>
-        }
+              <div className="checksContainer">
+
+                {blankChecks.map( (item, index) =>
+                  <CheckBox key={index} item={item} setOpenTooltip={this.setOpenTooltip} blank={true}/>
+                )}
+              </div>
+            </div>
+          :
+            <div className="checksWidthContainer">
+              {this.state.loadingFilter && this.renderLoader()}
+
+              <div className="checksContainer">
+
+                {(titleChecksData || (dateChecksData && dateChecksData[filter]) || coverage[filter]).map( item =>
+                  <CheckBox
+                    key={`${this.state.keySig}-${item.name}`}
+                    item={item}
+                    openTooltip={this.state.openTooltip}
+                    setOpenTooltip={this.setOpenTooltip}
+                  />
+                )}
+              </div>
+            </div>
+          }
+
+
+
       </div>
     )
   }

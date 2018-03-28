@@ -110,6 +110,7 @@
 
       .publicationFilter {
         width: 256px;
+        margin-left: 0;
       }
 
       .timeFilterContainer {
@@ -122,21 +123,35 @@
     }
   }
 
-  .checksContainer {
-    height: auto;
-    width: 100%;
+  .checksWidthContainer {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: -21px;
     position: relative;
+
+    .loadThrobber {
+      @extend %rotateLoader
+    }
 
     .pleaseWait {
       font-family: $regularFont;
     }
 
-    .loadThrobber {
-      @extend %rotateLoader
+    .checksContainer {
+      height: auto;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      margin-bottom: -21px;
+
+    } @media (max-width: 960px) {
+      .checksContainer {
+        width: 704px
+      }
+    } @media (max-width: 704px) {
+      .checksContainer {
+        width: 352px
+      }
     }
   }
 }
