@@ -62,7 +62,20 @@
       display: flex;
       justify-content: space-between;
       padding: 0 13px 0 16px;
-      border-radius: 4px;
+
+      .titleFilterText {
+        max-width: 90%;
+        max-height: 30px;
+        overflow: hidden;
+        white-space:nowrap;
+        text-overflow: ellipsis;
+      }
+      @media (max-width: 840px) {
+        .titleFilterText {
+          max-width: 260px;
+        }
+      }
+
 
       .titleFilterX {
         width: 20px;

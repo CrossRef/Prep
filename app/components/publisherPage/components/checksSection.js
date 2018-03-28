@@ -3,7 +3,7 @@ import is from 'prop-types'
 
 import CheckBox from "./checkBox"
 import ChecksFilter from "./checksFilter"
-import {prettyKeys, elipsize, debounce} from '../../../utilities/helpers'
+import {prettyKeys, debounce} from '../../../utilities/helpers'
 import Search from "../../common/search"
 import deployConfig from '../../../../deployConfig'
 
@@ -230,8 +230,6 @@ export default class ChecksSection extends React.Component {
         </div>}
 
       </Fragment>
-
-
     )
   }
 
@@ -269,8 +267,8 @@ export default class ChecksSection extends React.Component {
 
               {titleFilter ?
                 <Fragment>
-                  <div style={{maxWidth: '200px', maxHeight: '30px', overflow: 'hidden'}}>
-                    {elipsize(titleFilter, 55)}
+                  <div className="titleFilterText">
+                    {titleFilter}
                   </div>
 
                   <img
@@ -278,7 +276,7 @@ export default class ChecksSection extends React.Component {
                     src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
                     onClick={this.cancelTitleFilter}/>
                 </Fragment>
-                :
+              :
                 <Search
                   searchList={titleSearchList}
                   placeHolder="Search by Title"
@@ -326,8 +324,6 @@ export default class ChecksSection extends React.Component {
             )}
           </div>
         }
-
-
       </div>
     )
   }
