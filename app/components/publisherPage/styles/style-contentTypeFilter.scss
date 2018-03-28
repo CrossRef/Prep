@@ -31,6 +31,7 @@
       box-sizing: border-box;
       padding: 10px 0 5px 0;
       z-index: 3;
+      box-shadow: 0px 3px 3px 1px #8e8a8a;
 
       .filterButton {
         width: 100%;
@@ -61,25 +62,27 @@
     .filterList:after {
       content: '';
       position: absolute;
-      bottom: 100%;
-      left: 93px;
+      top: -10px;
+      left: 91px;
       width: 0;
       height: 0;
-      border-left: 13px solid transparent;
-      border-right: 13px solid transparent;
-      border-bottom: 13px solid white;
+      border: 13.5px solid white;
+      transform: rotate(135deg);
     }
 
     .filterList:before {
       content: '';
       position: absolute;
-      bottom: 100%;
-      left: 92px;
+      top: -12px;
+      left: 93px;
       width: 0;
       height: 0;
-      border-left: 14px solid transparent;
-      border-right: 14px solid transparent;
-      border-bottom: 14px solid black;
+      border-left: 11.5px solid #4F5757;
+      border-bottom: 11.5px solid #4F5757;
+      border-top: 11.5px solid transparent;
+      border-right: 11.5px solid transparent;
+      box-shadow: 0px 0px 3px 0px #8e8a8a;
+      transform: rotate(135deg);
     }
 
 

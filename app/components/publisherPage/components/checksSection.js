@@ -259,32 +259,36 @@ export default class ChecksSection extends React.Component {
             inactive={!!titleFilter}
           />
 
-          <div
-            className={
-              `filter publicationFilter ${
-              titleFilter ? 'titleFilterActive' : ''} ${
-              this.state.filter !== 'Journals' ? 'inactivePublicationFilter' : ''}`
-            }>
+          <div style={{flex: 1, display: 'flex', alignItems: 'center'}}>
+            <div
+              className={
+                `filter publicationFilter ${
+                  titleFilter ? 'titleFilterActive' : ''} ${
+                  this.state.filter !== 'Journals' ? 'inactivePublicationFilter' : ''}`
+              }>
 
-            {titleFilter ?
-              <Fragment>
-                <div style={{maxWidth: '200px', maxHeight: '30px', overflow: 'hidden'}}>
-                  {elipsize(titleFilter, 55)}
-                </div>
+              {titleFilter ?
+                <Fragment>
+                  <div style={{maxWidth: '200px', maxHeight: '30px', overflow: 'hidden'}}>
+                    {elipsize(titleFilter, 55)}
+                  </div>
 
-                <img
-                  className="titleFilterX"
-                  src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
-                  onClick={this.cancelTitleFilter}/>
-              </Fragment>
-            :
-              <Search
-                searchList={titleSearchList}
-                placeHolder="Search by Title"
-                onSelect={this.selectTitle}
-                listWidth={mobile ? 256 : 456}
-                notFound="Not found in this content type"/>}
+                  <img
+                    className="titleFilterX"
+                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
+                    onClick={this.cancelTitleFilter}/>
+                </Fragment>
+                :
+                <Search
+                  searchList={titleSearchList}
+                  placeHolder="Search by Title"
+                  onSelect={this.selectTitle}
+                  //listWidth={mobile ? 256 : 456}
+                  addWidth={2}
+                  notFound="Not found in this content type"/>}
+            </div>
           </div>
+
 
           <div className="timeFilterContainer">
             <ChecksFilter

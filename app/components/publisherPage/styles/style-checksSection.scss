@@ -46,8 +46,10 @@
     }
 
     .publicationFilter {
-      width: 272px;
+      max-width: 448px;
+      width: 100%;
       margin-left: 16px;
+      margin-right: 16px;
     }
 
     .inactivePublicationFilter {
@@ -71,11 +73,6 @@
     }
 
     .timeFilterContainer {
-
-      flex: 1;
-      display: flex;
-      justify-content: flex-end;
-
       .timeFilter {
 
       }
