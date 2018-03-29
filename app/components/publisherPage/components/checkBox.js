@@ -129,11 +129,11 @@ export default class CheckBox extends React.Component {
                       position: 'absolute',
                       top: 6,
                       right: 6,
-                      height:20,
-                      width:20,
+                      height:17,
+                      width:17,
                       cursor: 'pointer'
                     }}
-                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_White_Close.svg`}
+                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
                     onClick={() => this.props.setOpenTooltip(undefined)}/>}
 
                   </div>
