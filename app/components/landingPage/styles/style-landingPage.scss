@@ -91,7 +91,8 @@
         .headlineTextHolder {
           display: flex;
           align-items: flex-start;
-          width: 400px;
+          max-width: 400px;
+          width: 100%;
           flex-direction: column;
           margin-top: 30px;
           justify-content: center;
