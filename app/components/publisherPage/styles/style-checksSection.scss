@@ -64,11 +64,16 @@
       padding: 0 13px 0 16px;
 
       .titleFilterText {
-        max-width: 90%;
+        max-width: 360px;
         max-height: 30px;
         overflow: hidden;
         white-space:nowrap;
         text-overflow: ellipsis;
+      }
+      @media (max-width: 866px) {
+        .titleFilterText {
+          max-width: 330px;
+        }
       }
       @media (max-width: 840px) {
         .titleFilterText {
