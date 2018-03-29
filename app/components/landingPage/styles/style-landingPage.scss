@@ -88,16 +88,26 @@
         color: #4F5757;
         height: 100%;
 
-        .smallText {
-          margin: 30px 0 0 0;
-          font-size: 18px;
-          font-family: $regularFont;
-        }
-        .bigText {
-          margin: 0;
-          font-family: $regularFont;
-          font-size: 24px;
-          line-height: 23px;
+        .headlineTextHolder {
+          display: flex;
+          align-items: flex-start;
+          width: 400px;
+          flex-direction: column;
+          margin-top: 30px;
+          justify-content: center;
+          min-height: 45px;
+
+          .smallText {
+            margin: 0;
+            font-size: 18px;
+            font-family: $regularFont;
+          }
+          .bigText {
+            margin: 0;
+            font-family: $regularFont;
+            font-size: 24px;
+            line-height: 23px;
+          }
         }
 
         .button {
@@ -122,9 +132,6 @@
         }
         .smallText {
           display: none;
-        }
-        .bigText {
-          margin-top: 10px !important;
         }
 
         img {

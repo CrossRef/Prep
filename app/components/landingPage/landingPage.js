@@ -81,8 +81,11 @@ export default class LandingPage extends React.Component {
           <div className="greyBar">
             <img src={`${deployConfig.baseUrl}assets/images/light-bulb.svg`}/>
             <div className="greyBarContent">
-              <p className="smallText">{headlineText.homePage.smallText}</p>
-              <p className="bigText">{headlineText.homePage.bigText}</p>
+              <div className="headlineTextHolder">
+                <p className="smallText">{headlineText.homePage.smallText}</p>
+                <p className="bigText">{headlineText.homePage.bigText}</p>
+              </div>
+
               <div className="button" onClick={() => this.props.history.push(`${deployConfig.baseUrl}info`)}>Learn More</div>
             </div>
 
