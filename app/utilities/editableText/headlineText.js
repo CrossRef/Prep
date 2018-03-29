@@ -5,7 +5,7 @@ export default {
   homePage: {
     smallText: 'Richer metadata makes content discoverable.',
 
-    bigText: 'Make sure your work can be found.'
+    bigText: ''
   },
 
   checksPage: {
