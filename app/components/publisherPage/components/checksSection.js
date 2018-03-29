@@ -223,17 +223,19 @@ export default class ChecksSection extends React.Component {
             top: -15,
             width: '86%',
             height: '150px',
-            backgroundColor: 'lightGrey',
+            backgroundColor: 'white',
             zIndex: 11,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            color: '#4F5757',
+            boxShadow: "0px 0px 3px 2px #8e8a8a"
           }}
         >
           <img
             className="loadThrobber"
-            style={{height: '70px'}}
+            style={{height: '60px'}}
             src={`${deployConfig.baseUrl}assets/images/Asset_Load_Throbber_Load Throbber Teal.svg`}/>
 
           <p className="pleaseWait">Please wait, we are collecting your data.</p>
@@ -247,8 +249,6 @@ export default class ChecksSection extends React.Component {
   render () {
     const {filter, titleFilter, titleSearchList, titleChecksData, dateChecksData} = this.state
     const {coverage} = this.props
-
-    const mobile = window.matchMedia("(max-width: 639px)").matches
 
     return (
       <div className="checksSection">
@@ -291,7 +291,6 @@ export default class ChecksSection extends React.Component {
                   searchList={titleSearchList}
                   placeHolder="Search by Title"
                   onSelect={this.selectTitle}
-                  //listWidth={mobile ? 256 : 456}
                   addWidth={2}
                   notFound="Not found in this content type"/>}
             </div>
