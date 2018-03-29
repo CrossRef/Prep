@@ -86,7 +86,7 @@ export default class LandingPage extends React.Component {
                 <p className="bigText">{headlineText.homePage.bigText}</p>
               </div>
 
-              <div className="button" onClick={() => this.props.history.push(`${deployConfig.baseUrl}info`)}>Learn More</div>
+              <div className="button" onClick={() => this.props.history.push(`${deployConfig.baseUrl}info`)}>Learn more</div>
             </div>
 
           </div>
