@@ -33,13 +33,13 @@
 
   .tooltipHoverArea {
     position: absolute;
-    right: -15px;
+    left: -188px;
     width: 192px;
-    bottom: 90px;
     visibility: hidden;
     padding: 12px 0 13px 16px;
     box-sizing: border-box;
     background-color: transparent;
+    cursor: auto !important;
 
     p {
       color: transparent;
@@ -58,11 +58,11 @@
     position: absolute;
     width: 192px;
     background-color: white;
-    bottom: 0px;
     left: -188px;
     padding: 12px 0 13px 16px;
     box-sizing: border-box;
     box-shadow: 0px 2px 3px 2px #8e8a8a;
+
 
     p {
       color: #4F5757;
