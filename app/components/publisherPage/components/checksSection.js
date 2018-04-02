@@ -26,6 +26,7 @@ export default class ChecksSection extends React.Component {
     loadingChecks: is.bool.isRequired
   }
 
+
   constructor () {
     super ()
 
@@ -38,7 +39,7 @@ export default class ChecksSection extends React.Component {
 
     this.state = {
       openTooltip: undefined,
-      filter: defaultContent,
+      contentFilter: defaultContent,
       dateFilter: defaultDate,
       titleFilter: undefined,
       titleSearchList: [],
@@ -46,20 +47,27 @@ export default class ChecksSection extends React.Component {
       dateChecksData: undefined,
       loadingFilter: false,
       loadingStage: 0,
-      keySig: this.generateKey(defaultContent, defaultDate)
+      keySig: this.generateKey(defaultContent, defaultDate),
+      coverageError: false,
+      filterError: false
     }
   }
 
 
   componentDidMount () {
-    this.getSearchData()
+    this.getTitleSearchData()
     this.startLoadingTimeout()
     window.addEventListener('resize', this.debouncedUpdate);
   }
 
 
-  componentWillUnmount () {
-    window.removeEventListener('resize', this.debouncedUpdate);
+  getTitleSearchData = (contentFilter = 'Journals') => {
+    fetch(`https://apps.crossref.org/prep-staging/data?op=publications&memberid=${this.props.memberId}&contenttype=${contentFilter}`)
+      .then( r => r.json())
+      .then( r => this.setState({titleSearchList: r.message}))
+      .catch(e=>{
+        console.error(e)
+      })
   }
 
 
@@ -70,37 +78,48 @@ export default class ChecksSection extends React.Component {
   }
 
 
+  debouncedUpdate = () => {
+    debounce(()=>this.setState({}), 500, this)
+  }
+
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.debouncedUpdate);
+  }
+
+
   componentWillReceiveProps (nextProps) {
     if(!nextProps.loadingChecks && this.props.loadingChecks) {
       clearTimeout(this.loadingTimeout)
       this.setState({loadingStage: 0})
     }
 
-    const nextCoverage = Object.keys(nextProps.coverage)
-    if(
-      nextCoverage.length &&
-      !Object.keys(this.props.coverage).length &&
-      !nextProps.coverage[this.state.filter]
-    ) {
-      const newFilter = nextCoverage[0]
-      this.setState({filter: newFilter})
+
+    if(this.props.loadingChecks && !nextProps.loadingChecks) {
+      const nextCoverage = Object.keys(nextProps.coverage)
+
+      if(
+        nextCoverage.length &&
+        !nextProps.coverage[this.state.contentFilter]
+      ) {
+        const newFilter = nextCoverage[0]
+        this.setState({contentFilter: newFilter})
+
+      } else if (
+        !nextCoverage.length
+      ) {
+        this.setState({coverageError: true})
+      }
     }
   }
 
 
-  debouncedUpdate = () => {
-    debounce(()=>this.setState({}), 500, this)
-  }
-
-
-  setOpenTooltip = (selection) => {
-    this.setState( prevState => prevState.openTooltip === selection ? null : {openTooltip: selection})
-  }
-
-
-  setFilter = (filter) => {
-    this.setState( prevState => ({filter, keySig: this.generateKey(filter, prevState.dateFilter)}))
-    this.getSearchData(filter)
+  setFilter = (contentFilter) => {
+    this.setState( prevState => ({
+      contentFilter,
+      keySig: this.generateKey(contentFilter, prevState.dateFilter),
+      filterError: false
+    }))
   }
 
 
@@ -125,8 +144,14 @@ export default class ChecksSection extends React.Component {
             titleChecksData: r.message.Coverage,
             loadingFilter: false,
             loadingStage: 0,
-            keySig: this.generateKey(prevState.filter, filterName, prevState.titleFilter)
+            keySig: this.generateKey(prevState.contentFilter, filterName, prevState.titleFilter),
+            filterError: !r.message.Coverage.length
           }))
+        })
+        .catch( e => {
+          console.error(e)
+          clearTimeout(this.loadingTimeout)
+          this.setState({loadingStage: 0, loadingFilter: false, filterError: true})
         })
     }
 
@@ -140,10 +165,23 @@ export default class ChecksSection extends React.Component {
             clearTimeout(this.loadingTimeout)
             setStatePayload.loadingFilter = false
             setStatePayload.loadingStage = 0
-            setStatePayload.keySig = this.generateKey(this.state.filter, filterName)
+            setStatePayload.keySig = this.generateKey(this.state.contentFilter, filterName)
+            setStatePayload.filterError = !r.message.Coverage[this.state.contentFilter]
           }
 
           this.setState(setStatePayload)
+        })
+        .catch( e => {
+          console.error(e)
+
+          if(!pubid) {
+            clearTimeout(this.loadingTimeout)
+            this.setState({
+              loadingFilter: false,
+              loadingStage: 0,
+              filterError: true
+            })
+          }
         })
 
     } else {
@@ -152,23 +190,13 @@ export default class ChecksSection extends React.Component {
         dateChecksData: undefined,
         loadingFilter: false,
         loadingStage: 0,
-        keySig: pubid ? prevState.keySig : this.generateKey(prevState.filter, filterName, prevState.titleFilter)
+        keySig: pubid ? prevState.keySig : this.generateKey(prevState.contentFilter, filterName, prevState.titleFilter)
       }))
     }
   }
 
 
-  getSearchData = (filter = this.state.filter) => {
-    fetch(`https://apps.crossref.org/prep-staging/data?op=publications&memberid=${this.props.memberId}&contenttype=${filter}`)
-      .then( r => r.json())
-      .then( r => this.setState({titleSearchList: r.message}))
-      .catch(e=>{
-        console.error(e)
-      })
-  }
-
-
-  selectTitle = (value, selection) => {
+  selectTitleFilter = (value, selection) => {
     this.setState({titleFilter: value, loadingFilter: true})
     this.startLoadingTimeout()
 
@@ -188,33 +216,44 @@ export default class ChecksSection extends React.Component {
           titleChecksData: r.message.Coverage,
           loadingFilter: false,
           loadingStage: 0,
-          keySig: this.generateKey(prevState.filter, prevState.dateFilter, value)
+          keySig: this.generateKey(prevState.contentFilter, prevState.dateFilter, value),
+          filterError: !r.message.Coverage.length
         }))
+      })
+      .catch( e => {
+        console.error(e)
+        clearTimeout(this.loadingTimeout)
+        this.setState({loadingFilter: false, loadingStage: 0, filterError: true})
       })
   }
 
 
   cancelTitleFilter = () => {
-    this.setState( prevState => ({
-      titleFilter: undefined,
-      titleChecksData: undefined,
-      keySig: this.generateKey(prevState.filter, prevState.dateFilter)
-    }))
+    this.setState( prevState => {
+      const newState = {}
+
+      if(prevState.dateChecksData && !prevState.dateChecksData[prevState.contentFilter]) {
+        newState.filterError = true
+      }
+
+      newState.titleFilter = undefined
+      newState.titleChecksData = undefined
+      newState.keySig = this.generateKey(prevState.contentFilter, prevState.dateFilter)
+
+      return newState
+    })
+  }
+
+
+  setOpenTooltip = (selection) => {
+    this.setState( prevState => prevState.openTooltip === selection ? null : {openTooltip: selection})
   }
 
 
   renderLoader = () => {
     return (
       <Fragment>
-        <div
-          style={{
-            position: 'absolute',
-            top:0,bottom:0,left:0,right:0,
-            backgroundColor: 'white',
-            opacity: '.7',
-            marginBottom: '21px',
-            zIndex: 10
-          }}/>
+        <div style={this.state.filterError ? {top: 0} : null} className="loadWhiteScreen"/>
 
         {this.state.loadingStage === 1 &&
         <div
@@ -247,13 +286,13 @@ export default class ChecksSection extends React.Component {
 
 
   render () {
-    const {filter, titleFilter, titleSearchList, titleChecksData, dateChecksData} = this.state
+    const {contentFilter, titleFilter, titleSearchList, titleChecksData, dateChecksData} = this.state
     const {coverage} = this.props
 
     return (
       <div className="checksSection">
         <div className="titleBar">
-          {`Content type: ${prettyKeys(filter)}`}
+          {`Content type: ${prettyKeys(contentFilter)}`}
         </div>
 
 
@@ -261,8 +300,8 @@ export default class ChecksSection extends React.Component {
 
           <ChecksFilter
             label={'Content type'}
-            filters={Object.keys(coverage)}
-            currentFilter={filter}
+            filters={Object.keys(dateChecksData ? dateChecksData : coverage)}
+            currentFilter={contentFilter}
             setFilter={this.setFilter}
             inactive={!!titleFilter}
           />
@@ -272,7 +311,7 @@ export default class ChecksSection extends React.Component {
               className={
                 `filter publicationFilter ${
                   titleFilter ? 'titleFilterActive' : ''} ${
-                  this.state.filter !== 'Journals' ? 'inactivePublicationFilter' : ''}`
+                  this.state.contentFilter !== 'Journals' ? 'inactivePublicationFilter' : ''}`
               }>
 
               {titleFilter ?
@@ -290,7 +329,7 @@ export default class ChecksSection extends React.Component {
                 <Search
                   searchList={titleSearchList}
                   placeHolder="Search by Title"
-                  onSelect={this.selectTitle}
+                  onSelect={this.selectTitleFilter}
                   addWidth={2}
                   notFound="Not found in this content type"/>}
             </div>
@@ -310,39 +349,46 @@ export default class ChecksSection extends React.Component {
 
         </div>
 
+        {this.state.coverageError || this.state.filterError ?
+          <div className="coverageError">
+            {this.renderLoader()}
+            {this.state.coverageError && <div>No content has been registered for this member.</div>}
+            {this.state.filterError && <div>No content has been registered for the selected filters.</div>}
+          </div>
 
-          {this.props.loadingChecks ?
+        :
+          <Fragment>
+            {this.props.loadingChecks ?
 
-            <div className="checksWidthContainer">
-              {this.renderLoader()}
+              <div className="checksWidthContainer">
+                {this.renderLoader()}
 
-              <div className="checksContainer">
+                <div className="checksContainer">
 
-                {blankChecks.map( (item, index) =>
-                  <CheckBox key={index} item={item} setOpenTooltip={this.setOpenTooltip} blank={true}/>
-                )}
+                  {blankChecks.map( (item, index) =>
+                    <CheckBox key={index} item={item} setOpenTooltip={this.setOpenTooltip} blank={true}/>
+                  )}
+                </div>
               </div>
-            </div>
-          :
-            <div className="checksWidthContainer">
-              {this.state.loadingFilter && this.renderLoader()}
+            :
+              <div className="checksWidthContainer">
+                {this.state.loadingFilter && this.renderLoader()}
 
-              <div className="checksContainer">
+                <div className="checksContainer">
 
-                {(titleChecksData || (dateChecksData && dateChecksData[filter]) || coverage[filter]).map( item =>
-                  <CheckBox
-                    key={`${this.state.keySig}-${item.name}`}
-                    item={item}
-                    openTooltip={this.state.openTooltip}
-                    setOpenTooltip={this.setOpenTooltip}
-                  />
-                )}
+                  {(titleChecksData || (dateChecksData && dateChecksData[contentFilter]) || coverage[contentFilter]).map( item =>
+                    <CheckBox
+                      key={`${this.state.keySig}-${item.name}`}
+                      item={item}
+                      openTooltip={this.state.openTooltip}
+                      setOpenTooltip={this.setOpenTooltip}
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-          }
-
-
-
+            }
+          </Fragment>
+        }
       </div>
     )
   }
