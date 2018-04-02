@@ -121,6 +121,10 @@
           margin-top: 21.5px;
           font-family: $regularFont;
           cursor: pointer;
+
+          a { color: #4F5757; text-decoration: none }
+          a:visited { color: #4F5757 }
+
         }
       }
 

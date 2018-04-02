@@ -30,6 +30,9 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
+
+        a { color: white; text-decoration: none }
+        a:visited { color: white }
       }
     }
 

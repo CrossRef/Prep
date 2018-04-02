@@ -45,7 +45,7 @@ export default class ChecksFilter extends React.Component {
         <div className="filterList">
 
           <div
-            style={{margin: '10px 0 15px 0'}}
+            style={{margin: '10px 0 25px 0'}}
             className="filterButton"
           >
             <div className="checkmark"/>
