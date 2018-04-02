@@ -51,7 +51,9 @@ export default class PublisherPage extends React.Component {
 
             <div className="topBar">
               <div className="button" onClick={() => this.props.history.push(`${deployConfig.baseUrl}`)}>Find a member</div>
-              <div className="button" onClick={() => this.props.history.push(`${deployConfig.baseUrl}info`)}>Learn more</div>
+              <div className="button">
+                <a href="http://www.google.com" target="_blankk">Learn more</a>
+              </div>
             </div>
 
             <div className="contentBox">
