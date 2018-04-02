@@ -19,12 +19,22 @@ body {
 
     .widthContainer {
       width: 100%;
+      height: 81px;
       max-width: 960px;
-      padding-right: 14px;
       box-sizing: border-box;
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: flex-end;
+
+      .participationLogo {
+        width: 140px;
+        cursor: pointer;
+      }
+
+      .crossrefLogo {
+        width: 96px;
+      }
+
     }  @media(max-width: 960px) {
       .widthContainer {
         padding-left: 14px;
@@ -33,7 +43,7 @@ body {
   }
 
   .footer {
-    background-color: black;
+    background-color: #4f5858;
     height: 32px;
     position: absolute;
     bottom: 0;

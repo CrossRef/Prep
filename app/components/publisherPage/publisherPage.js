@@ -77,9 +77,6 @@ export default class PublisherPage extends React.Component {
           memberId={this.props.match.params.memberId}
           loadingChecks={this.state.loadingChecks}/>
 
-        <div className="chartSection">
-          Chart goes here
-        </div>
       </div>
     )
   }

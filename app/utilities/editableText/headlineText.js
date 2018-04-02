@@ -3,13 +3,13 @@
 export default {
 
   homePage: {
-    smallText: 'Richer metadata makes content discoverable.',
+    smallText: 'Richer metadata makes content useful.',
 
-    bigText: 'Make sure your work can be found.'
+    bigText: ''
   },
 
   checksPage: {
-    smallText: 'Richer metadata makes content useful.',
+    smallText: '',
 
     bigText: 'Make sure your work can be found.'
   }
