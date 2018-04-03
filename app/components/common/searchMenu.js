@@ -61,7 +61,7 @@ export default class SearchMenu extends React.Component {
     }
 
 
-    if(nextProps.searchingFor && nextProps.searchingFor.trim() !== this.props.searchingFor.trim()) {
+    if(nextProps.searchingFor && nextProps.searchingFor !== this.props.searchingFor) {
 
       const searchingForTrim = nextProps.searchingFor.trim()
 
@@ -73,12 +73,15 @@ export default class SearchMenu extends React.Component {
 
         const {searchResult, searchingFor} = event.data
 
-        if(this.state.waitingFor === searchingFor) {
-          this.setState({
+
+        this.setState( prevState => {
+          if(!prevState.waitingFor) return null
+
+          return {
             data: !searchResult.length && this.props.notFound ? [{name: this.props.notFound, notFound: true}] : searchResult,
-            waitingFor: false
-          })
-        }
+            waitingFor: searchingFor === prevState.waitingFor ? false : prevState.waitingFor
+          }
+        })
       }
 
     } else {
@@ -101,7 +104,7 @@ export default class SearchMenu extends React.Component {
     is no need to update the results menu on that initial change to the search query. It should instead wait for the
     webworker to finish before updating. This code declines updates while waiting for the result to come back. */
 
-    return nextState.waitingFor === false
+    return nextState.waitingFor === false || nextState.data.length !== this.state.data
   }
 
 

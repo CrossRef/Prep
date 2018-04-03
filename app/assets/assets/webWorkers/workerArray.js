@@ -2,12 +2,10 @@ const ports = {}
 
 let cache = {}
 
-const fuzzySearchOptions = {
-  keys: ['name'],
-  shouldSort: true,
-  threshold: 0.2,
-  distance: 500
-}
+let que
+
+let logging = false
+
 
 
 self.addEventListener('message', function(e) {
@@ -24,11 +22,18 @@ self.addEventListener('message', function(e) {
       const searchingFor = e.data.searchingFor
       const searchResult = e.data.searchResult
 
-      if(webWorker.lastSearch === searchingFor) {
+      const message = {searchResult, searchingFor}
+
+      if(que) {
+        webWorker.postMessage(que.message)
+        const now = Date.now()
+        if(logging) console.log(e.data.wwId, 'FINISHED', now - webWorker.inUse, 'TAKING QUE', now - que.time, que.message.searchingFor.length)
+        webWorker.inUse = now
+        que = null
+      } else {
+        if(logging) console.log(e.data.wwId, 'FINISHED', Date.now() - webWorker.inUse, searchingFor.length)
         webWorker.inUse = false
       }
-
-      const message = {searchResult, searchingFor}
 
       cache[searchingFor] = message
 
@@ -43,7 +48,7 @@ self.addEventListener('message', function(e) {
     cache = {}
 
     for (const port in ports) {
-      ports[port].postMessage({searchList: searchList, fuzzySearchOptions: fuzzySearchOptions})
+      ports[port].postMessage({searchList: searchList})
     }
   }
 
@@ -59,6 +64,7 @@ self.addEventListener('message', function(e) {
       return
     }
 
+
     const searchOptions = {
       keys: ['name'],
       shouldSort: true,
@@ -73,31 +79,17 @@ self.addEventListener('message', function(e) {
 
     const message = {searchingFor: searchingFor, searchOptions: searchOptions}
 
-    let firstInUse
-
     for (const port in ports) {
       const webWorker = ports[port]
 
       if(!webWorker.inUse) {
         webWorker.postMessage(message)
         webWorker.inUse = Date.now()
-        break
-
-      } else {
-        if(!firstInUse) {
-          firstInUse = webWorker
-        } else {
-          if(firstInUse.inUse > webWorker.inUse) {
-            firstInUse = webWorker
-          }
-        }
+        if(logging) console.log(port, 'CLOSED', searchingFor.length)
+        return
       }
     }
 
-    if(firstInUse) {
-      firstInUse.postMessage(message)
-      firstInUse.inUse = Date.now()
-      firstInUse.lastSearch = searchingFor
-    }
+    que = {message, time: Date.now()}
   }
 })
