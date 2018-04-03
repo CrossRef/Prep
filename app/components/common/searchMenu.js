@@ -28,31 +28,29 @@ export default class SearchMenu extends React.Component {
     }
 
     this.workerArray = new Worker('assets/webWorkers/workerArray.js')
-    const ww1 = new Worker('assets/webWorkers/ww1.js')
-    const ww2 = new Worker('assets/webWorkers/ww2.js')
-    const ww3 = new Worker('assets/webWorkers/ww3.js')
-    const ww4 = new Worker('assets/webWorkers/ww4.js')
+    this.ww1 = new Worker('assets/webWorkers/ww1.js')
+    this.ww2 = new Worker('assets/webWorkers/ww2.js')
+    this.ww3 = new Worker('assets/webWorkers/ww3.js')
+    this.ww4 = new Worker('assets/webWorkers/ww4.js')
 
     const channel1 = new MessageChannel()
     this.workerArray.postMessage({port: "ww1"}, [channel1.port1])
-    ww1.postMessage({port: "ww1"}, [channel1.port2])
+    this.ww1.postMessage({port: "ww1"}, [channel1.port2])
 
     const channel2 = new MessageChannel()
     this.workerArray.postMessage({port: "ww2"}, [channel2.port1])
-    ww2.postMessage({port: "ww2"}, [channel2.port2])
+    this.ww2.postMessage({port: "ww2"}, [channel2.port2])
 
     const channel3 = new MessageChannel()
     this.workerArray.postMessage({port: "ww3"}, [channel3.port1])
-    ww3.postMessage({port: "ww3"}, [channel3.port2])
+    this.ww3.postMessage({port: "ww3"}, [channel3.port2])
 
     const channel4 = new MessageChannel()
     this.workerArray.postMessage({port: "ww4"}, [channel4.port1])
-    ww4.postMessage({port: "ww4"}, [channel4.port2])
-
+    this.ww4.postMessage({port: "ww4"}, [channel4.port2])
 
 
     this.workerArray.postMessage({searchList: props.searchList})
-
   }
 
 
@@ -89,6 +87,10 @@ export default class SearchMenu extends React.Component {
 
   componentWillUnmount() {
     this.workerArray.terminate()
+    this.ww1.terminate()
+    this.ww2.terminate()
+    this.ww3.terminate()
+    this.ww4.terminate()
   }
 
 
