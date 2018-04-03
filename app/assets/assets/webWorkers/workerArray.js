@@ -2,6 +2,13 @@ const ports = {}
 
 let cache = {}
 
+const fuzzySearchOptions = {
+  keys: ['name'],
+  shouldSort: true,
+  threshold: 0.2,
+  distance: 500
+}
+
 
 self.addEventListener('message', function(e) {
 
@@ -36,7 +43,7 @@ self.addEventListener('message', function(e) {
     cache = {}
 
     for (const port in ports) {
-      ports[port].postMessage({searchList: searchList})
+      ports[port].postMessage({searchList: searchList, fuzzySearchOptions: fuzzySearchOptions})
     }
   }
 
@@ -52,13 +59,27 @@ self.addEventListener('message', function(e) {
       return
     }
 
+    const searchOptions = {
+      keys: ['name'],
+      shouldSort: true,
+      threshold: 0.2,
+      distance: 500
+    }
+
+    if(searchingFor.length > 32) {
+      searchOptions.tokenize = true
+      searchOptions.matchAllTokens = true
+    }
+
+    const message = {searchingFor: searchingFor, searchOptions: searchOptions}
+
     let firstInUse
 
     for (const port in ports) {
       const webWorker = ports[port]
 
       if(!webWorker.inUse) {
-        webWorker.postMessage({searchingFor: searchingFor})
+        webWorker.postMessage(message)
         webWorker.inUse = Date.now()
         break
 
@@ -74,7 +95,7 @@ self.addEventListener('message', function(e) {
     }
 
     if(firstInUse) {
-      firstInUse.postMessage({searchingFor: searchingFor})
+      firstInUse.postMessage(message)
       firstInUse.inUse = Date.now()
       firstInUse.lastSearch = searchingFor
     }

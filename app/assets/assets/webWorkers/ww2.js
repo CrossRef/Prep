@@ -19,12 +19,7 @@ self.addEventListener('message', function(e) {
 
         const searchingFor = e.data.searchingFor
 
-        const engine = new Fuse(searchList, {
-          keys: ['name'],
-          shouldSort: true,
-          threshold: 0.2,
-          distance: 500
-        })
+        const engine = new Fuse(searchList, e.data.searchOptions)
 
         const result = engine.search(searchingFor)
 

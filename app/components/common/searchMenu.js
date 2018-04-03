@@ -61,11 +61,13 @@ export default class SearchMenu extends React.Component {
     }
 
 
-    if(nextProps.searchingFor && nextProps.searchingFor !== this.props.searchingFor) {
+    if(nextProps.searchingFor && nextProps.searchingFor.trim() !== this.props.searchingFor.trim()) {
 
-      this.setState({waitingFor: nextProps.searchingFor})
+      const searchingForTrim = nextProps.searchingFor.trim()
 
-      this.workerArray.postMessage({searchingFor: nextProps.searchingFor})
+      this.setState({waitingFor: searchingForTrim})
+
+      this.workerArray.postMessage({searchingFor: searchingForTrim})
 
       this.workerArray.onmessage = event => {
 
