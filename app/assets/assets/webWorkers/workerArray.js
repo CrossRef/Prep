@@ -1,6 +1,6 @@
 const ports = {}
 
-const cache = {}
+let cache = {}
 
 
 self.addEventListener('message', function(e) {
@@ -33,6 +33,7 @@ self.addEventListener('message', function(e) {
   if(e.data.searchList) {
 
     searchList = e.data.searchList
+    cache = {}
 
     for (const port in ports) {
       ports[port].postMessage({searchList: searchList})
