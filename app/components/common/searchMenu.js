@@ -27,19 +27,39 @@ export default class SearchMenu extends React.Component {
       waitingFor: false
     }
 
-    this.webWorker = new Worker('assets/webWorkers/ww1.js')
-    //this.webWorker.postMessage({searchList: props.searchList})
+    this.workerArray = new Worker('assets/webWorkers/workerArray.js')
+    const ww1 = new Worker('assets/webWorkers/ww1.js')
+    const ww2 = new Worker('assets/webWorkers/ww2.js')
+    const ww3 = new Worker('assets/webWorkers/ww3.js')
+    const ww4 = new Worker('assets/webWorkers/ww4.js')
 
-    caches.open('searchList').then( cache => {
-      cache.put('searchList', new Response())
-    })
+    const channel1 = new MessageChannel()
+    this.workerArray.postMessage({port: "ww1"}, [channel1.port1])
+    ww1.postMessage({port: "ww1"}, [channel1.port2])
+
+    const channel2 = new MessageChannel()
+    this.workerArray.postMessage({port: "ww2"}, [channel2.port1])
+    ww2.postMessage({port: "ww2"}, [channel2.port2])
+
+    const channel3 = new MessageChannel()
+    this.workerArray.postMessage({port: "ww3"}, [channel3.port1])
+    ww3.postMessage({port: "ww3"}, [channel3.port2])
+
+    const channel4 = new MessageChannel()
+    this.workerArray.postMessage({port: "ww4"}, [channel4.port1])
+    ww4.postMessage({port: "ww4"}, [channel4.port2])
+
+
+
+    this.workerArray.postMessage({searchList: props.searchList})
+
   }
 
 
   componentWillReceiveProps (nextProps) {
 
     if(nextProps.searchList.length > this.props.searchList.length) {
-      this.webWorker.postMessage({searchList: nextProps.searchList})
+      this.workerArray.postMessage({searchList: nextProps.searchList})
     }
 
 
@@ -47,9 +67,9 @@ export default class SearchMenu extends React.Component {
 
       this.setState({waitingFor: nextProps.searchingFor})
 
-      this.webWorker.postMessage({searchingFor: nextProps.searchingFor})
+      this.workerArray.postMessage({searchingFor: nextProps.searchingFor})
 
-      this.webWorker.onmessage = event => {
+      this.workerArray.onmessage = event => {
 
         const {searchResult, searchingFor} = event.data
 
@@ -68,7 +88,7 @@ export default class SearchMenu extends React.Component {
 
 
   componentWillUnmount() {
-    this.webWorker.terminate()
+    this.workerArray.terminate()
   }
 
 

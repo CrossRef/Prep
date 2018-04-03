@@ -2,39 +2,38 @@ self.importScripts('fuse.js');
 
 let searchList = []
 
-let cache = {}
+let port
 
 self.addEventListener('message', function(e) {
-  if(e.data.searchList) {
-    searchList = e.data.searchList
-    cache = {}
-  }
 
-  if(e.data.searchingFor) {
+  if(e.data.port) {
+    port = e.ports[0]
 
-    const searchingFor = e.data.searchingFor
+    port.onmessage = function (e) {
 
-    const cachedResult = cache[searchingFor]
+      if(e.data.searchList) {
+        searchList = e.data.searchList
+      }
 
-    if(cachedResult) {
-      self.postMessage(cachedResult)
-      return
+      if(e.data.searchingFor) {
+
+        const searchingFor = e.data.searchingFor
+
+        const engine = new Fuse(searchList, {
+          keys: ['name'],
+          shouldSort: true,
+          threshold: 0.2,
+          distance: 500
+        })
+
+        const result = engine.search(searchingFor)
+
+        const message = {searchResult: result, searchingFor: searchingFor, wwId: 'ww3'}
+
+        port.postMessage(message)
+      }
     }
-
-    const engine = new Fuse(searchList, {
-      keys: ['name'],
-      shouldSort: true,
-      threshold: 0.2,
-      distance: 500
-    })
-
-    const result = engine.search(searchingFor)
-
-    const message = {searchResult: result, searchingFor: searchingFor, wwIndex: 3}
-
-    cache[searchingFor] = message
-
-    self.postMessage(message)
   }
+
 
 })
