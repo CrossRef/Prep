@@ -2,12 +2,12 @@ self.importScripts('fuse.js');
 
 let searchList = []
 
-//let cache = {}
+let cache = {}
 
 self.addEventListener('message', function(e) {
   if(e.data.searchList) {
     searchList = e.data.searchList
-    caches.delete('searches')
+    cache = {}
   }
 
   if(e.data.searchingFor) {
@@ -30,7 +30,7 @@ self.addEventListener('message', function(e) {
 
     const result = engine.search(searchingFor)
 
-    const message = {searchResult: result, searchingFor: searchingFor, wwIndex: 1}
+    const message = {searchResult: result, searchingFor: searchingFor, wwIndex: 4}
 
     cache[searchingFor] = message
 
