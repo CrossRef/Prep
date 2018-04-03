@@ -78,33 +78,5 @@ self.addEventListener('message', function(e) {
       firstInUse.inUse = Date.now()
       firstInUse.lastSearch = searchingFor
     }
-
-
-
-
-    // const searchingFor = e.data.searchingFor
-    //
-    // const cachedResult = cache[searchingFor]
-    //
-    // if(cachedResult) {
-    //   self.postMessage(cachedResult)
-    //   return
-    // }
-    //
-    // const engine = new Fuse(searchList, {
-    //   keys: ['name'],
-    //   shouldSort: true,
-    //   threshold: 0.2,
-    //   distance: 500
-    // })
-    //
-    // const result = engine.search(searchingFor)
-    //
-    // const message = {searchResult: result, searchingFor: searchingFor, wwIndex: 1}
-    //
-    // cache[searchingFor] = message
-    //
-    // self.postMessage(message)
   }
-
 })
