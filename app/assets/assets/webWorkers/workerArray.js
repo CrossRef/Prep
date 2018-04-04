@@ -1,3 +1,5 @@
+
+
 const ports = {}
 
 let cache = {}
@@ -5,7 +7,6 @@ let cache = {}
 let que
 
 let logging = false
-
 
 
 self.addEventListener('message', function(e) {
@@ -39,6 +40,11 @@ self.addEventListener('message', function(e) {
 
       self.postMessage(message)
     }
+  }
+
+
+  if(e.data.delete) {
+    delete ports[e.data.delete]
   }
 
 

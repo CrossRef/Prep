@@ -2,7 +2,7 @@ self.importScripts('fuse.js');
 
 
 
-function generateWebworker (webWorkerId) {
+function generateWebworker (webWorkerId = 'noName') {
   const _Fuse = Fuse
 
   let searchList = []
