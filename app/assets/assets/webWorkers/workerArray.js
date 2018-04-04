@@ -64,7 +64,6 @@ self.addEventListener('message', function(e) {
       return
     }
 
-
     const searchOptions = {
       keys: ['name'],
       shouldSort: true,
