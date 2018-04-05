@@ -1,6 +1,7 @@
 # Participation Reports
 
 ### Dev
+* For mac make sure xcode is installed, it is required for the brunch sass compiler
 * npm install
 * npm start
 * dev server runs at http://localhost:3333/${baseUrl}/    *baseUrl found in deployConfig
