@@ -53,6 +53,7 @@ export default class searchWorker {
 
 
   terminate() {
+    console.log(this)
     this.workerArray.terminate()
 
     for (const webWorkerName in this.webWorkers) {
