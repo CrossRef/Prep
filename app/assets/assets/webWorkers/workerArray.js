@@ -16,7 +16,6 @@ self.addEventListener('message', function(e) {
 
     const webWorker = ports[e.data.port]
     webWorker.inUse = false
-    webWorker.lastSearch = undefined
 
     webWorker.onmessage = function (e) {
 
