@@ -87,7 +87,7 @@ export default class LandingPage extends React.Component {
               </div>
 
               <div className="button">
-                <a href="http://www.google.com" target="_blankk">Learn more</a>
+                <a href="https://www.crossref.org/participation" target="_blank">Learn more</a>
               </div>
             </div>
 

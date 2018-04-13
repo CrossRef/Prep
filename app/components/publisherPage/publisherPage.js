@@ -52,7 +52,7 @@ export default class PublisherPage extends React.Component {
             <div className="topBar">
               <div className="button" onClick={() => this.props.history.push(`${deployConfig.baseUrl}`)}>Find a member</div>
               <div className="button">
-                <a href="http://www.google.com" target="_blankk">Learn more</a>
+                <a href="https://www.crossref.org/participation" target="_blank">Learn more</a>
               </div>
             </div>
 
