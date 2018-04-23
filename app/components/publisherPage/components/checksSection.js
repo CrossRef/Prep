@@ -205,7 +205,7 @@ export default class ChecksSection extends React.Component {
     const baseApiUrl = 'https://apps.crossref.org/prep-staging/data?op=participation-summary'
     const member = `&memberid=${this.props.memberId}`
     const pubyear = dateQuery ? `&pubyear=${dateQuery}` : ''
-    const pubid = `&pubid=${value}`
+    const pubid = `&pubid=${selection.pissn?selection.pissn:selection.eissn}`
 
     fetch(baseApiUrl + member + pubyear + pubid)
       .then( r => r.json())
