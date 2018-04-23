@@ -22,13 +22,13 @@ export default {
   testimonial2: <Fragment>
     <p className="testimonialBody">
 
-      {`“Your butt needs more metadata.”`}
+      {`“We had no idea that we were missing some of this important metadata! Now that we do, we will get it fixed!”`}
 
     </p>
 
     <p className="testimonialAuthor">
 
-      {`Seth Jones, HyperNitro Pub`}
+      {`Jamila Nasih, Journal of Psychoceramics`}
 
     </p>
   </Fragment>,
@@ -43,7 +43,7 @@ export default {
 
     <pre className="testimonialAuthor">
 
-      {`Jimmy Bone,\nUltra Publications`}
+      {`Jim Rivera,\nUltra Publications`}
 
     </pre>
   </Fragment>
