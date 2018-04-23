@@ -30,7 +30,7 @@ export default class ChecksSection extends React.Component {
   constructor () {
     super ()
 
-    const defaultContent = 'Journals'
+    const defaultContent = 'Journal articles'
     const defaultDate = 'All time'
 
     this.generateKey = (contentFilter, dateFilter, titleFilter) => {
@@ -61,7 +61,7 @@ export default class ChecksSection extends React.Component {
   }
 
 
-  getTitleSearchData = (contentFilter = 'Journals') => {
+  getTitleSearchData = (contentFilter = 'Journal articles') => {
     fetch(`https://apps.crossref.org/prep-staging/data?op=publications&memberid=${this.props.memberId}&contenttype=${contentFilter}`)
       .then( r => r.json())
       .then( r => this.setState({titleSearchList: r.message}))
@@ -311,7 +311,7 @@ export default class ChecksSection extends React.Component {
               className={
                 `filter publicationFilter ${
                   titleFilter ? 'titleFilterActive' : ''} ${
-                  this.state.contentFilter !== 'Journals' ? 'inactivePublicationFilter' : ''}`
+                  this.state.contentFilter !== 'Journal articles' ? 'inactivePublicationFilter' : ''}`
               }>
 
               {titleFilter ?
@@ -328,7 +328,7 @@ export default class ChecksSection extends React.Component {
               :
                 <Search
                   searchList={titleSearchList}
-                  placeHolder="Search by Title"
+                  placeHolder="Search by title"
                   onSelect={this.selectTitleFilter}
                   addWidth={2}
                   notFound="Not found in this content type"/>}
