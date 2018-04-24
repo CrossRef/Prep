@@ -42,6 +42,7 @@ export default class ChecksSection extends React.Component {
       contentFilter: defaultContent,
       dateFilter: defaultDate,
       titleFilter: undefined,
+      issnFilter:undefined,
       titleSearchList: [],
       titleChecksData: undefined,
       dateChecksData: undefined,
@@ -129,7 +130,7 @@ export default class ChecksSection extends React.Component {
     const baseApiUrl = 'https://apps.crossref.org/prep-staging/data?op=participation-summary'
     const member = `&memberid=${this.props.memberId}`
     const pubyear = dateQuery ? `&pubyear=${dateQuery}` : ''
-    const pubid = this.state.titleFilter ? `&pubid=${this.state.titleFilter}` : ''
+    const pubid = this.state.titleFilter ? `&pubid=${this.state.issnFilter}` : ''
 
     this.setState({dateFilter: filterName, loadingFilter: !!(pubid || dateQuery)})
     this.startLoadingTimeout()
@@ -197,7 +198,8 @@ export default class ChecksSection extends React.Component {
 
 
   selectTitleFilter = (value, selection) => {
-    this.setState({titleFilter: value, loadingFilter: true})
+    const issn = selection.pissn?selection.pissn:selection.eissn
+    this.setState({titleFilter: value, loadingFilter: true,issnFilter: issn})
     this.startLoadingTimeout()
 
     const dateQuery = translateDateFilter[this.state.dateFilter]
@@ -205,7 +207,7 @@ export default class ChecksSection extends React.Component {
     const baseApiUrl = 'https://apps.crossref.org/prep-staging/data?op=participation-summary'
     const member = `&memberid=${this.props.memberId}`
     const pubyear = dateQuery ? `&pubyear=${dateQuery}` : ''
-    const pubid = `&pubid=${selection.pissn?selection.pissn:selection.eissn}`
+    const pubid = `&pubid=${issn}`
 
     fetch(baseApiUrl + member + pubyear + pubid)
       .then( r => r.json())
@@ -237,6 +239,7 @@ export default class ChecksSection extends React.Component {
       }
 
       newState.titleFilter = undefined
+      newState.issnFilter = undefined
       newState.titleChecksData = undefined
       newState.keySig = this.generateKey(prevState.contentFilter, prevState.dateFilter)
 
