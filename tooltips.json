@@ -1,7 +1,7 @@
 {"version":"1.0",
 
 "checks": {
-      "References": "Percentage of content items that include reference lists in their metadata.<br/><br/> What is this?<br/> Why is this important?<br/>\"<a href=\"https://support.crossref.org/hc/en-us/articles/215578403-Adding-references-to-your-metadata-record\">How can I improve this score?</a>",
+      "References": "Percentage of content items that include reference lists in their metadata.<br/><br/> What is this?<br/> Why is this important?<br/>\"<a href=\"https://support.crossref.org/hc/en-us/articles/215578403-Adding-references-to-your-metadata-record\>How can I improve this score?</a>",
       "Open references": "Percentage of content where references are set to open. If you’ve set your references to be open, they’re available to all users of all Crossref APIs and services. If not, fewer people can access them.",
       "ORCID IDs": "Percentage of content containing ORCID IDs. These IDs enable users to precisely identify a researcher’s work - even when that researcher shares a name with someone else or if they change their name.",
       "Funder IDs": "The percentage of registered content that contain information about who funded the research using our Funder Registry. ",
