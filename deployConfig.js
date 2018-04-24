@@ -15,14 +15,14 @@ var babelDev = {
 
 var presets = {
   production: {
-    baseUrl: '/participationreports/',
-    apiBaseUrl: '',
+    baseUrl: '/members/prep/',
+    apiBaseUrl: 'https://apps.crossref.org/prep/data',
     babelConfig: babelCompatibility
   },
 
   staging: {
     baseUrl: '/prep-staging/',
-    apiBaseUrl: '',
+    apiBaseUrl: 'https://apps.crossref.org/prep-staging/data',
     babelConfig: babelDev
   }
 }
