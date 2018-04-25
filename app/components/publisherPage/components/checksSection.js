@@ -12,8 +12,8 @@ import deployConfig from '../../../../deployConfig'
 
 const translateDateFilter = {
   'All time': null,
-  'Past 2 years': 'current',
-  'Older than 2 years': 'backfile'
+  'Past two years': 'current',
+  'Older than two years': 'backfile'
   
 }
 
@@ -31,7 +31,7 @@ export default class ChecksSection extends React.Component {
     super ()
 
     const defaultContent = 'Journal articles'
-    const defaultDate = 'Past 2 years'
+    const defaultDate = 'Past two years'
 
     this.generateKey = (contentFilter, dateFilter, titleFilter) => {
       return `${contentFilter}-${dateFilter}${titleFilter ? `-${titleFilter}` : ''}`
@@ -341,7 +341,7 @@ export default class ChecksSection extends React.Component {
 
           <div className="timeFilterContainer">
             <ChecksFilter
-              label={"Date range"}
+              label={"Publication date"}
               filters={Object.keys(translateDateFilter)}
               currentFilter={this.state.dateFilter}
               setFilter={this.setDateFilter}
