@@ -15,7 +15,7 @@ export default class LandingPage extends React.Component {
 
 
   componentDidMount () {
-    fetch('https://apps.crossref.org/prep-staging/data?op=members')
+    fetch(`${deployConfig.apiBaseUrl}/data?op=members`)
       .then( r => r.json())
       .then( r => this.setState({searchList: r.message}))
       .catch(e=>{
