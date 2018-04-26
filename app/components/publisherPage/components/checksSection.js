@@ -18,6 +18,9 @@ const translateDateFilter = {
 }
 
 
+const defaultContent = 'Journal articles'
+const defaultDate = 'Past two years'
+
 export default class ChecksSection extends React.Component {
 
   static propTypes = {
@@ -29,9 +32,6 @@ export default class ChecksSection extends React.Component {
 
   constructor () {
     super ()
-
-    const defaultContent = 'Journal articles'
-    const defaultDate = 'Past two years'
 
     this.generateKey = (contentFilter, dateFilter, titleFilter) => {
       return `${contentFilter}-${dateFilter}${titleFilter ? `-${titleFilter}` : ''}`
@@ -58,11 +58,12 @@ export default class ChecksSection extends React.Component {
   componentDidMount () {
     this.getTitleSearchData()
     this.startLoadingTimeout()
+    this.setDateFilter(defaultDate)
     window.addEventListener('resize', this.debouncedUpdate);
   }
 
 
-  getTitleSearchData = (contentFilter = 'Journal articles') => {
+  getTitleSearchData = (contentFilter = defaultContent ) => {
     fetch(`${deployConfig.apiBaseUrl}/data?op=publications&memberid=${this.props.memberId}&contenttype=${contentFilter}`)
       .then( r => r.json())
       .then( r => this.setState({titleSearchList: r.message}))
