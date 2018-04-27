@@ -64,7 +64,7 @@ export default class ChecksSection extends React.Component {
 
 
   getTitleSearchData = (contentFilter = defaultContent ) => {
-    fetch(`${deployConfig.apiBaseUrl}/data?op=publications&memberid=${this.props.memberId}&contenttype=${contentFilter}`)
+    fetch(`${deployConfig.apiBaseUrl}?op=publications&memberid=${this.props.memberId}&contenttype=${contentFilter}`)
       .then( r => r.json())
       .then( r => this.setState({titleSearchList: r.message}))
       .catch(e=>{
@@ -128,7 +128,7 @@ export default class ChecksSection extends React.Component {
   setDateFilter = (filterName) => {
     const dateQuery = translateDateFilter[filterName]
 
-    const baseApiUrl = `${deployConfig.apiBaseUrl}/prep-staging/data?op=participation-summary`
+    const baseApiUrl = `${deployConfig.apiBaseUrl}?op=participation-summary`
     const member = `&memberid=${this.props.memberId}`
     const pubyear = dateQuery ? `&pubyear=${dateQuery}` : ''
     const pubid = this.state.titleFilter ? `&pubid=${this.state.issnFilter}` : ''
@@ -205,7 +205,7 @@ export default class ChecksSection extends React.Component {
 
     const dateQuery = translateDateFilter[this.state.dateFilter]
 
-    const baseApiUrl = `${deployConfig.apiBaseUrl}/data?op=participation-summary`
+    const baseApiUrl = `${deployConfig.apiBaseUrl}?op=participation-summary`
     const member = `&memberid=${this.props.memberId}`
     const pubyear = dateQuery ? `&pubyear=${dateQuery}` : ''
     const pubid = `&pubid=${issn}`
