@@ -24,7 +24,7 @@ function renderApp () {
       <OnNavigationWrapper>
         <Switch>
           <MainContainer exact path={`${deployConfig.baseUrl}`} Component={LandingPage}/>
-          <MainContainer exact path={`${deployConfig.baseUrl}:publisherName/:memberId`} Component={PublisherPage}/>
+          <MainContainer exact path={`${deployConfig.baseUrl}:memberId`} Component={PublisherPage}/>
           <MainContainer exact path={`${deployConfig.baseUrl}info`} Component={LearnMorePage}/>
           <Redirect to={`${deployConfig.baseUrl}`} />
         </Switch>

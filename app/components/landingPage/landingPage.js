@@ -52,7 +52,7 @@ export default class LandingPage extends React.Component {
     }
 
     localStorage.setItem('savedSearches', JSON.stringify(savedSearches))
-    this.props.history.push(`${deployConfig.baseUrl}${encodeURIComponent(selection.name)}/${selection.id}`)
+    this.props.history.push(`${deployConfig.baseUrl}${selection.id}`, {publisherName: selection.name})
   }
 
 
