@@ -49,7 +49,13 @@ export default class Search extends React.Component {
 
 
     return (
-      <div className='searchInputHolder'>
+      <div className='searchInputHolder'
+        onBlur={ e =>{
+          if(!e.relatedTarget || !e.relatedTarget.classList.contains('ReactVirtualized__List')) {
+            this.setState({focused: false})
+          }
+        }}
+      >
 
         <input
           className={`searchInput ${this.state.focused ? 'searchFocused' : ''}`}
@@ -60,7 +66,6 @@ export default class Search extends React.Component {
               listWidth: parseFloat(window.getComputedStyle(this.input).width) + 2
             })
           }}
-          onBlur={()=>this.setState({focused: false})}
           placeholder={`${this.state.focused ? '' : this.props.placeHolder}`}
           onChange={(e)=> {
             this.setState({searchingFor: e.target.value})
