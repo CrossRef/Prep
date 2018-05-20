@@ -71,7 +71,7 @@ export default class PublisherPage extends React.Component {
 
               <div className="rightBox">
                 <div className="publisherTitle">
-                  {decodeURIComponent(this.props.location.state.publisherName)}
+                  {this.props.location.state.publisherName}
                 </div>
 
                 <Totals totals={totals}/>
