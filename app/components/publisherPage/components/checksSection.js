@@ -12,14 +12,14 @@ import deployConfig from '../../../../deployConfig'
 
 const translateDateFilter = {
   'All time': null,
-  'Past two years': 'current',
-  'Older than two years': 'backfile'
+  'Current content': 'current',
+  'Back file': 'backfile'
   
 }
 
 
 const defaultContent = 'Journal articles'
-const defaultDate = 'Past two years'
+const defaultDate = 'Current content'
 
 export default class ChecksSection extends React.Component {
 
