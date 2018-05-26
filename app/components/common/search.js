@@ -58,7 +58,7 @@ export default class Search extends React.Component {
     if( !e.relatedTarget || (
         !e.relatedTarget.classList.contains('ReactVirtualized__List') &&
         !e.relatedTarget.classList.contains('searchItem')
-      )) {
+    )) {
       this.setState({focused: false})
     }
   }
