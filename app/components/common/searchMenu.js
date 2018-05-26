@@ -38,7 +38,6 @@ export default class SearchMenu extends React.Component {
       this.webWorker.postMessage({searchList: nextProps.searchList})
     }
 
-
     if(nextProps.searchingFor && nextProps.searchingFor !== this.props.searchingFor) {
 
       this.setState({waitingFor: nextProps.searchingFor})
@@ -80,6 +79,23 @@ export default class SearchMenu extends React.Component {
   rowRenderer = ({key, index, parent, isScrolling, isVisible, style}) => {
     const Item = this.state.data[index]
 
+    const keyDownHandler = e => {
+      const listRefs = this.props.exposedRefs.listRefs
+      e.preventDefault()
+      if (e.keyCode === 40 && listRefs[index+1]) {
+        listRefs[index+1].focus()
+      }
+      if (e.keyCode === 38 && listRefs[index-1]) {
+        listRefs[index-1].focus()
+      }
+      if(e.keyCode === 38 && index === 0) {
+        this.props.exposedRefs.input.focus()
+      }
+      if(e.keyCode === 13) {
+        this.props.onSelect(Item.name, Item)
+      }
+    }
+
     return (
 
       <CellMeasurer
@@ -96,6 +112,9 @@ export default class SearchMenu extends React.Component {
             this.props.onSelect(Item.name, Item)
           }}
           style={style}
+          ref={node => this.props.exposedRefs.listRefs[index] = node}
+          tabIndex={index}
+          onKeyDown={keyDownHandler}
         >
           {Item.name}
         </div>
@@ -106,6 +125,7 @@ export default class SearchMenu extends React.Component {
 
 
   render() {
+    this.props.exposedRefs.listRefs = {}
     this.cellHeightCache.clearAll()
 
     return this.state.data.length && this.props.focused ?
