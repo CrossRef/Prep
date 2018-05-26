@@ -65,7 +65,8 @@ export default class Search extends React.Component {
 
 
   keyDownHandler = e => {
-    if (e.keyCode === 40) {
+    const arrowDown = e.keyCode === 40
+    if (arrowDown) {
       e.preventDefault()
       this.exposedRefs.listRefs[0].focus()
     }

@@ -80,18 +80,22 @@ export default class SearchMenu extends React.Component {
     const Item = this.state.data[index]
 
     const keyDownHandler = e => {
-      const listRefs = this.props.exposedRefs.listRefs
       e.preventDefault()
-      if (e.keyCode === 40 && listRefs[index+1]) {
+      const listRefs = this.props.exposedRefs.listRefs
+      const arrowDown = e.keyCode === 40
+      const arrowUp = e.keyCode === 38
+      const enter = e.keyCode === 13
+
+      if (arrowDown && listRefs[index+1]) {
         listRefs[index+1].focus()
       }
-      if (e.keyCode === 38 && listRefs[index-1]) {
+      if (arrowUp && listRefs[index-1]) {
         listRefs[index-1].focus()
       }
-      if(e.keyCode === 38 && index === 0) {
+      if(arrowUp && index === 0) {
         this.props.exposedRefs.input.focus()
       }
-      if(e.keyCode === 13) {
+      if(enter) {
         this.props.onSelect(Item.name, Item)
       }
     }
