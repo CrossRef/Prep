@@ -42,7 +42,7 @@ export default class ChecksSection extends React.Component {
       contentFilter: defaultContent,
       dateFilter: defaultDate,
       titleFilter: undefined,
-      issnFilter:undefined,
+      issnFilter: undefined,
       titleSearchList: [],
       titleChecksData: undefined,
       dateChecksData: undefined,
@@ -119,6 +119,9 @@ export default class ChecksSection extends React.Component {
   setFilter = (contentFilter) => {
     this.setState( prevState => ({
       contentFilter,
+      titleFilter: undefined,
+      issnFilter: undefined,
+      titleChecksData: undefined,
       keySig: this.generateKey(contentFilter, prevState.dateFilter),
       filterError: false
     }))
@@ -199,8 +202,8 @@ export default class ChecksSection extends React.Component {
 
 
   selectTitleFilter = (value, selection) => {
-    const issn = selection.pissn?selection.pissn:selection.eissn
-    this.setState({titleFilter: value, loadingFilter: true,issnFilter: issn})
+    const issn = selection.pissn ? selection.pissn : selection.eissn
+    this.setState({titleFilter: value, loadingFilter: true, issnFilter: issn})
     this.startLoadingTimeout()
 
     const dateQuery = translateDateFilter[this.state.dateFilter]
@@ -311,7 +314,6 @@ export default class ChecksSection extends React.Component {
             filters={Object.keys(dateChecksData ? dateChecksData : coverage)}
             currentFilter={contentFilter}
             setFilter={this.setFilter}
-            inactive={!!titleFilter}
           />
 
           <div style={{flex: 1, display: 'flex', alignItems: 'center'}}>
