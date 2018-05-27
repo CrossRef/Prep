@@ -95,7 +95,7 @@ export default class SearchMenu extends React.Component {
       if(arrowUp && index === 0) {
         this.props.exposedRefs.input.focus()
       }
-      if(enter) {
+      if(enter && !Item.notFound) {
         this.props.onSelect(Item.name, Item)
       }
     }
