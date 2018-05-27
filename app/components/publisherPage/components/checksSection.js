@@ -274,7 +274,7 @@ export default class ChecksSection extends React.Component {
   }
 
 
-  renderFilters = (portal) => {
+  renderFilters = (tutorialOverlay) => {
     const {contentFilter, titleFilter, titleSearchList, dateChecksData} = this.state
     const {coverage} = this.props
 
@@ -287,7 +287,7 @@ export default class ChecksSection extends React.Component {
           currentFilter={contentFilter}
           setFilter={this.setFilter}
           inactive={!!titleFilter}
-          tutorial={portal ? contentFilterTutorial : undefined}
+          tutorial={tutorialOverlay ? contentFilterTutorial : undefined}
         />
 
         <div style={{flex: 1, display: 'flex', alignItems: 'center'}}>
@@ -317,7 +317,7 @@ export default class ChecksSection extends React.Component {
                   addWidth={2}
                   notFound="Not found in this content type"/>}
 
-            {portal && titleSearchTutorial}
+            {tutorialOverlay && titleSearchTutorial}
           </div>
         </div>
 
@@ -341,8 +341,7 @@ export default class ChecksSection extends React.Component {
 
   render () {
     const {contentFilter, titleChecksData, dateChecksData} = this.state
-    const {coverage} = this.props
-    const tutorialOn = this.props.tutorialOverlay
+    const {coverage, tutorialOverlay} = this.props
 
     return (
       <div className="checksSection">
@@ -350,9 +349,9 @@ export default class ChecksSection extends React.Component {
           {`Content type: ${prettyKeys(contentFilter)}`}
         </div>
 
-        {tutorialOn &&
+        {tutorialOverlay &&
           <TutorialOverlayPortal>
-            {this.renderFilters(tutorialOn)}
+            {this.renderFilters(tutorialOverlay)}
           </TutorialOverlayPortal>}
 
         {this.renderFilters()}
