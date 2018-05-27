@@ -328,7 +328,7 @@ export default class ChecksSection extends React.Component {
             filters={Object.keys(translateDateFilter)}
             currentFilter={this.state.dateFilter}
             setFilter={this.setDateFilter}
-            tutorial={portal ? dateFilterTutorial : undefined}
+            tutorial={tutorialOverlay ? dateFilterTutorial : undefined}
           >
             <img style={{width: '22px'}} src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Calandar.svg`}/>
           </ChecksFilter>
