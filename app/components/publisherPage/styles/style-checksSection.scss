@@ -60,6 +60,7 @@
     }
 
     .titleFilterActive {
+      cursor: pointer;
       display: flex;
       justify-content: space-between;
       padding: 0 13px 0 16px;
@@ -82,11 +83,9 @@
         }
       }
 
-
       .titleFilterX {
         width: 20px;
         height: 20px;
-        cursor: pointer;
         margin-left: 5px;
       }
     }

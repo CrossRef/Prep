@@ -232,6 +232,10 @@ export default class ChecksSection extends React.Component {
 
 
   cancelTitleFilter = () => {
+    function focusInput () {
+      document.querySelector('.searchInput').focus()
+    }
+
     this.setState( prevState => {
       const newState = {}
 
@@ -245,7 +249,7 @@ export default class ChecksSection extends React.Component {
       newState.keySig = this.generateKey(prevState.contentFilter, prevState.dateFilter)
 
       return newState
-    })
+    }, focusInput)
   }
 
 
@@ -316,7 +320,9 @@ export default class ChecksSection extends React.Component {
                 `filter publicationFilter ${
                   titleFilter ? 'titleFilterActive' : ''} ${
                   this.state.contentFilter !== 'Journal articles' ? 'inactivePublicationFilter' : ''}`
-              }>
+              }
+              onClick={titleFilter ? this.cancelTitleFilter : null}
+            >
 
               {titleFilter ?
                 <Fragment>
@@ -326,8 +332,7 @@ export default class ChecksSection extends React.Component {
 
                   <img
                     className="titleFilterX"
-                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
-                    onClick={this.cancelTitleFilter}/>
+                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}/>
                 </Fragment>
               :
                 <Search
