@@ -6,6 +6,8 @@ import ChecksFilter from "./checksFilter"
 import {prettyKeys, debounce} from '../../../utilities/helpers'
 import Search from "../../common/search"
 import deployConfig from '../../../../deployConfig'
+import TutorialOverlayPortal from './tutorialOverlayPortal'
+import {contentFilterTutorial, titleSearchTutorial, dateFilterTutorial} from './tutorialDivs'
 
 
 
@@ -14,19 +16,18 @@ const translateDateFilter = {
   'All time': null,
   'Current content': 'current',
   'Back file': 'backfile'
-  
 }
-
-
 const defaultContent = 'Journal articles'
 const defaultDate = 'Current content'
+
 
 export default class ChecksSection extends React.Component {
 
   static propTypes = {
     coverage: is.object.isRequired,
     memberId: is.string.isRequired,
-    loadingChecks: is.bool.isRequired
+    loadingChecks: is.bool.isRequired,
+    tutorialOverlay: is.bool.isRequired
   }
 
 
@@ -95,7 +96,6 @@ export default class ChecksSection extends React.Component {
       clearTimeout(this.loadingTimeout)
       this.setState({loadingStage: 0})
     }
-
 
     if(this.props.loadingChecks && !nextProps.loadingChecks) {
       const nextCoverage = Object.keys(nextProps.coverage)
@@ -260,66 +260,46 @@ export default class ChecksSection extends React.Component {
         <div style={this.state.filterError ? {top: 0} : null} className="loadWhiteScreen"/>
 
         {this.state.loadingStage === 1 &&
-        <div
-          style={{
-            position: 'absolute',
-            top: -15,
-            width: '86%',
-            height: '150px',
-            backgroundColor: 'white',
-            zIndex: 11,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            color: '#4F5757',
-            boxShadow: "0px 0px 3px 2px #8e8a8a"
-          }}
-        >
-          <img
-            className="loadThrobber"
-            style={{height: '60px'}}
-            src={`${deployConfig.baseUrl}assets/images/Asset_Load_Throbber_Load Throbber Teal.svg`}/>
+          <div className="loadingStage1">
+            <img
+              className="loadThrobber"
+              style={{height: '60px'}}
+              src={`${deployConfig.baseUrl}assets/images/Asset_Load_Throbber_Load Throbber Teal.svg`}/>
 
-          <p className="pleaseWait">Please wait, we are collecting your data.</p>
-        </div>}
+            <p className="pleaseWait">Please wait, we are collecting your data.</p>
+          </div>}
 
       </Fragment>
     )
   }
 
 
-  render () {
-    const {contentFilter, titleFilter, titleSearchList, titleChecksData, dateChecksData} = this.state
+  renderFilters = (portal) => {
+    const {contentFilter, titleFilter, titleSearchList, dateChecksData} = this.state
     const {coverage} = this.props
 
     return (
-      <div className="checksSection">
-        <div className="titleBar">
-          {`Content type: ${prettyKeys(contentFilter)}`}
-        </div>
+      <div className="filters">
 
+        <ChecksFilter
+          label={'Content type'}
+          filters={Object.keys(dateChecksData ? dateChecksData : coverage)}
+          currentFilter={contentFilter}
+          setFilter={this.setFilter}
+          inactive={!!titleFilter}
+          tutorial={portal ? contentFilterTutorial : undefined}
+        />
 
-        <div className="filters">
+        <div style={{flex: 1, display: 'flex', alignItems: 'center'}}>
+          <div
+            className={
+              `filter publicationFilter ${
+                titleFilter ? 'titleFilterActive' : ''} ${
+                this.state.contentFilter !== 'Journal articles' ? 'inactivePublicationFilter' : ''}`
+            }>
 
-          <ChecksFilter
-            label={'Content type'}
-            filters={Object.keys(dateChecksData ? dateChecksData : coverage)}
-            currentFilter={contentFilter}
-            setFilter={this.setFilter}
-            inactive={!!titleFilter}
-          />
-
-          <div style={{flex: 1, display: 'flex', alignItems: 'center'}}>
-            <div
-              className={
-                `filter publicationFilter ${
-                  titleFilter ? 'titleFilterActive' : ''} ${
-                  this.state.contentFilter !== 'Journal articles' ? 'inactivePublicationFilter' : ''}`
-              }>
-
-              {titleFilter ?
-                <Fragment>
+            {titleFilter
+              ? <Fragment>
                   <div className="titleFilterText">
                     {titleFilter}
                   </div>
@@ -329,69 +309,92 @@ export default class ChecksSection extends React.Component {
                     src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
                     onClick={this.cancelTitleFilter}/>
                 </Fragment>
-              :
-                <Search
+
+              : <Search
                   searchList={titleSearchList}
                   placeHolder="Search by title"
                   onSelect={this.selectTitleFilter}
                   addWidth={2}
                   notFound="Not found in this content type"/>}
-            </div>
+
+            {portal && titleSearchTutorial}
           </div>
-
-
-          <div className="timeFilterContainer">
-            <ChecksFilter
-              label={"Publication date"}
-              filters={Object.keys(translateDateFilter)}
-              currentFilter={this.state.dateFilter}
-              setFilter={this.setDateFilter}
-            >
-              <img style={{width: '22px'}} src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Calandar.svg`}/>
-            </ChecksFilter>
-          </div>
-
         </div>
 
-        {this.state.coverageError || this.state.filterError ?
-          <div className="coverageError">
-            {this.renderLoader()}
-            {this.state.coverageError && <div>No content has been registered for this member.</div>}
-            {this.state.filterError && <div>No content has been registered for the selected filters.</div>}
-          </div>
 
-        :
-          <Fragment>
-            {this.props.loadingChecks ?
+        <div className="timeFilterContainer">
+          <ChecksFilter
+            label={"Publication date"}
+            filters={Object.keys(translateDateFilter)}
+            currentFilter={this.state.dateFilter}
+            setFilter={this.setDateFilter}
+            tutorial={portal ? dateFilterTutorial : undefined}
+          >
+            <img style={{width: '22px'}} src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Calandar.svg`}/>
+          </ChecksFilter>
+        </div>
 
-              <div className="checksWidthContainer">
-                {this.renderLoader()}
+      </div>
+    )
+  }
 
-                <div className="checksContainer">
 
-                  {blankChecks.map( (item, index) =>
-                    <CheckBox key={index} item={item} setOpenTooltip={this.setOpenTooltip} blank={true}/>
-                  )}
-                </div>
-              </div>
-            :
-              <div className="checksWidthContainer">
-                {this.state.loadingFilter && this.renderLoader()}
+  render () {
+    const {contentFilter, titleChecksData, dateChecksData} = this.state
+    const {coverage} = this.props
+    const tutorialOn = this.props.tutorialOverlay
 
-                <div className="checksContainer">
+    return (
+      <div className="checksSection">
+        <div className="titleBar">
+          {`Content type: ${prettyKeys(contentFilter)}`}
+        </div>
 
-                  {(titleChecksData || (dateChecksData && dateChecksData[contentFilter]) || coverage[contentFilter]).map( item =>
-                    <CheckBox
-                      key={`${this.state.keySig}-${item.name}`}
-                      item={item}
-                      openTooltip={this.state.openTooltip}
-                      setOpenTooltip={this.setOpenTooltip}
-                    />
-                  )}
-                </div>
-              </div>
-            }
-          </Fragment>
+        {tutorialOn &&
+          <TutorialOverlayPortal>
+            {this.renderFilters(tutorialOn)}
+          </TutorialOverlayPortal>}
+
+        {this.renderFilters()}
+
+        {this.state.coverageError || this.state.filterError
+          ? <div className="coverageError">
+              {this.renderLoader()}
+              {this.state.coverageError && <div>No content has been registered for this member.</div>}
+              {this.state.filterError && <div>No content has been registered for the selected filters.</div>}
+            </div>
+
+          : <Fragment>
+              {this.props.loadingChecks
+
+                ? <div className="checksWidthContainer">
+                    {this.renderLoader()}
+
+                    <div className="checksContainer">
+
+                      {blankChecks.map( (item, index) =>
+                        <CheckBox key={index} item={item} setOpenTooltip={this.setOpenTooltip} blank={true}/>
+                      )}
+                    </div>
+                  </div>
+
+                : <div className="checksWidthContainer">
+                    {this.state.loadingFilter && this.renderLoader()}
+
+                    <div className="checksContainer">
+
+                      {(titleChecksData || (dateChecksData && dateChecksData[contentFilter]) || coverage[contentFilter]).map( item =>
+                        <CheckBox
+                          key={`${this.state.keySig}-${item.name}`}
+                          item={item}
+                          openTooltip={this.state.openTooltip}
+                          setOpenTooltip={this.setOpenTooltip}
+                        />
+                      )}
+                    </div>
+                  </div>
+              }
+            </Fragment>
         }
       </div>
     )

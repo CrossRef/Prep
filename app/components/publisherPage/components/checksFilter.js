@@ -15,7 +15,8 @@ export default class ChecksFilter extends React.Component {
     currentFilter: is.string.isRequired,
     setFilter: is.func.isRequired,
     inactive: is.bool,
-    label: is.string.isRequired
+    label: is.string.isRequired,
+    tutorial: is.object
   }
 
   state = {
@@ -28,7 +29,7 @@ export default class ChecksFilter extends React.Component {
     return (
 
       <div
-        className={`checksFilter ${this.props.inactive ? 'inactiveFilter' : ''}`}
+        className={`filter checksFilter ${this.props.inactive ? 'inactiveFilter' : ''}`}
         onClick={() => this.setState((prevState) => ({menuOpen: !prevState.menuOpen}))}
         onBlur={() => this.setState({menuOpen: false})}
         tabIndex="0"
@@ -69,6 +70,8 @@ export default class ChecksFilter extends React.Component {
           </div>)}
 
         </div>}
+
+        {this.props.tutorial}
 
       </div>
     )

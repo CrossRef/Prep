@@ -16,6 +16,28 @@
 
     .widthContainer {
 
+      .topBar {
+        position: relative;
+
+        .tutorialIconContainer {
+          position: absolute;
+          right: 0;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          padding-right: 15px;
+
+          .tutorialIcon {
+            height: 30px;
+            cursor: pointer;
+          }
+        } @media (max-width: 767px) {
+          .tutorialIconContainer {
+            visibility: hidden;
+          }
+        }
+      }
+
       .contentBox {
 
         .leftBox {
@@ -100,13 +122,20 @@
     }
   }
 
-  .chartSection {
-    margin-bottom: 64px;
-    height: 464px;
-    background-color: white;
+  .publisherContent {
     max-width: 960px;
     width: 100%;
+    margin-bottom: 64px;
+    position: relative;
+
+    .chartSection {
+      height: 464px;
+      background-color: white;
+      width: 100%;
+    }
   }
+
+
 
 } @media(max-width: 700px) {
   .publisherPage {
