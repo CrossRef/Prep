@@ -369,8 +369,9 @@ export default class ChecksSection extends React.Component {
         {this.state.coverageError || this.state.filterError ?
           <div className="coverageError">
             {this.renderLoader()}
-            {this.state.coverageError && <div>No content has been registered for this member.</div>}
-            {this.state.filterError && <div>No content has been registered for this content type within this date range. Please change the date filter.</div>}
+            {this.state.coverageError
+              ? <div>No content has been registered for this member.</div>
+              : <div>No content has been registered for this content type within this date range. Please change the date filter.</div>}
           </div>
 
         :
