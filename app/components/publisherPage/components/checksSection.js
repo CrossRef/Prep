@@ -74,6 +74,7 @@ export default class ChecksSection extends React.Component {
 
 
   startLoadingTimeout = () => {
+    clearTimeout(this.loadingTimeout)
     this.loadingTimeout = setTimeout(()=>{
       this.setState({loadingStage: 1})
     }, 1000)
@@ -120,7 +121,9 @@ export default class ChecksSection extends React.Component {
     this.setState( prevState => ({
       contentFilter,
       keySig: this.generateKey(contentFilter, prevState.dateFilter),
-      filterError: false
+      filterError: translateDateFilter[prevState.dateFilter]
+        ? !prevState.dateChecksData[contentFilter]
+        : false
     }))
   }
 
@@ -161,17 +164,26 @@ export default class ChecksSection extends React.Component {
       fetch(baseApiUrl + member + pubyear)
         .then( r => r.json())
         .then( r => {
-          const setStatePayload = {dateChecksData: r.message.Coverage}
+          clearTimeout(this.loadingTimeout)
 
-          if(!pubid) {
-            clearTimeout(this.loadingTimeout)
-            setStatePayload.loadingFilter = false
-            setStatePayload.loadingStage = 0
-            setStatePayload.keySig = this.generateKey(this.state.contentFilter, filterName)
-            setStatePayload.filterError = !r.message.Coverage[this.state.contentFilter]
-          }
+          this.setState( prevState => {
+            const newState = {dateChecksData: r.message.Coverage}
 
-          this.setState(setStatePayload)
+            if(!Object.keys(newState.dateChecksData).length) {
+              newState.filterError = true
+              newState.loadingFilter = false
+              newState.loadingStage = 0
+              return newState
+            }
+
+            if(!pubid) {
+              newState.loadingFilter = false
+              newState.loadingStage = 0
+              newState.keySig = this.generateKey(prevState.contentFilter, filterName)
+              newState.filterError = !r.message.Coverage[prevState.contentFilter]
+            }
+            return newState
+          })
         })
         .catch( e => {
           console.error(e)
@@ -192,7 +204,8 @@ export default class ChecksSection extends React.Component {
         dateChecksData: undefined,
         loadingFilter: false,
         loadingStage: 0,
-        keySig: pubid ? prevState.keySig : this.generateKey(prevState.contentFilter, filterName, prevState.titleFilter)
+        keySig: pubid ? prevState.keySig : this.generateKey(prevState.contentFilter, filterName, prevState.titleFilter),
+        filterError: !this.props.coverage[prevState.contentFilter]
       }))
     }
   }
@@ -356,8 +369,9 @@ export default class ChecksSection extends React.Component {
         {this.state.coverageError || this.state.filterError ?
           <div className="coverageError">
             {this.renderLoader()}
-            {this.state.coverageError && <div>No content has been registered for this member.</div>}
-            {this.state.filterError && <div>No content has been registered for the selected filters.</div>}
+            {this.state.coverageError
+              ? <div>No content has been registered for this member.</div>
+              : <div>No content has been registered for this content type within this date range. Please change the date filter.</div>}
           </div>
 
         :
