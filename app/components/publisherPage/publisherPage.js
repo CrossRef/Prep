@@ -32,7 +32,8 @@ export default class PublisherPage extends React.Component {
   state = {
     totals: {},
     coverage: {},
-    loadingChecks: true
+    loadingChecks: true,
+    tutorialOverlay: false
   }
 
 
@@ -49,6 +50,7 @@ export default class PublisherPage extends React.Component {
 
   render() {
     const totals = this.state.totals
+    const desktop = window.matchMedia("(min-width: 768px)").matches
 
     return (
       <div className="publisherPage">
@@ -60,6 +62,15 @@ export default class PublisherPage extends React.Component {
               <div className="button">
                 <a href="https://www.crossref.org/participation" target="_blank">Learn more</a>
               </div>
+              <div className="tutorialIconContainer">
+                {desktop &&
+                  <img
+                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Lighter_Grey_Help.svg`}
+                    className="tutorialIcon"
+                    onMouseEnter={ () => this.setState({tutorialOverlay: true})}
+                    onMouseLeave={ () => this.setState({tutorialOverlay: false})}/>}
+              </div>
+
             </div>
 
             <div className="contentBox">
@@ -81,10 +92,21 @@ export default class PublisherPage extends React.Component {
           </div>
         </div>
 
-        <ChecksSection
-          coverage={this.state.coverage}
-          memberId={this.props.match.params.memberId}
-          loadingChecks={this.state.loadingChecks}/>
+        <div className="publisherContent">
+
+          <ChecksSection
+            coverage={this.state.coverage}
+            memberId={this.props.match.params.memberId}
+            tutorialOverlay={this.state.tutorialOverlay}
+            loadingChecks={this.state.loadingChecks}/>
+
+          {this.state.tutorialOverlay &&
+            <div className="tutorialOverlay">
+              <div className="tutorialBackground" />
+            </div>}
+
+
+        </div>
 
       </div>
     )
