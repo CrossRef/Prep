@@ -42,7 +42,7 @@ export default class ChecksSection extends React.Component {
       contentFilter: defaultContent,
       dateFilter: defaultDate,
       titleFilter: undefined,
-      issnFilter:undefined,
+      issnFilter: undefined,
       titleSearchList: [],
       titleChecksData: undefined,
       dateChecksData: undefined,
@@ -120,6 +120,9 @@ export default class ChecksSection extends React.Component {
   setFilter = (contentFilter) => {
     this.setState( prevState => ({
       contentFilter,
+      titleFilter: undefined,
+      issnFilter: undefined,
+      titleChecksData: undefined,
       keySig: this.generateKey(contentFilter, prevState.dateFilter),
       filterError: translateDateFilter[prevState.dateFilter]
         ? !prevState.dateChecksData[contentFilter]
@@ -212,8 +215,8 @@ export default class ChecksSection extends React.Component {
 
 
   selectTitleFilter = (value, selection) => {
-    const issn = selection.pissn?selection.pissn:selection.eissn
-    this.setState({titleFilter: value, loadingFilter: true,issnFilter: issn})
+    const issn = selection.pissn ? selection.pissn : selection.eissn
+    this.setState({titleFilter: value, loadingFilter: true, issnFilter: issn})
     this.startLoadingTimeout()
 
     const dateQuery = translateDateFilter[this.state.dateFilter]
@@ -245,6 +248,10 @@ export default class ChecksSection extends React.Component {
 
 
   cancelTitleFilter = () => {
+    function focusInput () {
+      document.querySelector('.searchInput').focus()
+    }
+
     this.setState( prevState => {
       const newState = {}
 
@@ -258,7 +265,7 @@ export default class ChecksSection extends React.Component {
       newState.keySig = this.generateKey(prevState.contentFilter, prevState.dateFilter)
 
       return newState
-    })
+    }, focusInput)
   }
 
 
@@ -320,7 +327,6 @@ export default class ChecksSection extends React.Component {
             filters={Object.keys(dateChecksData ? dateChecksData : coverage)}
             currentFilter={contentFilter}
             setFilter={this.setFilter}
-            inactive={!!titleFilter}
           />
 
           <div style={{flex: 1, display: 'flex', alignItems: 'center'}}>
@@ -329,7 +335,9 @@ export default class ChecksSection extends React.Component {
                 `filter publicationFilter ${
                   titleFilter ? 'titleFilterActive' : ''} ${
                   this.state.contentFilter !== 'Journal articles' ? 'inactivePublicationFilter' : ''}`
-              }>
+              }
+              onClick={titleFilter ? this.cancelTitleFilter : null}
+            >
 
               {titleFilter ?
                 <Fragment>
@@ -339,8 +347,7 @@ export default class ChecksSection extends React.Component {
 
                   <img
                     className="titleFilterX"
-                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
-                    onClick={this.cancelTitleFilter}/>
+                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}/>
                 </Fragment>
               :
                 <Search
