@@ -20,7 +20,6 @@ const translateDateFilter = {
 const defaultContent = 'Journal articles'
 const defaultDate = 'Current content'
 
-
 export default class ChecksSection extends React.Component {
 
   static propTypes = {
@@ -43,7 +42,7 @@ export default class ChecksSection extends React.Component {
       contentFilter: defaultContent,
       dateFilter: defaultDate,
       titleFilter: undefined,
-      issnFilter:undefined,
+      issnFilter: undefined,
       titleSearchList: [],
       titleChecksData: undefined,
       dateChecksData: undefined,
@@ -75,6 +74,7 @@ export default class ChecksSection extends React.Component {
 
 
   startLoadingTimeout = () => {
+    clearTimeout(this.loadingTimeout)
     this.loadingTimeout = setTimeout(()=>{
       this.setState({loadingStage: 1})
     }, 1000)
@@ -119,8 +119,13 @@ export default class ChecksSection extends React.Component {
   setFilter = (contentFilter) => {
     this.setState( prevState => ({
       contentFilter,
+      titleFilter: undefined,
+      issnFilter: undefined,
+      titleChecksData: undefined,
       keySig: this.generateKey(contentFilter, prevState.dateFilter),
-      filterError: false
+      filterError: translateDateFilter[prevState.dateFilter]
+        ? !prevState.dateChecksData[contentFilter]
+        : false
     }))
   }
 
@@ -161,17 +166,26 @@ export default class ChecksSection extends React.Component {
       fetch(baseApiUrl + member + pubyear)
         .then( r => r.json())
         .then( r => {
-          const setStatePayload = {dateChecksData: r.message.Coverage}
+          clearTimeout(this.loadingTimeout)
 
-          if(!pubid) {
-            clearTimeout(this.loadingTimeout)
-            setStatePayload.loadingFilter = false
-            setStatePayload.loadingStage = 0
-            setStatePayload.keySig = this.generateKey(this.state.contentFilter, filterName)
-            setStatePayload.filterError = !r.message.Coverage[this.state.contentFilter]
-          }
+          this.setState( prevState => {
+            const newState = {dateChecksData: r.message.Coverage}
 
-          this.setState(setStatePayload)
+            if(!Object.keys(newState.dateChecksData).length) {
+              newState.filterError = true
+              newState.loadingFilter = false
+              newState.loadingStage = 0
+              return newState
+            }
+
+            if(!pubid) {
+              newState.loadingFilter = false
+              newState.loadingStage = 0
+              newState.keySig = this.generateKey(prevState.contentFilter, filterName)
+              newState.filterError = !r.message.Coverage[prevState.contentFilter]
+            }
+            return newState
+          })
         })
         .catch( e => {
           console.error(e)
@@ -192,15 +206,16 @@ export default class ChecksSection extends React.Component {
         dateChecksData: undefined,
         loadingFilter: false,
         loadingStage: 0,
-        keySig: pubid ? prevState.keySig : this.generateKey(prevState.contentFilter, filterName, prevState.titleFilter)
+        keySig: pubid ? prevState.keySig : this.generateKey(prevState.contentFilter, filterName, prevState.titleFilter),
+        filterError: !this.props.coverage[prevState.contentFilter]
       }))
     }
   }
 
 
   selectTitleFilter = (value, selection) => {
-    const issn = selection.pissn?selection.pissn:selection.eissn
-    this.setState({titleFilter: value, loadingFilter: true,issnFilter: issn})
+    const issn = selection.pissn ? selection.pissn : selection.eissn
+    this.setState({titleFilter: value, loadingFilter: true, issnFilter: issn})
     this.startLoadingTimeout()
 
     const dateQuery = translateDateFilter[this.state.dateFilter]
@@ -232,6 +247,10 @@ export default class ChecksSection extends React.Component {
 
 
   cancelTitleFilter = () => {
+    function focusInput () {
+      document.querySelector('.searchInput').focus()
+    }
+
     this.setState( prevState => {
       const newState = {}
 
@@ -245,7 +264,7 @@ export default class ChecksSection extends React.Component {
       newState.keySig = this.generateKey(prevState.contentFilter, prevState.dateFilter)
 
       return newState
-    })
+    }, focusInput)
   }
 
 
@@ -286,7 +305,6 @@ export default class ChecksSection extends React.Component {
           filters={Object.keys(dateChecksData ? dateChecksData : coverage)}
           currentFilter={contentFilter}
           setFilter={this.setFilter}
-          inactive={!!titleFilter}
           tutorial={tutorialOverlay ? contentFilterTutorial : undefined}
         />
 
@@ -296,7 +314,9 @@ export default class ChecksSection extends React.Component {
               `filter publicationFilter ${
                 titleFilter ? 'titleFilterActive' : ''} ${
                 this.state.contentFilter !== 'Journal articles' ? 'inactivePublicationFilter' : ''}`
-            }>
+            }
+            onClick={titleFilter ? this.cancelTitleFilter : null}
+          >
 
             {titleFilter
               ? <Fragment>
@@ -306,8 +326,7 @@ export default class ChecksSection extends React.Component {
 
                   <img
                     className="titleFilterX"
-                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
-                    onClick={this.cancelTitleFilter}/>
+                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}/>
                 </Fragment>
 
               : <Search
@@ -359,8 +378,9 @@ export default class ChecksSection extends React.Component {
         {this.state.coverageError || this.state.filterError
           ? <div className="coverageError">
               {this.renderLoader()}
-              {this.state.coverageError && <div>No content has been registered for this member.</div>}
-              {this.state.filterError && <div>No content has been registered for the selected filters.</div>}
+              {this.state.coverageError
+                ? <div>No content has been registered for this member.</div>
+                : <div>No content has been registered for this content type within this date range. Please change the date filter.</div>}
             </div>
 
           : <Fragment>

@@ -33,11 +33,43 @@ export default class Search extends React.Component {
       searchingFor: '',
       listWidth: props.listWidth
     }
+
+    this.exposedRefs = {
+      listRefs: {},
+      input: null
+    }
   }
 
 
   componentDidMount () {
-    this.setState({listWidth: parseFloat(window.getComputedStyle(this.input).width) + 2})
+    this.setState({listWidth: parseFloat(window.getComputedStyle(this.exposedRefs.input).width) + 2})
+  }
+
+
+  searchFocus = () => {
+    this.setState({
+      focused: true,
+      listWidth: parseFloat(window.getComputedStyle(this.exposedRefs.input).width) + 2
+    })
+  }
+
+
+  searchBlur = e => {
+    if( !e.relatedTarget || (
+        !e.relatedTarget.classList.contains('ReactVirtualized__List') &&
+        !e.relatedTarget.classList.contains('searchItem')
+    )) {
+      this.setState({focused: false})
+    }
+  }
+
+
+  keyDownHandler = e => {
+    const arrowDown = e.keyCode === 40
+    if (arrowDown) {
+      e.preventDefault()
+      this.exposedRefs.listRefs[0].focus()
+    }
   }
 
 
@@ -47,30 +79,21 @@ export default class Search extends React.Component {
       initialData = this.props.savedSearches
     }
 
-
     return (
       <div className='searchInputHolder'
-        onBlur={ e =>{
-          if(!e.relatedTarget || !e.relatedTarget.classList.contains('ReactVirtualized__List')) {
-            this.setState({focused: false})
-          }
-        }}
+        onBlur={this.searchBlur}
       >
 
         <input
           className={`searchInput ${this.state.focused ? 'searchFocused' : ''}`}
-          ref={ node => this.input = node}
-          onFocus={()=>{
-            this.setState({
-              focused: true,
-              listWidth: parseFloat(window.getComputedStyle(this.input).width) + 2
-            })
-          }}
+          ref={ node => this.exposedRefs.input = node}
+          onFocus={this.searchFocus}
           placeholder={`${this.state.focused ? '' : this.props.placeHolder}`}
           onChange={(e)=> {
             this.setState({searchingFor: e.target.value})
           }}
           value={this.state.searchingFor}
+          onKeyDown={this.keyDownHandler}
         />
 
 
@@ -82,6 +105,7 @@ export default class Search extends React.Component {
           searchingFor={this.state.searchingFor}
           notFound={this.props.notFound}
           focused={this.state.focused}
+          exposedRefs={this.exposedRefs}
         />
       </div>
     )
