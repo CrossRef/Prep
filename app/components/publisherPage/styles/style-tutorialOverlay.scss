@@ -1,10 +1,20 @@
 
 .publisherContent {
+  .tutorialFadeIn {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
   .tutorialOverlay {
     position: absolute;
     right: 0; top: 0; left: 0; bottom: 0;
     padding-top: 80px;
     z-index: 11;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: opacity 2s, visibility 2s; /* Safari */
+    transition: opacity 2s, visibility 2s;
 
     .tutorialBackground {
       position: absolute;

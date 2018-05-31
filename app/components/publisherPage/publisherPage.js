@@ -33,7 +33,8 @@ export default class PublisherPage extends React.Component {
     totals: {},
     coverage: {},
     loadingChecks: true,
-    tutorialOverlay: false
+    tutorialOverlay: false,
+    tutorialOverlayFadeIn: false,
   }
 
 
@@ -45,6 +46,16 @@ export default class PublisherPage extends React.Component {
         console.error(e)
         this.setState({loadingChecks: false})
       })
+  }
+
+
+  componentDidUpdate (prevProps, prevState) {
+    if(!prevState.tutorialOverlay && this.state.tutorialOverlay) {
+      this.setState({tutorialOverlayFadeIn: true})
+    }
+    if(prevState.tutorialOverlay && !this.state.tutorialOverlay) {
+      this.setState({tutorialOverlayFadeIn: false})
+    }
   }
 
 
@@ -101,10 +112,12 @@ export default class PublisherPage extends React.Component {
             tutorialOverlay={this.state.tutorialOverlay}
             loadingChecks={this.state.loadingChecks}/>
 
-          {this.state.tutorialOverlay &&
-            <div className="tutorialOverlay">
-              <div className="tutorialBackground" />
-            </div>}
+          <div className={
+            `tutorialOverlay ${
+              this.state.tutorialOverlayFadeIn ? 'tutorialFadeIn' : ''}`
+          }>
+            <div className="tutorialBackground" />
+          </div>
 
 
         </div>
