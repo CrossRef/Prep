@@ -67,8 +67,9 @@ export default class PublisherPage extends React.Component {
                   <img
                     src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Lighter_Grey_Help.svg`}
                     className="tutorialIcon"
-                    onMouseEnter={ () => this.setState({tutorialOverlay: true})}
-                    onMouseLeave={ () => this.setState({tutorialOverlay: false})}/>}
+                    tabIndex="-1"
+                    onBlur={() => this.setState({tutorialOverlay: false})}
+                    onMouseDown={ () => this.setState( prevState => ({tutorialOverlay: !prevState.tutorialOverlay}))}/>}
               </div>
 
             </div>
