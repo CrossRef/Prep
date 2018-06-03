@@ -1,4 +1,5 @@
 @import '../../../style/variables';
+@import '../../../style/poly-fluid-sizing';
 
 
 .publisherContent {
@@ -154,21 +155,13 @@
       padding: 0 13px 0 16px;
 
       .titleFilterText {
-        max-width: 360px;
         max-height: 30px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-      }
-      @media (max-width: 866px) {
-        .titleFilterText {
-          max-width: 330px;
-        }
-      }
-      @media (max-width: 840px) {
-        .titleFilterText {
-          max-width: 260px;
-        }
+
+        $widthMap: (960px: 390px, 768px: 190px);
+        @include poly-fluid-sizing('width', $widthMap)
       }
 
       .titleFilterX {
