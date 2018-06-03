@@ -71,6 +71,7 @@ export default class LandingPage extends React.Component {
               onSelect={this.onSelect}
               searchList={this.state.searchList}
               savedSearches={JSON.parse(localStorage.getItem('savedSearches'))}
+              notFound="No matching member name found. Please try again."
               placeHolder='Search by member'/>
           </div>
 
