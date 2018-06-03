@@ -61,10 +61,12 @@
     }
     .searchItem:hover {
       background-color: #E5E5E5;
+      color: #3EB1CB;
     }
     .searchItem:focus {
       background-color: #E5E5E5;
       outline: none;
+      color: #3EB1CB;
     }
   }
 }

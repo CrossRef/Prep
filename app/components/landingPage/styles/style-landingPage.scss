@@ -9,11 +9,14 @@
 
   .topStripe {
     background-image: url("images/PR_Banner_1.png");
-    height: 368px;
+    background-size: auto 100%;
+    height: 244px;
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
+    padding-bottom: 20px;
+    box-sizing: border-box;
     position: relative;
 
     .searchContainer {
@@ -66,43 +69,63 @@
     justify-content: flex-start;
     flex-direction: column;
 
-    .greyBar {
+    .moreInfoBar {
 
-      height:160px;
       width: 100%;
       box-sizing: border-box;
-      margin-top: 48px;
+      margin-top: 140px;
       margin-bottom: 48px;
-      background-color: #E5E5E5;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 0 30px 16px 30px;
 
-      img {
-        margin-right: 30px;
-        margin-top: 32px;
+      @media (max-width: 768px) {
+        margin-top: 105px;
       }
 
-      .greyBarContent {
+      @media(max-width: 550px) {
+        margin-top: 85px;
+      }
+
+      .moreInfoContent {
         color: #4F5757;
-        height: 100%;
+        display: flex;
+        width: 720px;
+        padding: 0 30px;
+
+        @media (max-width: 768px) {
+          flex-direction: column-reverse;
+          padding-left: 17vw;
+        }
+
+        @media (max-width: 550px) {
+          padding-left: 10vw;
+        }
 
         .headlineTextHolder {
+          margin-left: 30px;
           display: flex;
           align-items: flex-start;
           max-width: 400px;
           width: 100%;
           flex-direction: column;
-          margin-top: 30px;
           justify-content: center;
           min-height: 45px;
+
+          @media (max-width: 768px) {
+            margin-left: 0;
+          }
 
           .smallText {
             margin: 0;
             font-size: 18px;
             font-family: $regularFont;
+
+            @media(max-width: 550px) {
+              display: none;
+            }
           }
+
           .bigText {
             margin: 0;
             font-family: $regularFont;
@@ -113,34 +136,23 @@
 
         .button {
           height: 48px;
-          width: 224px;
+          width: 208px;
           background-color: white;
           justify-content: center;
           display: flex;
           align-items: center;
-          margin-top: 21.5px;
           font-family: $regularFont;
           cursor: pointer;
+          border: 2px solid #4F5858;
+          border-radius: 5px;
+
+          @media (max-width: 768px) {
+            margin-top: 21px;
+          }
 
           a { color: #4F5757; text-decoration: none }
           a:visited { color: #4F5757 }
 
-        }
-      }
-
-      @media (max-width: 700px) {
-        .greyBarContent {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: center;
-        }
-        .smallText {
-          display: none;
-        }
-
-        img {
-          display: none;
         }
       }
     }
@@ -155,6 +167,11 @@
       justify-content: space-between;
       flex-wrap: wrap;
       padding-bottom: 122px;
+
+      @media (max-width: 700px) {
+        flex-direction: column;
+        align-items: center;
+      }
 
       .testimonial {
         width: 210px;
@@ -172,13 +189,5 @@
         }
       }
     }
-
-    @media (max-width: 700px) {
-      .testimonialContainer {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-
   }
 }
