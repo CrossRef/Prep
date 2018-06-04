@@ -32,6 +32,15 @@
       box-sizing: border-box;
       padding-bottom: 16px;
 
+      @media (max-width: 768px) {
+        max-width: 736px;
+      }
+
+      @media (max-width: 480px) {
+        max-width: 461px;
+        width: 100%;
+      }
+
       .searchTitle {
         margin: 11.5px 0 10.5px 4%;
         color: white;
@@ -39,31 +48,21 @@
         font-size: 20px;
         position: relative;
 
+        @media (max-width: 480px) {
+          margin: 11.5px 0 10.5px 2%;
+        }
+
         .bannerText {
           position: absolute;
           bottom: 65px;
           margin: 0;
-          color: black;
+          color: #4F5858;
           font-size: 22px;
           font-family: $regularFont;
         }
 
-      } @media (max-width: 480px) {
-        .searchTitle {
-          margin: 11.5px 0 10.5px 2%;
-        }
-      }
-    } @media (max-width: 768px) {
-      .searchContainer {
-        max-width: 736px;
-      }
-    } @media (max-width: 480px) {
-      .searchContainer {
-        max-width: 461px;
-        width: 100%;
       }
     }
-
   }
 
   .content {
@@ -140,7 +139,7 @@
         }
 
         .button {
-          height: 48px;
+          height: 44px;
           width: 208px;
           background-color: white;
           justify-content: center;
@@ -149,7 +148,7 @@
           font-family: $regularFont;
           cursor: pointer;
           border: 2px solid #4F5858;
-          border-radius: 5px;
+          border-radius: 3px;
 
           @media (max-width: 768px) {
             margin-top: 21px;

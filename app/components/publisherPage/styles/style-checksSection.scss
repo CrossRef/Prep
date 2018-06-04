@@ -3,7 +3,6 @@
 
 .publisherContent {
   .checksSection {
-    margin-top: 32px;
     background-color: white;
     height: auto;
     max-width: 960px;
@@ -11,21 +10,46 @@
     position: relative;
 
     .titleBar {
-      height: 48px;
-      width: 100%;
+      height: 32px;
+      width: calc(100% - 32px);
       background-color: #4F5757;
-      padding-left: 32px;
+      margin-left: 16px;
+      margin-right: 16px;
       color: white;
       display: flex;
       align-items: center;
-      font-size: 18px;
+      font-size: 14px;
       font-family: $regularFont;
       box-sizing: border-box;
+      padding-left: 16px;
+
+      @media (max-width: 704px) {
+        margin: 0;
+        width: 100%;
+      }
+
+      .tutorialIconContainer {
+        position: absolute;
+        right: 0;
+        display: flex;
+        align-items: center;
+        padding-right: 20px;
+
+        @media (max-width: 704px) {
+          visibility: hidden;
+        }
+
+        .tutorialIcon {
+          height: 20px;
+          cursor: pointer;
+          outline: none;
+        }
+      }
     }
 
     .loadWhiteScreen {
       position: absolute;
-      top: -100px;
+      top: -70px;
       bottom: 0;
       left: 0;
       right: 0;
@@ -33,10 +57,9 @@
       opacity: .7;
       margin-bottom: 21px;
       z-index: 10;
-    }
-    @media (max-width: 767px) {
-      .loadWhiteScreen {
-        top: -230px
+
+      @media (max-width: 704px) {
+        top: -200px
       }
     }
 
@@ -94,17 +117,35 @@
       height: 619px;
       background-color: white;
       display: flex;
-      padding: 20px 40px 323px 40px;
+      padding: 20px 16px 323px 16px;
       align-items: center;
       justify-content: center;
       box-sizing: border-box;
       font-family: $regularFont;
       font-weight: 500;
       text-align: center;
-    }
-    @media (max-width: 767px) {
-      .coverageError {
+
+      @media (max-width: 704px) {
         align-items: flex-start;
+      }
+
+      .filterError {
+        background-color: #FFDD80;
+        height: 96px;
+        width: calc(100% - 32px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 11;
+        color: #4F5858;
+        position: absolute;
+        top: 0;
+        padding: 0 10px;
+        box-sizing: border-box;
+        border-radius: 2px;
+
+        p {margin: 0}
       }
     }
   }

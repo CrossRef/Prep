@@ -1,7 +1,6 @@
 import React from 'react'
 import is from 'prop-types'
 
-import Totals from './components/totals'
 import {prettyKeys} from '../../utilities/helpers'
 import deployConfig from "../../../deployConfig"
 import ChecksSection from './components/checksSection'
@@ -33,8 +32,6 @@ export default class PublisherPage extends React.Component {
     totals: {},
     coverage: {},
     loadingChecks: true,
-    tutorialOverlay: false,
-    tutorialOverlayFadeIn: false,
   }
 
 
@@ -49,19 +46,8 @@ export default class PublisherPage extends React.Component {
   }
 
 
-  componentDidUpdate (prevProps, prevState) {
-    if(!prevState.tutorialOverlay && this.state.tutorialOverlay) {
-      this.setState({tutorialOverlayFadeIn: true})
-    }
-    if(prevState.tutorialOverlay && !this.state.tutorialOverlay) {
-      this.setState({tutorialOverlayFadeIn: false})
-    }
-  }
-
-
   render() {
     const totals = this.state.totals
-    const desktop = window.matchMedia("(min-width: 768px)").matches
 
     return (
       <div className="publisherPage">
@@ -73,23 +59,13 @@ export default class PublisherPage extends React.Component {
               <div className="button">
                 <a href="https://www.crossref.org/participation" target="_blank">Learn more</a>
               </div>
-              <div className="tutorialIconContainer">
-                {desktop &&
-                  <img
-                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Lighter_Grey_Help.svg`}
-                    className="tutorialIcon"
-                    tabIndex="-1"
-                    onBlur={() => this.setState({tutorialOverlay: false})}
-                    onMouseDown={ () => this.setState( prevState => ({tutorialOverlay: !prevState.tutorialOverlay}))}/>}
-              </div>
-
             </div>
 
             <div className="contentBox">
 
               <div className="leftBox">
-                <p className="firstText">{headlineText.checksPage.smallText}</p>
-                <p className="blueText">{headlineText.checksPage.bigText}</p>
+                <p className="topText">{headlineText.checksPage.smallText}</p>
+                <p className="bottomText">{headlineText.checksPage.bigText}</p>
               </div>
 
               <div className="rightBox">
@@ -97,9 +73,22 @@ export default class PublisherPage extends React.Component {
                   {this.props.location.state.publisherName}
                 </div>
 
-                <Totals totals={totals}/>
+                <div className="publisherTotals">
+                  <p className="totalNumber">
+                    {Object.keys(totals).reduce( (sum, key) => sum + totals[key], 0).toLocaleString()}
+                  </p>
+                  <p className="totalText">Total registered content items</p>
+                </div>
 
               </div>
+            </div>
+
+            <div className="totals">
+              {Object.keys(totals).map((key) =>
+                totals[key]
+                  ? <p key={key}>{prettyKeys(key)} <span>{totals[key].toLocaleString()}</span></p>
+                  : null
+              )}
             </div>
           </div>
         </div>
@@ -111,14 +100,6 @@ export default class PublisherPage extends React.Component {
             memberId={this.props.match.params.memberId}
             tutorialOverlay={this.state.tutorialOverlay}
             loadingChecks={this.state.loadingChecks}/>
-
-          <div className={
-            `tutorialOverlay ${
-              this.state.tutorialOverlayFadeIn ? 'tutorialFadeIn' : ''}`
-          }>
-            <div className="tutorialBackground" />
-          </div>
-
 
         </div>
 

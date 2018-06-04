@@ -1,5 +1,4 @@
 @import '../../../style/variables';
-@import '../../../style/commonStyles';
 
 
 .publisherPage {
@@ -10,36 +9,70 @@
   width: 100%;
   margin-bottom: 32px;
 
+  @media(max-width: 700px) {
+    margin-bottom: 96px;
+  }
+
   .topStripe {
-    @extend %topStripe;
     background-image: url("images/PR_Banner_2.png");
+    width: 100%;
+    height: 240px;
+    display: flex;
+    justify-content: center;
+
+    @media(max-width: 875px) {
+      height: auto;
+      background-position: 0 28px;
+    }
 
     .widthContainer {
+      max-width: 960px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
 
       .topBar {
         position: relative;
+        height: 48px;
+        width: 100%;
+        background-color: #4F5757;
+        display: flex;
 
-        .tutorialIconContainer {
-          position: absolute;
-          right: 0;
+        .button {
+          flex: 1;
           height: 100%;
+          max-width: 240px;
+          color: white;
+          font-size: 18px;
+          font-family: $regularFont;
           display: flex;
+          justify-content: center;
           align-items: center;
-          padding-right: 15px;
+          cursor: pointer;
 
-          .tutorialIcon {
-            height: 30px;
-            cursor: pointer;
-            outline: none;
-          }
-        } @media (max-width: 767px) {
-          .tutorialIconContainer {
-            visibility: hidden;
-          }
+          a { color: white; text-decoration: none }
+          a:visited { color: white }
         }
       }
 
       .contentBox {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+
+        @media (max-width: 875px) {
+          height: 224px;
+          box-sizing: border-box;
+          padding-bottom: 26px;
+        }
+
+        @media (max-width: 600px) {
+          height: 208px;
+          padding: 0;
+        }
 
         .leftBox {
           flex: .715;
@@ -49,77 +82,148 @@
           padding-left: 15px;
           min-height: 75px;
 
-          .firstText {
-            margin: 0;
-            font-size: 20px;
-            font-family: $regularFont;
-            color: #4F5757;
+          @media(max-width: 875px) {
+            max-width: 560px;
+            min-height: auto;
+            flex: 1;
+            flex-basis: 100%;
           }
 
-          .blueText {
-            margin: 0 0 3px 0;
-            font-size: 20px;
+          @media(max-width: 600px) {
+            display: none
+          }
+
+          .topText {
+            margin: 0;
+            font-size: 16px;
             font-family: $regularFont;
-            color: #3EB1CB;
+            color: #4F5757;
+            max-width: 320px;
+
+            @media (max-width: 875px) {
+              max-width: none;
+            }
+          }
+
+          .bottomText {
+            margin: 0 0 3px 0;
+            font-size: 16px;
+            font-family: $regularFont;
             font-weight: bold;
-            max-width: 266px
-          } @media(max-width: 875px) {
+            max-width: 266px;
+            color: #4F5757;
+
+            @media (max-width: 875px) {
+              max-width: none;
+            }
+          }
+
+          @media(max-width: 875px) {
             .blueText {
               max-width: 560px;
               line-height: 17px;
             }
           }
 
-        } @media(max-width: 875px) {
-          .leftBox {
-            max-width: 560px;
-            min-height: auto;
-            flex: 1;
-            flex-basis: 100%;
-          }
-        } @media(max-width: 600px) {
-          .leftBox {
-            display: none
-          }
         }
 
         .rightBox {
-          height: 128px;
+          box-shadow: 0px 2px 3px 2px #8e8a8a;
+          height: 96px;
           flex: 1;
-          min-width: 560px;
-          max-width: 560px;
+          min-width: 540px;
           background-color: white;
           display: flex;
-          margin-top: 10px;
+          margin-right: 20px;
+
+          @media (max-width: 875px) {
+            max-width: 544px;
+          }
+
+          @media(max-width: 600px) {
+            box-shadow: none;
+            height: 128px;
+            margin: 0;
+            max-width: none;
+            min-width: auto;
+            width: 100%;
+          }
 
           .publisherTitle {
             height: 100%;
             width: 399px;
             box-sizing: border-box;
-            padding: 11px 7px 10px 16px;
+            padding: 10px 7px 10px 16px;
             color: #4F5757;
-            font-size: 22px;
+            font-size: 16px;
             font-family: $regularFont;
             display: flex;
-            align-items: center;
-          } @media(max-width: 600px) {
-            .publisherTitle {
-              max-width: 399px;
+            align-items: flex-start;
+
+            @media(max-width: 600px) {
               width: 100%
             }
           }
 
-        } @media(max-width: 600px) {
-          .rightBox {
-            min-width: auto;
+          .publisherTotals {
+            flex: 1;
+            border-left: 2px solid #E5E5E5;
+            box-sizing: content-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-left: 15px;
+            position: relative;
+            margin: 8px 0;
+
+            @media(max-width: 600px) {
+              display: none;
+            }
+
+            .totalNumber {
+              color: #3EB1CB;
+              font-size: 18px;
+              font-family: $regularFont;
+              margin: 0;
+            }
+
+            .totalText {
+              color: #4F5757;
+              font-size: 14px;
+              font-family: $regularFont;
+              margin: 0;
+            }
           }
         }
       }
-    }
-  } @media(max-width: 875px) {
-    .topStripe {
-      height: 272px;
-      background-position: 0 28px;
+
+      .totals {
+        height: 48px;
+        width: 100%;
+        background-color: white;
+        display: flex;
+        direction: rtl;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        padding-left: 21px;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+
+        @media (max-width: 704px) {
+          display: none;
+        }
+
+        p {
+          font-family: $regularFont;
+          margin: 0 21px 0 0;
+          font-size: 12px;
+          color: #4F5858;
+
+          span {
+            font-weight: bold;
+          }
+        }
+      }
     }
   }
 
@@ -134,12 +238,5 @@
       background-color: white;
       width: 100%;
     }
-  }
-
-
-
-} @media(max-width: 700px) {
-  .publisherPage {
-    margin-bottom: 96px;
   }
 }
