@@ -44,8 +44,8 @@
       width: 223px;
       pointer-events: none;
 
-      $widthMap: (960px: 10px, 705px: -10px);
-      @include poly-fluid-sizing('left', $widthMap);
+      $positionMap: (960px: 10px, 705px: -10px);
+      @include poly-fluid-sizing('left', $positionMap);
 
       img {
         margin-left: 100px;
@@ -72,8 +72,8 @@
       width: 222px;
       pointer-events: none;
 
-      $widthMap: (960px: 30px, 705px: -15px);
-      @include poly-fluid-sizing('right', $widthMap);
+      $positionMap: (960px: 30px, 705px: -15px);
+      @include poly-fluid-sizing('right', $positionMap);
 
       img {
         margin-left: 120px;
