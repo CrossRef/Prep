@@ -9,7 +9,7 @@ export default {
   },
 
   checksPage: {
-    smallText: 'Richer metadata makes content useful.',
+    smallText: 'Comprehensive metadata makes publications discoverable.',
 
     bigText: 'Make sure your work can be found.'
   }

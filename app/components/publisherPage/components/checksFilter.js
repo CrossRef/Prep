@@ -29,47 +29,43 @@ export default class ChecksFilter extends React.Component {
     return (
 
       <div
-        className={`filter checksFilter ${this.props.inactive ? 'inactiveFilter' : ''}`}
+        className={
+          `filter checksFilter ${
+          this.props.children ? 'iconFilter' : ''} ${
+          this.props.inactive ? 'inactiveFilter' : ''}`
+        }
         onClick={() => this.setState((prevState) => ({menuOpen: !prevState.menuOpen}))}
         onBlur={() => this.setState({menuOpen: false})}
         tabIndex="0"
       >
         {this.props.children}
 
-        <p style={{margin: this.props.children ? "0 0 0 10px" : "0 0 0 16px"}}>{this.props.currentFilter}</p>
+        <p>{this.props.currentFilter}</p>
 
         <img
-          style={{width: "20px", height: "20px", position: 'absolute', right: this.props.children ? '10px' : '14px'}}
+          className="filterArrow"
           src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Chevron.png`}/>
 
         {this.state.menuOpen &&
-        <div className="filterList">
+          <div className="filterList">
 
-          <div
-            style={{margin: '10px 0 25px 0'}}
-            className="filterButton"
-          >
-            <div className="checkmark"/>
-            {this.props.label}
-          </div>
+            {this.props.filters.map( filter =>
+              <div key={filter} id={`${filter}_button`} className="filterButton" onClick={() => this.props.setFilter(filter)}>
+                <div className="checkmark">
 
-          {this.props.filters.map( filter =>
-          <div key={filter} id={`${filter}_button`} className="filterButton" onClick={() => this.props.setFilter(filter)}>
-            <div className="checkmark">
+                  {filter === this.props.currentFilter &&
+                  <img id={`${filter}_checkmark`} style={{width: "14px", height: "14px"}} src={`${deployConfig.baseUrl}assets/images/iconmonstr-check-mark-1.svg`}/>}
 
-              {filter === this.props.currentFilter &&
-              <img id={`${filter}_checkmark`} style={{width: "14px", height: "14px"}} src={`${deployConfig.baseUrl}assets/images/iconmonstr-check-mark-1.svg`}/>}
+                </div>
 
-            </div>
+                <div className="buttonText">
 
-            <div className="buttonText">
+                  {prettyKeys(filter)}
 
-              {prettyKeys(filter)}
+                </div>
+              </div>)}
 
-            </div>
-          </div>)}
-
-        </div>}
+          </div>}
 
         {this.props.tutorial}
 

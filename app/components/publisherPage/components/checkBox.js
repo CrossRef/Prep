@@ -93,10 +93,10 @@ export default class CheckBox extends React.Component {
 
               <div className="iconContainer">
                 {!mobileTooltipOpen &&
-                <img
-                  className="icon"
-                  style={{width: '22px', height: '22px'}}
-                  src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Help.png`}/>
+                  <img
+                    className="icon"
+                    style={{width: '22px', height: '22px'}}
+                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Help.png`}/>
                 }
 
                 <img
@@ -123,18 +123,10 @@ export default class CheckBox extends React.Component {
                   <div dangerouslySetInnerHTML={{__html: info}}/>
 
                   {mobile &&
-                  <img
-                    className="tooltipCloseButton"
-                    style={{
-                      position: 'absolute',
-                      top: 6,
-                      right: 6,
-                      height:17,
-                      width:17,
-                      cursor: 'pointer'
-                    }}
-                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
-                    onClick={() => this.props.setOpenTooltip(undefined)}/>}
+                    <img
+                      className="tooltipCloseButton"
+                      src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}
+                      onClick={() => this.props.setOpenTooltip(undefined)}/>}
 
                   </div>
               </div>

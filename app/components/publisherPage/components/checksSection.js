@@ -26,7 +26,6 @@ export default class ChecksSection extends React.Component {
     coverage: is.object.isRequired,
     memberId: is.string.isRequired,
     loadingChecks: is.bool.isRequired,
-    tutorialOverlay: is.bool.isRequired
   }
 
 
@@ -50,7 +49,9 @@ export default class ChecksSection extends React.Component {
       loadingStage: 0,
       keySig: this.generateKey(defaultContent, defaultDate),
       coverageError: false,
-      filterError: false
+      filterError: false,
+      tutorialOverlay: false,
+      tutorialOverlayFadeIn: false,
     }
   }
 
@@ -88,6 +89,16 @@ export default class ChecksSection extends React.Component {
 
   componentWillUnmount () {
     window.removeEventListener('resize', this.debouncedUpdate);
+  }
+
+
+  componentDidUpdate (prevProps, prevState) {
+    if(!prevState.tutorialOverlay && this.state.tutorialOverlay) {
+      this.setState({tutorialOverlayFadeIn: true})
+    }
+    if(prevState.tutorialOverlay && !this.state.tutorialOverlay) {
+      this.setState({tutorialOverlayFadeIn: false})
+    }
   }
 
 
@@ -276,7 +287,7 @@ export default class ChecksSection extends React.Component {
   renderLoader = () => {
     return (
       <Fragment>
-        <div style={this.state.filterError ? {top: 0} : null} className="loadWhiteScreen"/>
+        <div style={!this.state.coverageError ? {top: 0} : null} className="loadWhiteScreen"/>
 
         {this.state.loadingStage === 1 &&
           <div className="loadingStage1">
@@ -308,7 +319,7 @@ export default class ChecksSection extends React.Component {
           tutorial={tutorialOverlay ? contentFilterTutorial : undefined}
         />
 
-        <div style={{flex: 1, display: 'flex', alignItems: 'center'}}>
+        <div className="publicationFilterContainer">
           <div
             className={
               `filter publicationFilter ${
@@ -326,7 +337,7 @@ export default class ChecksSection extends React.Component {
 
                   <img
                     className="titleFilterX"
-                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Black_Close.svg`}/>
+                    src={`${deployConfig.baseUrl}assets/images/Asset_Icons_White_Close.svg`}/>
                 </Fragment>
 
               : <Search
@@ -343,13 +354,14 @@ export default class ChecksSection extends React.Component {
 
         <div className="timeFilterContainer">
           <ChecksFilter
+            className="timeFilter"
             label={"Publication date"}
             filters={Object.keys(translateDateFilter)}
             currentFilter={this.state.dateFilter}
             setFilter={this.setDateFilter}
             tutorial={tutorialOverlay ? dateFilterTutorial : undefined}
           >
-            <img style={{width: '22px'}} src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Calandar.svg`}/>
+            <img className="filterIcon" src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Grey_Calandar.svg`}/>
           </ChecksFilter>
         </div>
 
@@ -359,19 +371,23 @@ export default class ChecksSection extends React.Component {
 
 
   render () {
-    const {contentFilter, titleChecksData, dateChecksData} = this.state
-    const {coverage, tutorialOverlay} = this.props
+    const {contentFilter, titleChecksData, dateChecksData, tutorialOverlay, tutorialOverlayFadeIn} = this.state
+    const {coverage} = this.props
 
     return (
       <div className="checksSection">
         <div className="titleBar">
           {`Content type: ${prettyKeys(contentFilter)}`}
-        </div>
 
-        {tutorialOverlay &&
-          <TutorialOverlayPortal>
-            {this.renderFilters(tutorialOverlay)}
-          </TutorialOverlayPortal>}
+          <div className="tutorialIconContainer">
+            <img
+              src={`${deployConfig.baseUrl}assets/images/Asset_Icons_Lighter_Grey_Help.svg`}
+              className="tutorialIcon"
+              tabIndex="-1"
+              onBlur={() => this.setState({tutorialOverlay: false})}
+              onMouseDown={ () => this.setState( prevState => ({tutorialOverlay: !prevState.tutorialOverlay}))}/>
+          </div>
+        </div>
 
         {this.renderFilters()}
 
@@ -380,7 +396,10 @@ export default class ChecksSection extends React.Component {
               {this.renderLoader()}
               {this.state.coverageError
                 ? <div>No content has been registered for this member.</div>
-                : <div>No content has been registered for this content type within this date range. Please change the date filter.</div>}
+                : <div className="filterError">
+                  <p>No content registered for the selected date range.</p>
+                  <b>Select another date range.</b>
+                  </div>}
             </div>
 
           : <Fragment>
@@ -415,6 +434,12 @@ export default class ChecksSection extends React.Component {
               }
             </Fragment>
         }
+
+        <div className={`tutorialOverlay ${tutorialOverlayFadeIn ? 'tutorialFadeIn' : ''}`}>
+          <div className="tutorialBackground" />
+          {this.renderFilters(tutorialOverlay)}
+          <div className="clickBlocker"/>
+        </div>
       </div>
     )
   }
