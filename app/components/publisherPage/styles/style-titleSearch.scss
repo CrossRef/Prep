@@ -64,16 +64,12 @@
       cursor: pointer;
       padding: 5px 17px 5px 17px;
     }
-    .searchItem:hover {
+    .searchItem:not(.unclickable):hover {
       background-color: #E5E5E5;
     }
-    .searchItem:focus {
+    .searchItem:not(.unclickable):focus {
       background-color: #E5E5E5;
       outline: none;
-    }
-
-    .unclickable {
-      pointer-events: none;
     }
   }
 }

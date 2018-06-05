@@ -59,12 +59,14 @@
       cursor: pointer;
       padding: 5px 17px 5px 17px;
     }
-    .searchItem:hover {
+    .searchItem:hover:not(.unclickable) {
       background-color: #E5E5E5;
+      color: #3EB1CB;
     }
-    .searchItem:focus {
+    .searchItem:focus:not(.unclickable) {
       background-color: #E5E5E5;
       outline: none;
+      color: #3EB1CB;
     }
   }
 }

@@ -71,6 +71,7 @@ export default class LandingPage extends React.Component {
               onSelect={this.onSelect}
               searchList={this.state.searchList}
               savedSearches={JSON.parse(localStorage.getItem('savedSearches'))}
+              notFound="No matching member name found. Please try again."
               placeHolder='Search by member'/>
           </div>
 
@@ -78,23 +79,23 @@ export default class LandingPage extends React.Component {
 
         <div className="content">
 
-          <div className="greyBar">
-            <img src={`${deployConfig.baseUrl}assets/images/light-bulb.svg`}/>
-            <div className="greyBarContent">
-              <div className="headlineTextHolder">
-                <p className="smallText">{headlineText.homePage.smallText}</p>
-                <p className="bigText">{headlineText.homePage.bigText}</p>
-              </div>
+          <div className="moreInfoBar">
+            <div className="moreInfoContent">
 
               <div className="button">
                 <a href="https://www.crossref.org/participation" target="_blank">Learn more</a>
+              </div>
+
+              <div className="headlineTextHolder">
+                <p className="smallText">{headlineText.homePage.smallText}</p>
+                <p className="bigText">{headlineText.homePage.bigText}</p>
               </div>
             </div>
 
           </div>
 
 
-          <div className="testimonialContainer">
+          {/*<div className="testimonialContainer">
 
             <div className="testimonial">
               {testimonials.testimonial1}
@@ -109,7 +110,7 @@ export default class LandingPage extends React.Component {
               {testimonials.testimonial3}
             </div>
 
-          </div>
+          </div>*/}
         </div>
       </div>
     )
