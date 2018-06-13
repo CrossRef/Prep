@@ -44,9 +44,9 @@ export default class PublisherPage extends React.Component {
       .then (()=>this.setState({publisherName:message[ message.findIndex(member => {return member.id===this.props.match.params.memberId})].name}))      
       .catch( e =>{
         console.error(e)
-      })
+      })      
     }
-    
+        
   }
   componentDidMount () {  
     fetch(`${deployConfig.apiBaseUrl}?op=participation-summary&memberid=${this.props.match.params.memberId}`)
@@ -83,7 +83,7 @@ export default class PublisherPage extends React.Component {
 
               <div className="rightBox">
                 <div className="publisherTitle">
-                {this.state.publisherName}
+                {this.props.location.state ? this.props.location.state.publisherName :this.state.publisherName }
                 </div>
 
                 <div className="publisherTotals">
