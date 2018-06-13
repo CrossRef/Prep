@@ -32,10 +32,23 @@ export default class PublisherPage extends React.Component {
     totals: {},
     coverage: {},
     loadingChecks: true,
+    publisherName:""
   }
-
-
-  componentDidMount () {
+  constructor (props) {
+    super()
+    var message;
+    if(!props.location.state) {
+      fetch(`${deployConfig.apiBaseUrl}?op=members`)
+      .then( r => r.json())
+      .then( r => message=r.message)
+      .then (()=>this.setState({publisherName:message[ message.findIndex(member => {return member.id===this.props.match.params.memberId})].name}))      
+      .catch( e =>{
+        console.error(e)
+      })
+    }
+    
+  }
+  componentDidMount () {  
     fetch(`${deployConfig.apiBaseUrl}?op=participation-summary&memberid=${this.props.match.params.memberId}`)
       .then( r => r.json())
       .then( r => this.setState({totals: r.message.totals, coverage: r.message.Coverage, loadingChecks: false}))
@@ -70,7 +83,7 @@ export default class PublisherPage extends React.Component {
 
               <div className="rightBox">
                 <div className="publisherTitle">
-                  {this.props.location.state.publisherName}
+                {this.state.publisherName}
                 </div>
 
                 <div className="publisherTotals">
