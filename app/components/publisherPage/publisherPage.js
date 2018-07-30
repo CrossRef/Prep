@@ -37,8 +37,12 @@ export default class PublisherPage extends React.Component {
   }
   constructor (props) {
     super()
+        
+  }
+  componentDidMount () {  
     var message;
-    if(!props.location.state) {
+   
+    if(!this.props.location.state) {
       fetch(`${deployConfig.apiBaseUrl}?op=members`)
       .then( r => r.json())
       .then( r => message=r.message)
@@ -47,12 +51,14 @@ export default class PublisherPage extends React.Component {
         console.error(e)
       })      
     }
-        
-  }
-  componentDidMount () {  
     fetch(`${deployConfig.apiBaseUrl}?op=participation-summary&memberid=${this.props.match.params.memberId}`)
       .then( r => r.json())
-      .then( r => this.setState({allTotals: r.message.totals, coverage: r.message.Coverage, loadingChecks: false}))
+      .then( r => 
+        this.setState(
+          {allTotals: r.message.totals, coverage: r.message.Coverage}))
+        .then ( ()=> {
+          this.setState({loadingChecks: false})
+        })
       .catch( e =>{
         console.error(e)
         this.setState({loadingChecks: false})

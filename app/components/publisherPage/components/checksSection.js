@@ -61,7 +61,8 @@ export default class ChecksSection extends React.Component {
   componentDidMount () {
     this.getTitleSearchData()
     this.startLoadingTimeout()
-    this.setDateFilter(defaultDate)
+    this.setDateFilter(defaultDate,true)   //something's wrong here Setting the date filter here at this point causes the default filter not to switch properly sometimes
+    
     window.addEventListener('resize', this.debouncedUpdate);
   }
 
@@ -110,22 +111,7 @@ export default class ChecksSection extends React.Component {
       this.setState({loadingStage: 0})
     }
 
-    if(this.props.loadingChecks && !nextProps.loadingChecks) {
-      const nextCoverage = Object.keys(nextProps.coverage)
-
-      if(
-        nextCoverage.length &&
-        !nextProps.coverage[this.state.contentFilter]
-      ) {
-        const newFilter = nextCoverage[0]
-        this.setState({contentFilter: newFilter})
-
-      } else if (
-        !nextCoverage.length
-      ) {
-        this.setState({coverageError: true})
-      }
-    }
+  
   }
 
 
@@ -143,14 +129,13 @@ export default class ChecksSection extends React.Component {
   }
 
 
-  setDateFilter = (filterName) => {
+  setDateFilter = (filterName,updateDefaultFilter=false) => {
     const dateQuery = translateDateFilter[filterName]
 
     const baseApiUrl = `${deployConfig.apiBaseUrl}?op=participation-summary`
     const member = `&memberid=${this.props.memberId}`
     const pubyear = dateQuery ? `&pubyear=${dateQuery}` : ''
-    const pubid = this.state.titleFilter ? `&pubid=${this.state.issnFilter}` : ''
-
+    const pubid = this.state.titleFilter ? `&pubid=${this.state.issnFilter}` : ''    
     this.setState({dateFilter: filterName, loadingFilter: !!(pubid || dateQuery)})
     this.startLoadingTimeout()
 
@@ -167,7 +152,6 @@ export default class ChecksSection extends React.Component {
             keySig: this.generateKey(prevState.contentFilter, filterName, prevState.titleFilter),
             filterError: !r.message.Coverage.length
           }))
-          this.props.setTotals(r.message.totals)
         })
         .catch( e => {
           console.error(e)
@@ -193,10 +177,16 @@ export default class ChecksSection extends React.Component {
             }
 
             if(!pubid) {
+              newState.contentFilter=prevState.contentFilter
+              if (updateDefaultFilter && !newState.dateChecksData[prevState.contentFilter] ) {
+                    const newFilter = Object.keys(newState.dateChecksData)[0]
+                    newState.contentFilter= newFilter
+              }  
+              
               newState.loadingFilter = false
               newState.loadingStage = 0
-              newState.keySig = this.generateKey(prevState.contentFilter, filterName)
-              newState.filterError = !r.message.Coverage[prevState.contentFilter]
+              newState.keySig = this.generateKey(newState.contentFilter, filterName)
+              newState.filterError = !r.message.Coverage[newState.contentFilter]
             }
             return newState
           })
@@ -378,6 +368,13 @@ export default class ChecksSection extends React.Component {
     const {contentFilter, titleChecksData, dateChecksData, tutorialOverlay, tutorialOverlayFadeIn} = this.state
     const {coverage} = this.props
 
+    {var logVal = {titleChecksData: titleChecksData,
+      dateChecksData: dateChecksData,
+      contentFilter: contentFilter,
+      coverage: coverage,
+      filterError: this.state.filterError,
+      coverageError: this.state.coverageError}
+       console.log(logVal)}
     return (
       <div className="checksSection">
         <div className="titleBar">
@@ -425,7 +422,8 @@ export default class ChecksSection extends React.Component {
 
                     <div className="checksContainer">
 
-                      {(titleChecksData || (dateChecksData && dateChecksData[contentFilter]) || coverage[contentFilter]).map( item =>
+                      {(titleChecksData || (dateChecksData && dateChecksData[contentFilter]) || coverage[contentFilter]) && 
+                      (titleChecksData || (dateChecksData && dateChecksData[contentFilter]) || coverage[contentFilter]).map( item =>
                         <CheckBox
                           key={`${this.state.keySig}-${item.name}`}
                           item={item}
