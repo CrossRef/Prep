@@ -30,6 +30,7 @@ export default class PublisherPage extends React.Component {
 
   state = {
     totals: {},
+    allTotals:{},
     coverage: {},
     loadingChecks: true,
     publisherName:""
@@ -51,12 +52,16 @@ export default class PublisherPage extends React.Component {
   componentDidMount () {  
     fetch(`${deployConfig.apiBaseUrl}?op=participation-summary&memberid=${this.props.match.params.memberId}`)
       .then( r => r.json())
-      .then( r => this.setState({totals: r.message.totals, coverage: r.message.Coverage, loadingChecks: false}))
+      .then( r => this.setState({allTotals: r.message.totals, coverage: r.message.Coverage, loadingChecks: false}))
       .catch( e =>{
         console.error(e)
         this.setState({loadingChecks: false})
       })
   }
+
+reloadTotals = (filterTotals) => {
+  this.setState( prevState => prevState.totals === filterTotals ? null : {totals: filterTotals})
+}
 
 
   render() {
@@ -112,8 +117,10 @@ export default class PublisherPage extends React.Component {
             coverage={this.state.coverage}
             memberId={this.props.match.params.memberId}
             tutorialOverlay={this.state.tutorialOverlay}
-            loadingChecks={this.state.loadingChecks}/>
-
+            loadingChecks={this.state.loadingChecks}
+            totals={this.state.allTotals}
+            setTotals={this.reloadTotals}/>
+            
         </div>
 
       </div>

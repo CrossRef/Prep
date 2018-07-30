@@ -26,6 +26,8 @@ export default class ChecksSection extends React.Component {
     coverage: is.object.isRequired,
     memberId: is.string.isRequired,
     loadingChecks: is.bool.isRequired,
+    setTotals: is.func.isRequired,
+    totals: is.object.isRequired
   }
 
 
@@ -165,6 +167,7 @@ export default class ChecksSection extends React.Component {
             keySig: this.generateKey(prevState.contentFilter, filterName, prevState.titleFilter),
             filterError: !r.message.Coverage.length
           }))
+          this.props.setTotals(r.message.totals)
         })
         .catch( e => {
           console.error(e)
@@ -178,7 +181,7 @@ export default class ChecksSection extends React.Component {
         .then( r => r.json())
         .then( r => {
           clearTimeout(this.loadingTimeout)
-
+          this.props.setTotals(r.message.totals)
           this.setState( prevState => {
             const newState = {dateChecksData: r.message.Coverage}
 
@@ -213,6 +216,7 @@ export default class ChecksSection extends React.Component {
 
     } else {
       clearTimeout(this.loadingTimeout)
+      this.props.setTotals(this.props.totals)
       this.setState( prevState => ({
         dateChecksData: undefined,
         loadingFilter: false,
