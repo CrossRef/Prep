@@ -27,7 +27,8 @@ export default class ChecksSection extends React.Component {
     memberId: is.string.isRequired,
     loadingChecks: is.bool.isRequired,
     setTotals: is.func.isRequired,
-    totals: is.object.isRequired
+    totals: is.object.isRequired,
+    filterTotals: is.object.isRequired
   }
 
 
@@ -367,7 +368,7 @@ export default class ChecksSection extends React.Component {
   render () {
     const {contentFilter, titleChecksData, dateChecksData, tutorialOverlay, tutorialOverlayFadeIn} = this.state
     const {coverage} = this.props
-
+    const totals=this.props.filterTotals
     {var logVal = {titleChecksData: titleChecksData,
       dateChecksData: dateChecksData,
       contentFilter: contentFilter,
@@ -389,7 +390,13 @@ export default class ChecksSection extends React.Component {
               onMouseDown={ () => this.setState( prevState => ({tutorialOverlay: !prevState.tutorialOverlay}))}/>
           </div>
         </div>
-
+        <div className="totals">
+              {Object.keys(totals).map((key) =>
+                totals[key]
+                  ? <p key={key}>{prettyKeys(key)} <span>{totals[key].toLocaleString()}</span></p>
+                  : null
+              )}
+            </div>
         {this.renderFilters()}
 
         {this.state.coverageError || this.state.filterError

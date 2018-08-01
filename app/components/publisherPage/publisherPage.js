@@ -106,20 +106,13 @@ reloadTotals = (filterTotals) => {
 
               </div>
             </div>
-
-            <div className="totals">
-              {Object.keys(totals).map((key) =>
-                totals[key]
-                  ? <p key={key}>{prettyKeys(key)} <span>{totals[key].toLocaleString()}</span></p>
-                  : null
-              )}
-            </div>
           </div>
         </div>
 
         <div className="publisherContent">
 
           <ChecksSection
+            filterTotals={this.state.totals}
             coverage={this.state.coverage}
             memberId={this.props.match.params.memberId}
             tutorialOverlay={this.state.tutorialOverlay}
