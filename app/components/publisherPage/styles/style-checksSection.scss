@@ -8,7 +8,36 @@
     max-width: 960px;
     width: 100%;
     position: relative;
+    
+    .totals {
+      height: 48px;
+      width: 100%;
+      background-color: white;
+      display: flex;
+      direction: rtl;
+      padding-top: 7px;
+      padding-bottom: 7px;
+      padding-left: 21px;
+      flex-wrap: wrap;
+      box-sizing: border-box;
 
+      @media (max-width: 704px) {
+        display: none;
+      }
+   
+      p {
+        font-family: $regularFont;
+        margin: 0 21px 0 0;
+        font-size: 12px;      
+        color: #4F5858;
+        span {
+          font-weight: bold;          
+          visibility: visible;
+        
+        }
+      }
+
+    }
     .titleBar {
       height: 32px;
       width: calc(100% - 32px);
