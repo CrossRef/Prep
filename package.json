@@ -38,7 +38,7 @@
     "enzyme-to-json": "^3.3.1",
     "express": "^4.16.2",
     "jest": "^22.2.1",
-    "node-sass": "^4.8.3",
+    "node-sass": "^4.13.1",
     "sass-brunch": "^2.10.4",
     "sinon": "^4.2.2",
     "uglify-js-brunch": "^2.10.0"
